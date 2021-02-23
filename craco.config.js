@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-02-23 14:42:04
- * @LastEditTime: 2021-02-23 15:11:31
+ * @LastEditTime: 2021-02-23 18:21:58
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /components_library/craco.config.js
@@ -26,7 +26,6 @@ module.exports = {
       options: {
         lessLoaderOptions: {
           lessOptions: {
-            modifyVars: { '@primary-color': '#fff000' },
             javascriptEnabled: true,
           },
         },
