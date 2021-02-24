@@ -1,13 +1,13 @@
 /*
  * @Author: your name
  * @Date: 2021-02-24 14:31:07
- * @LastEditTime: 2021-02-24 15:05:47
+ * @LastEditTime: 2021-02-24 16:26:44
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /components_library/src/interfaces/model.d.ts
  */
 interface IMenuItem {
-  _id?: string;
+  id?: number;
   key: string;
   icon?: Object;
   icon_name?: string;

@@ -1,0 +1,15 @@
+{
+  "menu": [
+    {
+      "id": 0,
+      "key": "home",
+      "icon_name": "DashboardOutlined",
+      "title": "首页",
+      "path": "/home",
+      "sub_menu": [],
+      "parent": 0,
+      "position": 0,
+      "status": 0
+    }
+  ]
+}
