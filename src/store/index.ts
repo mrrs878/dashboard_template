@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-02-23 18:24:16
- * @LastEditTime: 2021-02-24 15:08:17
+ * @LastEditTime: 2021-02-24 23:13:53
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /components_library/src/store/index.ts
@@ -84,6 +84,12 @@ function useFullScreen(): [boolean, () => void, () => void] {
   ];
 }
 
+function useModel(model: keyof IState) {
+  const { state } = useContext(StoreContext);
+  const value = state[model];
+  return value;
+}
+
 function reducer(state: IState, action: Action): IState {
   switch (action.type) {
     case Actions.UPDATE_USER:
@@ -99,5 +105,5 @@ function reducer(state: IState, action: Action): IState {
 
 export {
   reducer, StoreContext, defaultState, useUser, useFullScreen, useMenu, useMenuRoutes,
-  useMenuTitles,
+  useMenuTitles, useModel,
 };

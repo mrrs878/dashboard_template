@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-02-24 10:13:41
- * @LastEditTime: 2021-02-24 10:31:26
+ * @LastEditTime: 2021-02-24 23:05:49
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /components_library/src/layout/index.tsx
@@ -15,6 +15,7 @@ import MLoading from '../components/MLoading';
 import MMenu from '../components/MMenu';
 import MPageHeader from '../components/MPageHeader';
 import { useFullScreen } from '../store';
+import Home from '../view/home';
 
 const { Content, Footer, Sider } = Layout;
 
@@ -42,6 +43,7 @@ const MLayout = () => {
             }
             <Suspense fallback={<MLoading />}>
               {/* <Router /> */}
+              <Home />
             </Suspense>
           </Content>
           <Footer style={{ textAlign: 'center' }}>
