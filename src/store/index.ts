@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-02-23 18:24:16
- * @LastEditTime: 2021-02-24 23:13:53
+ * @LastEditTime: 2021-02-25 10:47:28
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /components_library/src/store/index.ts
@@ -84,10 +84,9 @@ function useFullScreen(): [boolean, () => void, () => void] {
   ];
 }
 
-function useModel(model: keyof IState) {
+function useModel<T extends keyof IState>(model: T) {
   const { state } = useContext(StoreContext);
-  const value = state[model];
-  return value;
+  return state[model];
 }
 
 function reducer(state: IState, action: Action): IState {

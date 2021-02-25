@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-02-24 09:45:17
- * @LastEditTime: 2021-02-24 15:07:01
+ * @LastEditTime: 2021-02-25 10:32:43
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /components_library/src/interfaces/index.d.ts
