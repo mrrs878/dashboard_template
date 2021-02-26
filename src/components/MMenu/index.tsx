@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-02-24 10:25:01
- * @LastEditTime: 2021-02-26 15:00:03
+ * @LastEditTime: 2021-02-26 18:15:09
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /components_library/src/components/MMenu.tsx
@@ -37,9 +37,9 @@ const MMenu: React.FC<PropsI> = (props: PropsI) => {
     if (path) MENU_CLICK_HANDLER.navigate(path);
   }, [MENU_CLICK_HANDLER, menuRoutes]);
 
-  const dynamicIcon = useCallback((iconType: string | Object | undefined) => {
-    if (typeof iconType !== 'string') return iconType;
-    return iconType ? React.createElement(Icon[iconType]) : '';
+  const dynamicIcon = useCallback((iconName: string | Object | undefined) => {
+    if (typeof iconName !== 'string') return iconName;
+    return iconName ? React.createElement(Icon[iconName]) : '';
   }, []);
 
   const walkMenu = useCallback((item: IMenuItem) => {
@@ -54,7 +54,7 @@ const MMenu: React.FC<PropsI> = (props: PropsI) => {
         </SubMenu>
       );
     }
-    return <Menu.Item icon={item.icon} key={item.key}>{ item.title }</Menu.Item>;
+    return <Menu.Item icon={icon} key={item.key}>{ item.title }</Menu.Item>;
   }, [dynamicIcon]);
 
   const generateMenu = useCallback((menuTree: Array<IMenuItem> | undefined) => (
@@ -62,7 +62,7 @@ const MMenu: React.FC<PropsI> = (props: PropsI) => {
       <Menu onClick={onMenuClick} mode="inline" theme="dark">
         <div className={style.logo}>
           <a href="https://" target="_blank" rel="noreferrer">
-            <img src="https:" alt="" srcSet="" />
+            Mr.RS
           </a>
         </div>
         {

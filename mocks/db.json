@@ -14,7 +14,7 @@
     {
       "id": 1,
       "key": "articleManage",
-      "icon_name": "DashboardOutlined",
+      "icon_name": "EditOutlined",
       "title": "文章管理",
       "path": "/article",
       "sub_menu": [],

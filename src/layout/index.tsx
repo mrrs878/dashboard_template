@@ -1,22 +1,21 @@
 /*
  * @Author: your name
  * @Date: 2021-02-24 10:13:41
- * @LastEditTime: 2021-02-26 15:02:49
+ * @LastEditTime: 2021-02-26 18:29:36
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /components_library/src/layout/index.tsx
  */
 
 import { Layout } from 'antd';
-import React, { Suspense } from 'react';
+import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import MHeader from '../components/MHeader';
-import MLoading from '../components/MLoading';
 import MMenu from '../components/MMenu';
 import MPageHeader from '../components/MPageHeader';
 import useGetMenu from '../hook/useGetMenu';
+import Router from '../route';
 import { useFullScreen } from '../store';
-import Home from '../view/home';
 
 const { Content, Footer, Sider } = Layout;
 
@@ -43,10 +42,7 @@ const MLayout = () => {
             {
               !isFullScreen && <MPageHeader />
             }
-            <Suspense fallback={<MLoading />}>
-              {/* <Router /> */}
-              <Home />
-            </Suspense>
+            <Router />
           </Content>
           <Footer style={{ textAlign: 'center' }}>
             {`${new Date().getFullYear()}`}
