@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-02-23 11:21:04
- * @LastEditTime: 2021-02-24 15:09:03
+ * @LastEditTime: 2021-02-26 10:45:36
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /components_library/src/App.tsx
@@ -14,7 +14,7 @@ import { defaultState, reducer, StoreContext } from './store';
 function App() {
   const [state, dispatch] = useReducer(reducer, defaultState, undefined);
 
-  useGetMenu();
+  useGetMenu(false, true);
 
   return (
     <StoreContext.Provider value={{ state, dispatch }}>

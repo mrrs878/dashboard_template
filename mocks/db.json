@@ -10,6 +10,17 @@
       "parent": 0,
       "position": 0,
       "status": 0
+    },
+    {
+      "id": 1,
+      "key": "articleManage",
+      "icon_name": "DashboardOutlined",
+      "title": "文章管理",
+      "path": "/article",
+      "sub_menu": [],
+      "parent": 0,
+      "position": 1,
+      "status": 0
     }
   ]
 }
