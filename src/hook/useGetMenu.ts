@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-10-10 19:15:33
- * @LastEditTime: 2021-02-24 15:15:30
+ * @LastEditTime: 2021-02-26 17:54:03
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \blog_dashboard\src\hooks\useGetMenus.ts
@@ -11,7 +11,7 @@ import { useEffect } from 'react';
 import { clone } from 'ramda';
 import { GET_MENUS } from '../api/setting';
 import useRequest from './useRequest';
-import { useMenu, useMenuRoutes, useMenuTitles } from '../store';
+import { useModel } from '../store';
 
 function menuArray2Tree(src: Array<IMenuItem>) {
   const res: Array<IMenuItem> = [];
@@ -44,9 +44,9 @@ function getMenuRoutes(src: Array<IMenuItem>) {
 
 export default function useGetMenu(autoMsg = true, authFetch = false) {
   const [, getMenusRes, getMenus] = useRequest(GET_MENUS, authFetch);
-  const [, updateMenu] = useMenu();
-  const [, updateMenuRoutes] = useMenuRoutes();
-  const [, updateMenuTitles] = useMenuTitles();
+  const [, updateMenu] = useModel('menu');
+  const [, updateMenuRoutes] = useModel('menuRoutes');
+  const [, updateMenuTitles] = useModel('menuTitles');
   useEffect(() => {
     if (!getMenusRes) return;
     if (autoMsg) message.info(getMenusRes.msg);
@@ -54,7 +54,6 @@ export default function useGetMenu(autoMsg = true, authFetch = false) {
     updateMenuTitles(getMenuTitles(getMenusRes.data));
     updateMenuRoutes(getMenuRoutes(getMenusRes.data));
     updateMenu(menuArray2Tree(getMenusRes.data.filter(({ status }) => status !== 2)));
-    // store.dispatch({ type: actions.UPDATE_MENU_ARRAY, data: getMenusRes.data });
   }, [getMenusRes, autoMsg, updateMenuTitles, updateMenuRoutes, updateMenu]);
 
   return { getMenusRes, getMenus };

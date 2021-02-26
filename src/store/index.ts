@@ -1,12 +1,12 @@
 /*
  * @Author: your name
  * @Date: 2021-02-23 18:24:16
- * @LastEditTime: 2021-02-25 16:25:28
+ * @LastEditTime: 2021-02-26 18:00:42
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /components_library/src/store/index.ts
  */
-import { createContext, useContext } from 'react';
+import { createContext, useCallback, useContext } from 'react';
 
 enum Actions {
   UPDATE_MODEL,
@@ -49,52 +49,28 @@ const StoreContext = createContext<{ state: IState, dispatch: React.Dispatch<Act
 function useModel<T extends keyof IState>(modelName: T)
   : [IState[T], (newModel: IState[T]) => void] {
   const { state, dispatch } = useContext(StoreContext);
+  const updateFunction = useCallback((modelValue: IState[T]) => dispatch(
+    { type: Actions.UPDATE_MODEL, data: { modelName, modelValue } },
+  ), [dispatch, modelName]);
   return [
     state[modelName],
-    (modelValue: IState[T]) => dispatch(
-      { type: Actions.UPDATE_MODEL, data: { modelName, modelValue } },
-    ),
-  ];
-}
-
-function useUser(): [IUser, (data: IUser) => void] {
-  const { state, dispatch } = useContext(StoreContext);
-  return [
-    state.user,
-    (data) => dispatch({ type: Actions.UPDATE_USER, data }),
-  ];
-}
-
-function useMenu(): [Array<IMenuItem>, (data: Array<IMenuItem>) => void] {
-  const { state, dispatch } = useContext(StoreContext);
-  return [
-    state.menu,
-    (data) => dispatch({ type: Actions.UPDATE_MENU, data }),
-  ];
-}
-
-function useMenuRoutes(): [Record<string, string>, (data: Record<string, string>) => void] {
-  const { state, dispatch } = useContext(StoreContext);
-  return [
-    state.menuRoutes,
-    (data) => dispatch({ type: Actions.UPDATE_MENU_ROUTES, data }),
-  ];
-}
-
-function useMenuTitles(): [Record<string, string>, (data: Record<string, string>) => void] {
-  const { state, dispatch } = useContext(StoreContext);
-  return [
-    state.menuTitles,
-    (data) => dispatch({ type: Actions.UPDATE_MENU_TITLES, data }),
+    updateFunction,
   ];
 }
 
 function useFullScreen(): [boolean, () => void, () => void] {
   const { state, dispatch } = useContext(StoreContext);
+  const fullScreen = useCallback(() => dispatch(
+    { type: Actions.UPDATE_FULLSCREEN, data: true },
+  ), [dispatch]);
+  const exitFullScreen = useCallback(() => dispatch(
+    { type: Actions.UPDATE_FULLSCREEN, data: false },
+  ),
+  [dispatch]);
   return [
     state.fullScreen,
-    () => dispatch({ type: Actions.UPDATE_FULLSCREEN, data: true }),
-    () => dispatch({ type: Actions.UPDATE_FULLSCREEN, data: false }),
+    fullScreen,
+    exitFullScreen,
   ];
 }
 
@@ -119,6 +95,5 @@ function reducer(state: IState, action: Action): IState {
 }
 
 export {
-  reducer, StoreContext, defaultState, useUser, useFullScreen, useMenu, useMenuRoutes,
-  useMenuTitles, useModel,
+  reducer, StoreContext, defaultState, useFullScreen, useModel,
 };

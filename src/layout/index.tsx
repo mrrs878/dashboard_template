@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-02-24 10:13:41
- * @LastEditTime: 2021-02-24 23:05:49
+ * @LastEditTime: 2021-02-26 15:02:49
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /components_library/src/layout/index.tsx
@@ -14,6 +14,7 @@ import MHeader from '../components/MHeader';
 import MLoading from '../components/MLoading';
 import MMenu from '../components/MMenu';
 import MPageHeader from '../components/MPageHeader';
+import useGetMenu from '../hook/useGetMenu';
 import { useFullScreen } from '../store';
 import Home from '../view/home';
 
@@ -21,6 +22,7 @@ const { Content, Footer, Sider } = Layout;
 
 const MLayout = () => {
   const [isFullScreen] = useFullScreen();
+  useGetMenu(false, true);
   return (
     <BrowserRouter>
       <Layout style={{ minHeight: '100vh' }}>

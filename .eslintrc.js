@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-02-23 11:22:06
- * @LastEditTime: 2021-02-24 14:34:26
+ * @LastEditTime: 2021-02-26 15:05:16
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /components_library/.eslintrc.js
@@ -20,6 +20,8 @@ module.exports = {
     'no-console': 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'no-underscore-dangle': ['error', { allow: ['_id'] }],
+    'react-hooks/exhaustive-deps': process.env.NODE_ENV === 'production' ? 'error' : 'warn',
+    'react/destructuring-assignment': [0],
   },
   overrides: [
     {
