@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-02-26 18:16:29
- * @LastEditTime: 2021-03-01 10:21:01
+ * @LastEditTime: 2021-03-01 14:37:53
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /dashboard_template/src/route/index.tsx
@@ -40,7 +40,6 @@ const ROUTES: Array<RouteConfigI> = [
 
 const GuardComponent = (props: GuardComponentPropsI) => {
   const [titles] = useModel('menuTitles');
-  console.log(titles, props.path, titles[props.path]);
   useDocumentTitle(titles[props.path]);
   const Component = (props.component) as any;
   useEffect(() => {
