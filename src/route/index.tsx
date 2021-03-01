@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-02-26 18:16:29
- * @LastEditTime: 2021-02-26 18:58:26
+ * @LastEditTime: 2021-03-01 10:21:01
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /dashboard_template/src/route/index.tsx
@@ -15,6 +15,7 @@ import { useModel } from '../store';
 import { getCookie } from '../tool';
 
 const Home = React.lazy(() => import('../view/home'));
+const Profile = React.lazy(() => import('../view/profile'));
 
 interface GuardComponentPropsI {
   component: any;
@@ -31,11 +32,16 @@ const ROUTES: Array<RouteConfigI> = [
     path: '/',
     component: Home,
   },
+  {
+    path: '/profile',
+    component: Profile,
+  },
 ];
 
 const GuardComponent = (props: GuardComponentPropsI) => {
   const [titles] = useModel('menuTitles');
-  useDocumentTitle(titles[props.path.slice(1)]);
+  console.log(titles, props.path, titles[props.path]);
+  useDocumentTitle(titles[props.path]);
   const Component = (props.component) as any;
   useEffect(() => {
     if (props.auth && !getCookie('auth_token')) window.location.href = '/auth/login';
