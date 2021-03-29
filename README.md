@@ -8,6 +8,8 @@
 -->
 # 简单后台模版
 
+[![Node.js CI](https://github.com/mrrs878/dashboard_template/actions/workflows/node.js.yml/badge.svg)](https://github.com/mrrs878/dashboard_template/actions/workflows/node.js.yml)
+
 React@17 + typescript@4 + antd@4 + less
 
 husky + commitlint/eslint 保证git message/代码规范
