@@ -3,19 +3,16 @@
 /*
  * @Author: mrrs878@foxmail.com
  * @Date: 2021-03-29 09:58:37
- * @LastEditTime: 2021-03-29 15:40:09
+ * @LastEditTime: 2021-03-29 18:59:27
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /dashboard_template/src/components/MTagsView/index.tsx
  */
 // import { CloseCircleOutlined } from '@ant-design/icons';
 import { CloseCircleOutlined } from '@ant-design/icons';
-import {
-  Divider, Dropdown, Menu, Space,
-} from 'antd';
 import { uniqBy } from 'ramda';
 import React, {
-  useCallback, useEffect, useMemo, useState,
+  useCallback, useEffect, useState,
 } from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { useModel } from '../../store';
