@@ -3,12 +3,11 @@
 /*
  * @Author: mrrs878@foxmail.com
  * @Date: 2021-03-29 09:58:37
- * @LastEditTime: 2021-03-29 18:59:27
+ * @LastEditTime: 2021-03-29 22:25:00
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /dashboard_template/src/components/MTagsView/index.tsx
  */
-// import { CloseCircleOutlined } from '@ant-design/icons';
 import { CloseCircleOutlined } from '@ant-design/icons';
 import { uniqBy } from 'ramda';
 import React, {
@@ -50,7 +49,7 @@ const MTagsView: React.FC<IMTagsViewProps> = (props: IMTagsViewProps) => {
     const path = props.location.pathname;
     setTagsView((pre) => uniqBy(
       (item) => item.path,
-      [...pre, { path, title: menuTitles[path] }],
+      [...pre, { path, title: menuTitles[path] }].filter(({ title }) => title !== undefined),
     ));
     setCurrentTag(path);
   }, [menuTitles, props.location.pathname]);
