@@ -1,0 +1,22 @@
+.tag-active {
+  &::before {
+    position: absolute;
+    content: '';
+    height: 10px;
+    width: 999px;
+    background-color: #ccc;
+    left: -999px;
+    border-bottom-right-radius: 10px;
+    bottom: -10px;
+  }
+  &::after {
+    position: absolute;
+    content: '';
+    height: 10px;
+    width: 999px;
+    background-color: #ccc;
+    left: 150px;
+    border-bottom-left-radius: 10px;
+    bottom: -10px;
+  }
+}

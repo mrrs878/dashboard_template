@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-02-26 10:49:28
- * @LastEditTime: 2021-02-26 11:14:56
+ * @LastEditTime: 2021-03-29 09:57:27
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /dashboard_template/mocks/route.js
@@ -31,6 +31,6 @@ server.use(jsonServer.rewriter({
 
 server.use(router);
 
-server.listen(3000, () => {
-  console.log('JSON Server is running');
+server.listen(3003, () => {
+  console.log(`JSON Server is running at ${3003}`);
 });

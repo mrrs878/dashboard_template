@@ -1,0 +1,56 @@
+.container {
+  background: #ccc;
+  position: relative;
+  padding-top: 5px;
+}
+
+.tagC {
+  margin: 0 10px;
+  padding: 0 10px;
+  height: 25px;
+  line-height: 15px;
+  cursor: pointer;
+  color: rgba(0, 0, 0, 0.65);
+  transition: all ease 0.3s;
+  position: relative;
+  width: 150px;
+  box-sizing: border-box;
+  display: flex;
+}
+
+.tagContent {
+  position: absolute;
+  display: flex;
+  justify-content: space-between;
+  width: 130px;
+  height: 35px;
+  align-items: center;
+}
+
+.tag {
+  transition: all ease 0.3s;
+  user-select: none;
+  width: 100%;
+  display: inline-block;
+  text-align: start;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+.closeIcon {
+  &:hover {
+    color: #1890ff;
+    border-radius: 50%;
+  }
+}
+
+.divider {
+  margin-top: 10px;
+  height: 15px;
+  width: 1px;
+  background-color: #c3c3c3;
+}
