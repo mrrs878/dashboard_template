@@ -21,6 +21,17 @@
       "parent": "root",
       "position": 1,
       "status": 0
+    },
+    {
+      "id": 2,
+      "key": "setting",
+      "icon_name": "UserOutlined",
+      "title": "设置",
+      "path": "/setting",
+      "sub_menu": [],
+      "parent": "root",
+      "position": 1,
+      "status": 0
     }
   ]
 }
