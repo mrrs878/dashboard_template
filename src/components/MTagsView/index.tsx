@@ -3,7 +3,7 @@
 /*
  * @Author: mrrs878@foxmail.com
  * @Date: 2021-03-29 09:58:37
- * @LastEditTime: 2021-03-29 23:19:18
+ * @LastEditTime: 2021-03-30 11:12:25
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /dashboard_template/src/components/MTagsView/index.tsx
@@ -127,6 +127,7 @@ const MTagsView: React.FC<IMTagsViewProps> = (props: IMTagsViewProps) => {
           tagsView.map((item, index) => (
             <>
               <div
+                key={item.path}
                 className={`${style.tagC} ${item.path === currentTag ? 'tag-active' : ''}`}
                 style={{
                   ...Object.assign(item.path === currentTag ? active : {}),
