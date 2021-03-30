@@ -4,7 +4,7 @@
 /*
  * @Author: mrrs878@foxmail.com
  * @Date: 2021-03-29 09:58:37
- * @LastEditTime: 2021-03-30 22:34:29
+ * @LastEditTime: 2021-03-30 23:42:08
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /dashboard_template/src/components/MTagsView/index.tsx
@@ -25,7 +25,7 @@ interface ITag {
   title: string;
 }
 
-interface IContextMenuPos {
+interface IPosition {
   x: number;
   y: number;
 }
@@ -58,12 +58,15 @@ const MTagsBar = (props: IMTagsBarProps) => {
   const [menuTitles] = useModel('menuTitles');
   const [contextMenuVisible, setContextMenuVisible] = useState(false);
   const [contextMenuTag, setContextMenuTag] = useState('');
-  const [contextMenuPos, setContextMenuPos] = useState<IContextMenuPos>({
+  const [contextMenuPos, setContextMenuPos] = useState<IPosition>({
     x: 0,
     y: 0,
   });
   const [tags, setTags] = useState<Array<ITag>>([]);
   const [currentTag, setCurrentTag] = useState(tags[0]?.path);
+  const [tagMoving, setTagMoving] = useState(false);
+  const [originTagPos, setOriginTagPos] = useState<IPosition>({ x: 0, y: 0 });
+  const [movingTagPos, setMovingTagPos] = useState<IPosition>({ x: 0, y: 0 });
 
   const onTagClick = useCallback((path) => {
     setCurrentTag(path);
@@ -87,6 +90,20 @@ const MTagsBar = (props: IMTagsBarProps) => {
     setContextMenuTag(path);
   }, []);
 
+  const onTagMouseDown = useCallback((e) => {
+    e.preventDefault();
+    setOriginTagPos({ x: e.pageX, y: 0 });
+    setTagMoving(true);
+  }, []);
+  const onTagMouseMove = useCallback((e: any) => {
+    e.preventDefault();
+    const x = e.pageX - originTagPos.x;
+    if (tagMoving) setMovingTagPos({ x: x < 0 ? 0 : x, y: 0 });
+  }, [tagMoving, originTagPos]);
+  const onTagMouseUp = useCallback(() => {
+    setTagMoving(false);
+  }, []);
+
   const onDocumentClick = useCallback(() => {
     setContextMenuVisible(false);
   }, []);
@@ -94,12 +111,13 @@ const MTagsBar = (props: IMTagsBarProps) => {
   const onContextMenuClick = useCallback(
     (e) => {
       const composedPath = e.nativeEvent?.composedPath();
-      const target = composedPath.find((item: any) => item.className.includes('menu-item'));
+      const target = composedPath.find((item: any) => item.className?.includes('menuItem'));
       setTags((preTags) => {
         const key: ContextMenuKeys = target?.dataset?.key;
         const index = preTags.findIndex((item) => item.path === contextMenuTag);
         const newTags = ContextMenuClickHandlers[key](preTags, contextMenuTag);
         setCurrentTag((prePath) => {
+          if (newTags.length === 0) return '';
           if (key === ContextMenuKeys.closeOthers) return contextMenuTag;
           return newTags.findIndex((item) => item.path === prePath) !== -1
             ? prePath
@@ -118,6 +136,18 @@ const MTagsBar = (props: IMTagsBarProps) => {
       document.removeEventListener('click', onDocumentClick);
     };
   }, [onDocumentClick]);
+  useEffect(() => {
+    document.addEventListener('mouseup', onTagMouseUp);
+    return () => {
+      document.removeEventListener('mouseup', onTagMouseUp);
+    };
+  }, [onTagMouseUp]);
+  useEffect(() => {
+    document.addEventListener('mousemove', (e) => onTagMouseMove(e));
+    return () => {
+      document.removeEventListener('mousemove', (e) => onTagMouseMove(e));
+    };
+  }, [onTagMouseMove]);
 
   useEffect(() => {
     const path = props.location.pathname;
@@ -138,8 +168,10 @@ const MTagsBar = (props: IMTagsBarProps) => {
               <div
                 onClick={() => onTagClick(tag.path)}
                 onContextMenu={(e) => onTagContextMenu(e, tag.path)}
+                onMouseDown={(e) => onTagMouseDown(e)}
                 key={tag.path}
                 className={`${style.tagC} ${currentTag === tag.path ? style.active : ''}`}
+                style={{ left: currentTag === tag.path ? movingTagPos.x : 'unset' }}
               >
                 <span className={style.tagText}>{tag.title}</span>
                 <span
