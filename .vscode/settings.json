@@ -3,6 +3,7 @@
     "Sider",
     "commitlint",
     "linebreak",
-    "middlewares"
+    "middlewares",
+    "noninteractive"
   ]
 }

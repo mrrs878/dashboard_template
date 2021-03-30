@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-02-24 10:13:41
- * @LastEditTime: 2021-03-29 10:01:25
+ * @LastEditTime: 2021-03-30 22:09:52
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /components_library/src/layout/index.tsx
@@ -13,7 +13,7 @@ import { BrowserRouter } from 'react-router-dom';
 import MHeader from '../components/MHeader';
 import MMenu from '../components/MMenu';
 import MPageHeader from '../components/MPageHeader';
-import MTagsView from '../components/MTagsView';
+import MTagsBar from '../components/MTagsBar';
 import useGetMenu from '../hook/useGetMenu';
 import Router from '../route';
 import { useFullScreen } from '../store';
@@ -36,7 +36,7 @@ const MLayout = () => {
         <Layout className="site-layout">
           {
             !isFullScreen && (
-              <MTagsView />
+              <MTagsBar />
             )
           }
           {
