@@ -4,7 +4,7 @@
 /*
  * @Author: mrrs878@foxmail.com
  * @Date: 2021-03-29 09:58:37
- * @LastEditTime: 2021-03-30 23:42:08
+ * @LastEditTime: 2021-03-31 14:58:13
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /dashboard_template/src/components/MTagsView/index.tsx
@@ -12,7 +12,7 @@
 import { CloseCircleOutlined } from '@ant-design/icons';
 import { uniqBy } from 'ramda';
 import React, {
-  useCallback, useEffect, useState,
+  useCallback, useEffect, useMemo, useRef, useState,
 } from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { useModel } from '../../store';
@@ -54,6 +54,8 @@ ContextMenuClickHandler
   ),
 };
 
+let originTagPos: IPosition = { x: 0, y: 0 };
+
 const MTagsBar = (props: IMTagsBarProps) => {
   const [menuTitles] = useModel('menuTitles');
   const [contextMenuVisible, setContextMenuVisible] = useState(false);
@@ -64,11 +66,11 @@ const MTagsBar = (props: IMTagsBarProps) => {
   });
   const [tags, setTags] = useState<Array<ITag>>([]);
   const [currentTag, setCurrentTag] = useState(tags[0]?.path);
-  const [tagMoving, setTagMoving] = useState(false);
-  const [originTagPos, setOriginTagPos] = useState<IPosition>({ x: 0, y: 0 });
   const [movingTagPos, setMovingTagPos] = useState<IPosition>({ x: 0, y: 0 });
+  const [movingTag, setMovingTag] = useState('');
+  const contentDivRef = useRef<HTMLDivElement>(null);
 
-  const onTagClick = useCallback((path) => {
+  const onTagClick = useCallback((e, path) => {
     setCurrentTag(path);
   }, []);
 
@@ -90,22 +92,34 @@ const MTagsBar = (props: IMTagsBarProps) => {
     setContextMenuTag(path);
   }, []);
 
-  const onTagMouseDown = useCallback((e) => {
+  const onTagMouseMove = useCallback((e) => {
     e.preventDefault();
-    setOriginTagPos({ x: e.pageX, y: 0 });
-    setTagMoving(true);
+    const contentWidth = (contentDivRef.current?.getBoundingClientRect().width || 0) - 140;
+    let x = e.pageX - originTagPos.x;
+    x = x < 0 ? 0 : x;
+    x = x > contentWidth ? contentWidth : x;
+    setMovingTagPos(() => ({ x, y: 0 }));
   }, []);
-  const onTagMouseMove = useCallback((e: any) => {
-    e.preventDefault();
-    const x = e.pageX - originTagPos.x;
-    if (tagMoving) setMovingTagPos({ x: x < 0 ? 0 : x, y: 0 });
-  }, [tagMoving, originTagPos]);
   const onTagMouseUp = useCallback(() => {
-    setTagMoving(false);
-  }, []);
+    document.removeEventListener('mousemove', onTagMouseMove);
+    document.removeEventListener('mouseup', onTagMouseUp);
+    originTagPos = ({ x: 0, y: 0 });
+  }, [onTagMouseMove]);
+  const onTagMouseDown = useCallback((e, path) => {
+    e.preventDefault();
+    const x = (e.target?.getBoundingClientRect().left || 0);
+    if (originTagPos.x === 0) originTagPos = ({ x, y: 0 });
+    setMovingTag(path);
+    document.addEventListener('mousemove', onTagMouseMove);
+    document.addEventListener('mouseup', onTagMouseUp);
+  }, [onTagMouseMove, onTagMouseUp]);
 
   const onDocumentClick = useCallback(() => {
     setContextMenuVisible(false);
+  }, []);
+
+  const resetTagsPosition = useCallback(() => {
+
   }, []);
 
   const onContextMenuClick = useCallback(
@@ -136,18 +150,6 @@ const MTagsBar = (props: IMTagsBarProps) => {
       document.removeEventListener('click', onDocumentClick);
     };
   }, [onDocumentClick]);
-  useEffect(() => {
-    document.addEventListener('mouseup', onTagMouseUp);
-    return () => {
-      document.removeEventListener('mouseup', onTagMouseUp);
-    };
-  }, [onTagMouseUp]);
-  useEffect(() => {
-    document.addEventListener('mousemove', (e) => onTagMouseMove(e));
-    return () => {
-      document.removeEventListener('mousemove', (e) => onTagMouseMove(e));
-    };
-  }, [onTagMouseMove]);
 
   useEffect(() => {
     const path = props.location.pathname;
@@ -163,15 +165,15 @@ const MTagsBar = (props: IMTagsBarProps) => {
       {tags.length > 0 && (
         <div className={style.container}>
           <div className={style.top} />
-          <div className={style.content}>
+          <div className={style.content} ref={contentDivRef}>
             {tags.map((tag, index) => (
               <div
-                onClick={() => onTagClick(tag.path)}
+                onClick={(e) => onTagClick(e, tag.path)}
                 onContextMenu={(e) => onTagContextMenu(e, tag.path)}
-                onMouseDown={(e) => onTagMouseDown(e)}
+                onMouseDown={(e) => onTagMouseDown(e, tag.path)}
                 key={tag.path}
                 className={`${style.tagC} ${currentTag === tag.path ? style.active : ''}`}
-                style={{ left: currentTag === tag.path ? movingTagPos.x : 'unset' }}
+                style={{ left: movingTag === tag.path ? movingTagPos.x : 'unset' }}
               >
                 <span className={style.tagText}>{tag.title}</span>
                 <span
