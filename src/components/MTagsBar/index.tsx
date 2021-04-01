@@ -4,7 +4,7 @@
 /*
  * @Author: mrrs878@foxmail.com
  * @Date: 2021-03-29 09:58:37
- * @LastEditTime: 2021-03-31 23:08:25
+ * @LastEditTime: 2021-04-01 19:07:17
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /dashboard_template/src/components/MTagsView/index.tsx
@@ -16,6 +16,7 @@ import React, {
 } from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { useModel } from '../../store';
+import { insertBefore, isEqualBy } from '../../tool';
 import style from './index.module.less';
 
 interface IMTagsBarProps extends RouteComponentProps {}
@@ -61,16 +62,12 @@ const MTagsBar = (props: IMTagsBarProps) => {
   const [menuTitles] = useModel('menuTitles');
   const [contextMenuVisible, setContextMenuVisible] = useState(false);
   const [contextMenuTag, setContextMenuTag] = useState('');
-  const [contextMenuPos, setContextMenuPos] = useState<IPosition>({
-    x: 0,
-    y: 0,
-  });
+  const [contextMenuPos, setContextMenuPos] = useState<IPosition>({ x: 0, y: 0 });
   const [tags, setTags] = useState<Array<ITag>>([]);
   const [currentTag, setCurrentTag] = useState(tags[0]?.path);
   const [movingTagPos, setMovingTagPos] = useState<IPosition>({ x: 0, y: 0 });
-  const [movingTag, setMovingTag] = useState('');
+  const movingTagPath = useRef<string>('');
   const contentDivRef = useRef<HTMLDivElement>(null);
-  const dragTagPath = useRef<string>('');
 
   const onTagClick = useCallback((e, path) => {
     setCurrentTag(path);
@@ -96,31 +93,29 @@ const MTagsBar = (props: IMTagsBarProps) => {
 
   const onTagMouseMove = useCallback((e) => {
     e.preventDefault();
-    console.log(movingTag);
-
-    const contentWidth = (contentDivRef.current?.getBoundingClientRect().width || 0) - 140;
-    console.log(e.pageX - originMousePos.x);
+    const contentWidth = (contentDivRef.current?.getBoundingClientRect().width || 0) - 260;
     let x = e.pageX - originMousePos.x + originTagPos.x;
+    x = (x > contentWidth ? contentWidth : x);
     x = x < 0 ? 0 : x;
-    x = x > contentWidth ? contentWidth : x;
-    setMovingTagPos(() => ({ x, y: 0 }));
-  }, [movingTag]);
-  const onTagMouseUp = useCallback((e) => {
+    setMovingTagPos({ x, y: 0 });
+  }, []);
+  const onTagMouseUp = useCallback(() => {
     document.removeEventListener('mousemove', onTagMouseMove);
     document.removeEventListener('mouseup', onTagMouseUp);
-    console.log(e.currentTarget.offsetLeft);
-    // eslint-disable-next-line no-bitwise
-    const x = ((e.target.parentElement.offsetLeft / 140) >> 0) * 140;
-    setMovingTagPos(() => ({ x, y: 0 }));
+    setMovingTagPos({ x: 0, y: 0 });
+    movingTagPath.current = '';
   }, [onTagMouseMove]);
-  const onTagMouseDown = useCallback((e, path) => {
+  const onTagMouseDown = useCallback(async (e, path) => {
     e.preventDefault();
-    console.log(e.currentTarget);
-
+    movingTagPath.current = path;
     const x = (parseInt(e.currentTarget.style.left, 10) || 0);
     originMousePos = { x: e.pageX, y: 0 };
     originTagPos = ({ x, y: 0 });
-    setMovingTag(path);
+    const activeTag = contentDivRef.current?.querySelector(`.${style.active}`);
+    activeTag?.setAttribute('class', style.tagC);
+    e.currentTarget?.classList.add(style.active);
+    e.currentTarget?.classList.add(style.moving);
+    setMovingTagPos({ x: 0, y: 0 });
     document.addEventListener('mousemove', onTagMouseMove);
     document.addEventListener('mouseup', onTagMouseUp);
   }, [onTagMouseMove, onTagMouseUp]);
@@ -151,21 +146,33 @@ const MTagsBar = (props: IMTagsBarProps) => {
     [contextMenuTag],
   );
 
-  const onTagDragStart = useCallback((e, path) => {
-    console.log(e.currentTarget);
-    dragTagPath.current = path;
-    const el = contentDivRef.current?.querySelector(`[data-path="${path}"]`);
-    el?.classList.add(style.dragging);
-  }, []);
-  const onTagDragEnd = useCallback((e) => {
-    console.log(e.currentTarget);
-    const el = contentDivRef.current?.querySelector(`[data-path="${dragTagPath.current}"]`);
-    el?.classList.remove(style.dragging);
-    dragTagPath.current = '';
-  }, []);
-  const onTagDragOver = useCallback((e) => {
+  const updateTags = useCallback((clientX: number) => {
+    const dropRect = contentDivRef.current?.getBoundingClientRect();
+    if (dropRect && movingTagPath.current) {
+      const offsetX = clientX - dropRect.left;
+      const dragItem = tags.find((item) => item.path === movingTagPath.current) || { path: '', title: '' };
+      const col = Math.floor(offsetX / 120);
+      let currentIndex = col;
+      const fromIndex = tags.indexOf(dragItem);
+      if (fromIndex < currentIndex) {
+        currentIndex += 1;
+      }
+      const currentItem = tags[currentIndex];
+      const ordered = insertBefore(tags, dragItem, currentItem);
+      if (isEqualBy(ordered, tags, 'path')) return;
+      if (fromIndex < currentIndex) {
+        originMousePos.x += 120;
+      } else {
+        originMousePos.x -= 120;
+      }
+      setTags(ordered);
+    }
+  }, [tags]);
+
+  const onTagOver = useCallback((e) => {
     e.preventDefault();
-  }, []);
+    updateTags(e.clientX);
+  }, [updateTags]);
 
   useEffect(() => {
     document.addEventListener('click', onDocumentClick);
@@ -186,25 +193,22 @@ const MTagsBar = (props: IMTagsBarProps) => {
   return (
     <>
       {tags.length > 0 && (
-        <div className={style.container}>
+        // eslint-disable-next-line jsx-a11y/mouse-events-have-key-events
+        <div className={style.container} onMouseMove={onTagOver}>
           <div className={style.top} />
           <div
             className={style.content}
             ref={contentDivRef}
-            onDragOver={onTagDragOver}
-            onDragEnd={onTagDragEnd}
           >
             {tags.map((tag, index) => (
               <div
                 onClick={(e) => onTagClick(e, tag.path)}
                 onContextMenu={(e) => onTagContextMenu(e, tag.path)}
                 onMouseDown={(e) => onTagMouseDown(e, tag.path)}
-                onDragStart={(e) => onTagDragStart(e, tag.path)}
                 key={tag.path}
-                draggable
                 data-path={tag.path}
-                className={`${style.tagC} ${currentTag === tag.path ? style.active : ''} ${dragTagPath.current === tag.path ? style.dragging : ''}`}
-                style={{ left: dragTagPath.current === tag.path ? movingTagPos.x : 'unset' }}
+                className={`${style.tagC} ${currentTag === tag.path ? style.active : ''}`}
+                style={{ left: movingTagPath.current === tag.path ? movingTagPos.x : 'unset' }}
               >
                 <span className={style.tagText}>{tag.title}</span>
                 <span

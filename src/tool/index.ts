@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-02-26 18:21:49
- * @LastEditTime: 2021-02-26 18:29:43
+ * @LastEditTime: 2021-04-01 13:12:45
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /dashboard_template/src/tool/index.ts
@@ -25,4 +25,35 @@ export function setCookie(name: string, value: string, expireTime?: number) {
     date.setTime(date.getTime() + expiresDays * 24 * 3600 * 1000);
     document.cookie = `${name}=${value}; userName=hulk; expires=${date.toUTCString()}`;
   } else document.cookie = `${name}=${value}`;
+}
+
+export function insertBefore<T>(list: T[], from: T, to?: T): T[] {
+  const copy = [...list];
+  const fromIndex = copy.indexOf(from);
+  if (from === to) {
+    return copy;
+  }
+  copy.splice(fromIndex, 1);
+  const newToIndex = to ? copy.indexOf(to) : -1;
+  if (to && newToIndex >= 0) {
+    copy.splice(newToIndex, 0, from);
+  } else {
+    // 没有 To 或 To 不在序列里，将元素移动到末尾
+    copy.push(from);
+  }
+  return copy;
+}
+
+/** 判断是否数组相等 */
+export function isEqualBy<T>(a: T[], b: T[], key: keyof T) {
+  const aList = a.map((item) => item[key]);
+  const bList = b.map((item) => item[key]);
+
+  let flag = true;
+  aList.forEach((i, idx) => {
+    if (i !== bList[idx]) {
+      flag = false;
+    }
+  });
+  return flag;
 }

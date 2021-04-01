@@ -29,9 +29,12 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  transition: opacity ease 0.3s;
 }
 .tagC.active {
+  transition: left ease 0s;
   background-color: #ddd;
+  z-index: 999;
 }
 .tagC.active::before {
   position: absolute;
@@ -53,9 +56,7 @@
   border-bottom-left-radius: 10px;
   bottom: -5px;
 }
-.tagC.dragging {
-  position: relative;
-}
+
 .tagText {
   width: 80%;
   text-align: left;
