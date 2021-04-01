@@ -4,7 +4,7 @@
 /*
  * @Author: mrrs878@foxmail.com
  * @Date: 2021-03-29 09:58:37
- * @LastEditTime: 2021-04-01 19:07:17
+ * @LastEditTime: 2021-04-01 23:16:00
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /dashboard_template/src/components/MTagsView/index.tsx
@@ -55,6 +55,8 @@ ContextMenuClickHandler
   ),
 };
 
+const TAG_WIDTH = 120;
+
 let originTagPos: IPosition = { x: 0, y: 0 };
 let originMousePos: IPosition = { x: 0, y: 0 };
 
@@ -93,10 +95,15 @@ const MTagsBar = (props: IMTagsBarProps) => {
 
   const onTagMouseMove = useCallback((e) => {
     e.preventDefault();
-    const contentWidth = (contentDivRef.current?.getBoundingClientRect().width || 0) - 260;
+    const contentWidth = (contentDivRef.current?.getBoundingClientRect().width || 0);
+    const contentLeft = (contentDivRef.current?.getBoundingClientRect().left || 0);
+    const threshold = (contentLeft + (TAG_WIDTH / 2));
+    if (e.pageX < threshold) {
+      setMovingTagPos({ x: 0, y: 0 });
+      return;
+    }
     let x = e.pageX - originMousePos.x + originTagPos.x;
-    x = (x > contentWidth ? contentWidth : x);
-    x = x < 0 ? 0 : x;
+    x = x > contentWidth - threshold ? contentWidth - threshold : x;
     setMovingTagPos({ x, y: 0 });
   }, []);
   const onTagMouseUp = useCallback(() => {
@@ -151,7 +158,7 @@ const MTagsBar = (props: IMTagsBarProps) => {
     if (dropRect && movingTagPath.current) {
       const offsetX = clientX - dropRect.left;
       const dragItem = tags.find((item) => item.path === movingTagPath.current) || { path: '', title: '' };
-      const col = Math.floor(offsetX / 120);
+      const col = Math.floor(offsetX / TAG_WIDTH);
       let currentIndex = col;
       const fromIndex = tags.indexOf(dragItem);
       if (fromIndex < currentIndex) {
@@ -161,9 +168,9 @@ const MTagsBar = (props: IMTagsBarProps) => {
       const ordered = insertBefore(tags, dragItem, currentItem);
       if (isEqualBy(ordered, tags, 'path')) return;
       if (fromIndex < currentIndex) {
-        originMousePos.x += 120;
+        originMousePos.x += TAG_WIDTH;
       } else {
-        originMousePos.x -= 120;
+        originMousePos.x -= TAG_WIDTH;
       }
       setTags(ordered);
     }
