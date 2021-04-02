@@ -4,7 +4,7 @@
 /*
  * @Author: mrrs878@foxmail.com
  * @Date: 2021-03-29 09:58:37
- * @LastEditTime: 2021-04-01 23:16:00
+ * @LastEditTime: 2021-04-02 10:40:06
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /dashboard_template/src/components/MTagsView/index.tsx
@@ -201,11 +201,12 @@ const MTagsBar = (props: IMTagsBarProps) => {
     <>
       {tags.length > 0 && (
         // eslint-disable-next-line jsx-a11y/mouse-events-have-key-events
-        <div className={style.container} onMouseMove={onTagOver}>
+        <div className={style.container}>
           <div className={style.top} />
           <div
             className={style.content}
             ref={contentDivRef}
+            onMouseMove={onTagOver}
           >
             {tags.map((tag, index) => (
               <div
