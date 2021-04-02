@@ -4,13 +4,13 @@
 /*
  * @Author: mrrs878@foxmail.com
  * @Date: 2021-03-29 09:58:37
- * @LastEditTime: 2021-04-02 10:40:06
+ * @LastEditTime: 2021-04-02 16:55:56
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /dashboard_template/src/components/MTagsView/index.tsx
  */
 import { CloseCircleOutlined } from '@ant-design/icons';
-import { uniqBy } from 'ramda';
+import { last, uniqBy } from 'ramda';
 import React, {
   useCallback, useEffect, useRef, useState,
 } from 'react';
@@ -75,15 +75,9 @@ const MTagsBar = (props: IMTagsBarProps) => {
     setCurrentTag(path);
   }, []);
 
-  const onTagCloseClick = useCallback((e, path, index) => {
-    e.stopPropagation();
-    setTags((preTags) => {
-      const newTags = preTags.filter((item) => item.path !== path);
-      setCurrentTag((prePath) => (newTags.findIndex((item) => item.path === prePath) !== -1
-        ? prePath
-        : preTags[index === preTags.length - 1 ? index - 1 : index + 1].path));
-      return newTags;
-    });
+  const onTagCloseClick = useCallback((e, path) => {
+    e.preventDefault();
+    setTags((preTags) => preTags.filter((item) => item.path !== path));
   }, []);
 
   const onTagContextMenu = useCallback((e, path) => {
@@ -197,6 +191,10 @@ const MTagsBar = (props: IMTagsBarProps) => {
     setCurrentTag(path);
   }, [menuTitles, props.location.pathname]);
 
+  useEffect(() => {
+    setCurrentTag(last(tags)?.path || '');
+  }, [tags]);
+
   return (
     <>
       {tags.length > 0 && (
@@ -221,7 +219,7 @@ const MTagsBar = (props: IMTagsBarProps) => {
                 <span className={style.tagText}>{tag.title}</span>
                 <span
                   className={style.tagClose}
-                  onClick={(e) => onTagCloseClick(e, tag.path, index)}
+                  onClick={(e) => onTagCloseClick(e, tag.path)}
                 >
                   <CloseCircleOutlined />
                 </span>
