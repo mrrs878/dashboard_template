@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-02-26 18:16:29
- * @LastEditTime: 2021-03-01 14:37:53
+ * @LastEditTime: 2021-04-06 22:41:24
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /dashboard_template/src/route/index.tsx
@@ -16,6 +16,7 @@ import { getCookie } from '../tool';
 
 const Home = React.lazy(() => import('../view/home'));
 const Profile = React.lazy(() => import('../view/profile'));
+const Login = React.lazy(() => import('../view/auth/login'));
 
 interface GuardComponentPropsI {
   component: any;
@@ -35,6 +36,10 @@ const ROUTES: Array<RouteConfigI> = [
   {
     path: '/profile',
     component: Profile,
+  },
+  {
+    path: '/login',
+    component: Login,
   },
 ];
 

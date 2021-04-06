@@ -4,7 +4,7 @@
 /*
  * @Author: mrrs878@foxmail.com
  * @Date: 2021-03-29 09:58:37
- * @LastEditTime: 2021-04-02 16:55:56
+ * @LastEditTime: 2021-04-06 22:40:22
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /dashboard_template/src/components/MTagsView/index.tsx
@@ -206,7 +206,7 @@ const MTagsBar = (props: IMTagsBarProps) => {
             ref={contentDivRef}
             onMouseMove={onTagOver}
           >
-            {tags.map((tag, index) => (
+            {tags.map((tag) => (
               <div
                 onClick={(e) => onTagClick(e, tag.path)}
                 onContextMenu={(e) => onTagContextMenu(e, tag.path)}
