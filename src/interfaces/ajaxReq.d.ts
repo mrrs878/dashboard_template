@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-09-22 09:42:32
- * @LastEditTime: 2020-10-30 16:45:20
+ * @LastEditTime: 2021-04-07 15:34:49
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \blog_dashboard\src\interface\ajaxReq.d.ts
@@ -16,6 +16,11 @@ interface GetMenuReqI {
 interface CreateMenuReqI extends IMenuItem {}
 
 interface UpdateMenuReqI extends IMenuItem {}
+
+interface CheckPuzzleReqI {
+  left: number;
+  session: string;
+}
 
 interface GetDictsReqT {
 }
@@ -36,62 +41,6 @@ interface DeleteDictReqT {
 
 interface GetMenuReqI {
   role: string
-}
-
-interface GetDashboardDataReqI {
-}
-
-interface GetArticleReqI {
-  id: string
-}
-
-interface GetArticlesReqI {
-}
-
-interface GetFileBlogReqI {
-  sha: string;
-}
-
-interface UpdateArticleReqI {
-  title: string;
-  tags: string;
-  categories: string;
-  content: string;
-  _id: string;
-  description: string;
-}
-
-interface UpdateArticleStatusReqI {
-  status: number;
-  _id: string;
-}
-
-interface CreateArticleReqI {
-  title: string;
-  tags: string;
-  categories: string;
-  content: string;
-  description: string;
-}
-
-interface GetCommentReqI {
-  id: string
-}
-
-interface AddCommentReqI {
-  name: string;
-  user_id: string;
-  content: string;
-  article_id: string;
-  avatar: string;
-}
-
-interface GetCommentsReqI {
-  id: string;
-}
-
-interface GetCommentReqI {
-  id: string;
 }
 
 interface UpdateUserInfoReqI {

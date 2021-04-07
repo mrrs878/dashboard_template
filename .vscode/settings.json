@@ -4,6 +4,7 @@
     "commitlint",
     "linebreak",
     "middlewares",
-    "noninteractive"
+    "noninteractive",
+    "stddev"
   ]
 }

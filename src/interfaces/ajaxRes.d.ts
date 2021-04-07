@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-10-15 09:49:52
- * @LastEditTime: 2020-10-26 22:26:05
+ * @LastEditTime: 2021-04-07 15:35:18
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \blog_dashboard\src\interfaces\ajaxRes.d.ts
@@ -25,39 +25,17 @@ interface CreateMenuResI extends BaseResI<IMenuItem> {}
 
 interface UpdateMenuResI extends BaseResI<IMenuItem> {}
 
+interface GetPuzzleImgResI extends BaseResI<{ canvas: string, block: string, session: string }> {}
+
+interface CheckPuzzleResI extends BaseResI<any> {}
+
 interface GetDictsResT extends BaseResI<Array<DictI>>{
 }
 
 interface GetDictResT extends BaseResI<DictI>{
 }
 
-interface GetDashboardDataResI extends BaseResI<Array<DashboardDataI>>{
-}
-
-interface GetArticlesResI extends BaseResI<Array<ArticleI>>{
-}
-
-interface GetArticleResI extends BaseResI<ArticleI>{
-}
-
-interface UpdateArticleResI extends BaseResI<undefined> {}
-
-interface CreateArticleResI extends BaseResI<undefined> {}
-
-interface GetRepoPathContentResI extends Array<PathContentItemI> {
-}
-
-interface GetFileBlogResI extends FileBlobI {}
-
-interface GetCommentsResI extends BaseResI<Array<CommentI>> {}
-
 interface GetAuthorCommentsResI extends BaseResI<Array<AuthorCommentsI>> {}
-
-interface GetCommentResI extends BaseResI<Array<CommentI>> {}
-
-interface GetCommentResI extends BaseResI<CommentI> {}
-
-interface AddCommentResI extends BaseResI<CommentI> {}
 
 interface GetUsersResI extends BaseResI<Array<UserI>> {}
 
