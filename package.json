@@ -13,6 +13,7 @@
     "antd": "^4.12.3",
     "axios": "^0.21.1",
     "babel-plugin-import": "^1.13.3",
+    "canvas": "^2.7.0",
     "craco-antd": "^1.19.0",
     "craco-less": "^1.17.1",
     "less": "^4.1.0",
@@ -29,7 +30,7 @@
   },
   "scripts": {
     "postinstall": "is-ci || husky install",
-    "mock": "nodemon mocks/server.js -e json",
+    "mock": "nodemon mocks/server.js -e json,js",
     "start": "craco start",
     "build": "craco build",
     "test": "jest --passWithNoTests",

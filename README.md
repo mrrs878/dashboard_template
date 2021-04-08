@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-02-23 10:19:55
- * @LastEditTime: 2021-02-25 19:21:08
+ * @LastEditTime: 2021-04-08 13:11:51
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /components_library/README.md
@@ -13,6 +13,10 @@
 React@17 + typescript@4 + antd@4 + less
 
 husky + commitlint/eslint 保证git message/代码规范
+
+## 环境变量
+
+项目内后端接口地址从.env文件读取
 
 ## 菜单
 
@@ -36,4 +40,9 @@ const UserInfo = () => {
   );
 };
 ```
+
+
+## 滑动🧩验证
+
+后端生成带有缺口的图片/缺口图片，缺口位置随机，保存在后端。前端拖动释放后调用接口校验滑动位置
 

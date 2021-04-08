@@ -1,14 +1,14 @@
 /*
  * @Author: your name
  * @Date: 2021-03-30 10:04:47
- * @LastEditTime: 2021-03-30 10:06:11
+ * @LastEditTime: 2021-04-08 13:07:20
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /dashboard_template/src/api/user.ts
  */
 import ajax from '../tool/ajax';
 
-const BASE_URL = 'http://localhost:3003/setting';
+const BASE_URL = `${process.env.REACT_APP_BASE_URL}/user`;
 
-export const GET_USERS = (): Promise<any> => ajax.get(`${BASE_URL}/user`);
-export const GET_USER = (data: any): Promise<any> => ajax.get(`${BASE_URL}/user/${data.role}`);
+export const GET_USERS = (): Promise<any> => ajax.get(`${BASE_URL}`);
+export const GET_USER = (data: any): Promise<any> => ajax.get(`${BASE_URL}/${data.role}`);

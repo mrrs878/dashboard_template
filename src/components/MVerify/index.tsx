@@ -3,7 +3,7 @@
 /*
  * @Author: mrrs878@foxmail.com
  * @Date: 2021-04-06 22:33:55
- * @LastEditTime: 2021-04-07 19:17:33
+ * @LastEditTime: 2021-04-08 10:51:26
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \dashboard_template\src\components\MVerify\index.tsx
@@ -19,7 +19,7 @@ import style from './index.module.less';
 const w = 350; // canvas宽度
 const h = 200; // canvas高度
 
-interface PropsI {
+interface IMVerifyProps {
   onSuccess: () => any;
   onClose: () => any;
 }
@@ -43,12 +43,12 @@ const VerifyTip: Record<VerifyStatus, string> = {
   [VerifyStatus.success]: '验证成功',
 };
 
-const MVerify = (props: PropsI) => {
+const MVerify = (props: IMVerifyProps) => {
   const [dragStatus, setDragStatus] = useState(DragStatus.pending);
   const [moveX, setMoveX] = useState(0);
   const [verifyStatus, setVerifyStatus] = useState(VerifyStatus.pending);
   const [originPosition, setOriginPosition] = useState({ x: 0, y: 0 });
-  const [getPuzzleImgLoading, puzzleImgRes, getPuzzleImg] = useRequest(GET_PUZZLE_IMG);
+  const [getPuzzleImgLoading, puzzleImgRes, ,getPuzzleImg] = useRequest(GET_PUZZLE_IMG);
   const [checkPuzzleLoading, checkPuzzleRes, checkPuzzle] = useRequest(CHECK_PUZZLE_IMG, false);
 
   const verify = useCallback((left) => {
@@ -74,7 +74,8 @@ const MVerify = (props: PropsI) => {
       props.onClose();
       reset();
     }, 1000);
-  }, [props, reset]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [props.onClose, props.onSuccess, reset]);
 
   const handleDragStart = useCallback((e: any) => {
     const x = e.clientX || e.touches[0].clientX;
@@ -143,7 +144,6 @@ const MVerify = (props: PropsI) => {
             ${verifyStatus === VerifyStatus.success ? style.success : ''}
             ${verifyStatus === VerifyStatus.fail ? style.fail : ''}
           `}
-          style={{ opacity: verifyStatus === VerifyStatus.pending ? 0 : 1 }}
         >
           { VerifyTip[verifyStatus] }
         </span>
