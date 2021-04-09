@@ -4,7 +4,7 @@
 /*
  * @Author: mrrs878@foxmail.com
  * @Date: 2021-03-29 09:58:37
- * @LastEditTime: 2021-04-06 22:40:22
+ * @LastEditTime: 2021-04-09 10:25:50
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /dashboard_template/src/components/MTagsView/index.tsx
@@ -15,6 +15,7 @@ import React, {
   useCallback, useEffect, useRef, useState,
 } from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
+import useDeepCompareEffect from '../../hook/useDeepCompareEffect';
 import { useModel } from '../../store';
 import { insertBefore, isEqualBy } from '../../tool';
 import style from './index.module.less';
@@ -191,7 +192,7 @@ const MTagsBar = (props: IMTagsBarProps) => {
     setCurrentTag(path);
   }, [menuTitles, props.location.pathname]);
 
-  useEffect(() => {
+  useDeepCompareEffect(() => {
     setCurrentTag(last(tags)?.path || '');
   }, [tags]);
 
