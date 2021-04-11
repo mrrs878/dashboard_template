@@ -1,12 +1,12 @@
 /*
- * @Author: your name
+ * @Author: mrrs878@foxmail.com
  * @Date: 2020-09-22 09:42:32
  * @LastEditTime: 2021-04-07 15:34:49
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \blog_dashboard\src\interface\ajaxReq.d.ts
  */
-interface LoginReqI {
+interface ILoginReq {
   name: string,
   password: string
 }
@@ -17,7 +17,7 @@ interface CreateMenuReqI extends IMenuItem {}
 
 interface UpdateMenuReqI extends IMenuItem {}
 
-interface CheckPuzzleReqI {
+interface ICheckPuzzleReq {
   left: number;
   session: string;
 }

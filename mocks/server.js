@@ -1,7 +1,7 @@
 /*
- * @Author: your name
+ * @Author: mrrs878@foxmail.com
  * @Date: 2021-02-26 10:49:28
- * @LastEditTime: 2021-04-08 13:08:32
+ * @LastEditTime: 2021-04-11 17:33:10
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /dashboard_template/mocks/route.js
@@ -13,6 +13,7 @@ const { getPuzzleImg, verifyPuzzle } = require('./puzzle');
 
 const server = jsonServer.create();
 const router = jsonServer.router(path.join(__dirname, 'db.json'));
+
 const middlewares = jsonServer.defaults();
 
 router.render = (req, res) => {
@@ -28,6 +29,7 @@ server.use(middlewares);
 
 server.use(jsonServer.rewriter({
   '/setting/*': '/$1',
+  '/auth/permissionUrl': '/permissionUrl',
 }));
 
 server.get('/auth/verifyPuzzle/:session/:left', async (req, res) => {
@@ -35,10 +37,25 @@ server.get('/auth/verifyPuzzle/:session/:left', async (req, res) => {
   const data = await verifyPuzzle(session, left);
   res.jsonp(data);
 });
-
 server.get('/auth/puzzleImg', async (req, res) => {
   const data = await getPuzzleImg();
   res.jsonp(data);
+});
+server.post('/auth/login', (req, res) => {
+  res.jsonp({
+    success: true,
+    return_message: '登录成功',
+    return_code: 0,
+    data: router.db.get('user').value()[0],
+  });
+});
+server.get('/auth/autoLogin', (req, res) => {
+  res.jsonp({
+    success: true,
+    return_message: '登录信息失效，请重新登录',
+    return_code: 0,
+    data: router.db.get('user').value()[0],
+  });
 });
 
 server.use(router);

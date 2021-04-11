@@ -1,19 +1,19 @@
 /*
- * @Author: your name
+ * @Author: mrrs878@foxmail.com
  * @Date: 2020-10-15 09:49:52
- * @LastEditTime: 2021-04-07 15:35:18
+ * @LastEditTime: 2021-04-11 15:50:41
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \blog_dashboard\src\interfaces\ajaxRes.d.ts
  */
 interface BaseResI<T> {
   success: boolean;
-  code: number;
+  return_code: number;
   data: T;
-  msg: string;
+  return_message: string;
 }
 
-interface LoginResI extends BaseResI<UserI>{
+interface ILoginRes extends BaseResI<UserI>{
 }
 interface GetInfoByTokenResI extends BaseResI<UserI>{
 }
@@ -25,9 +25,11 @@ interface CreateMenuResI extends BaseResI<IMenuItem> {}
 
 interface UpdateMenuResI extends BaseResI<IMenuItem> {}
 
-interface GetPuzzleImgResI extends BaseResI<{ canvas: string, block: string, session: string }> {}
+interface IGetPuzzleImgRes extends BaseResI<{ canvas: string, block: string, session: string }> {}
 
-interface CheckPuzzleResI extends BaseResI<any> {}
+interface ICheckPuzzleRes extends BaseResI<any> {}
+
+interface IGetPermissionUrlsRes extends BaseResI<Array<IPermissionUrl>> {}
 
 interface GetDictsResT extends BaseResI<Array<DictI>>{
 }

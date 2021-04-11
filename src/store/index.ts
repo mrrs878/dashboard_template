@@ -1,7 +1,7 @@
 /*
- * @Author: your name
+ * @Author: mrrs878@foxmail.com
  * @Date: 2021-02-23 18:24:16
- * @LastEditTime: 2021-02-26 18:00:42
+ * @LastEditTime: 2021-04-11 16:25:49
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /components_library/src/store/index.ts
@@ -16,6 +16,7 @@ enum Actions {
   UPDATE_MENU,
   UPDATE_MENU_ROUTES,
   UPDATE_MENU_TITLES,
+  UPDATE_PERMISSION_URLS,
 }
 
 type UpdateModel<T extends keyof IState> =
@@ -26,17 +27,21 @@ type UpdateFullScreen = IActions<Actions.UPDATE_FULLSCREEN, boolean>;
 type UpdateMenu = IActions<Actions.UPDATE_MENU, Array<IMenuItem>>;
 type UpdateMenuRoutes = IActions<Actions.UPDATE_MENU_ROUTES, Record<string, string>>;
 type UpdateMenuTitles = IActions<Actions.UPDATE_MENU_TITLES, Record<string, string>>;
+type UpdatePermissionUrls = IActions<Actions.UPDATE_PERMISSION_URLS, Array<IPermissionUrl>>;
 
 type Action = UpdateModel<keyof IState>|UpdateUser|UpdateAddresses|UpdateFullScreen|UpdateMenu|
-UpdateMenuRoutes|UpdateMenuTitles;
+UpdateMenuRoutes|UpdateMenuTitles|UpdatePermissionUrls;
 
 const defaultState: IState = {
-  user: { name: '', age: -1 },
+  user: {
+    name: '', age: -1, address: '', id: -1, role: -1,
+  },
   addresses: [],
   fullScreen: false,
   menu: [],
   menuRoutes: {},
   menuTitles: {},
+  permissionUrls: [],
 };
 
 const StoreContext = createContext<{ state: IState, dispatch: React.Dispatch<Action> }>(
@@ -89,6 +94,8 @@ function reducer(state: IState, action: Action): IState {
       return { ...state, addresses: action.data };
     case Actions.UPDATE_FULLSCREEN:
       return { ...state, fullScreen: action.data };
+    case Actions.UPDATE_PERMISSION_URLS:
+      return { ...state, permissionUrls: action.data };
     default:
       return state;
   }

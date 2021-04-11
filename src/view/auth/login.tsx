@@ -1,7 +1,7 @@
 /*
- * @Author: your name
+ * @Author: mrrs878@foxmail.com
  * @Date: 2021-04-06 22:37:02
- * @LastEditTime: 2021-04-07 19:18:17
+ * @LastEditTime: 2021-04-11 16:59:40
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \dashboard_template\src\view\auth\login.tsx
@@ -11,8 +11,11 @@ import {
 } from 'antd';
 import { useForm } from 'antd/lib/form/Form';
 import React, { useCallback, useEffect, useState } from 'react';
+import { withRouter, RouteComponentProps } from 'react-router-dom';
+import { LOGIN } from '../../api/auth';
 import MVerify from '../../components/MVerify';
-import { useFullScreen } from '../../store';
+import useRequest from '../../hook/useRequest';
+import { useFullScreen, useModel } from '../../store';
 import style from './login.module.less';
 
 const layout = {
@@ -23,14 +26,17 @@ const tailLayout = {
   wrapperCol: { offset: 10, span: 4 },
 };
 
-const Login = () => {
-  const [, fullScreen] = useFullScreen();
+const Login = (props: RouteComponentProps) => {
+  const [, fullScreen, exitFullScreen] = useFullScreen();
   const [loginFrom] = useForm();
   const [verifyModalFlag, setVerifyModalFlag] = useState(false);
+  const [, loginRes, login] = useRequest(LOGIN, false);
+  const [, updateUser] = useModel('user');
 
   const onSuccess = useCallback(() => {
-    message.success('登录成功');
-  }, []);
+    setVerifyModalFlag(false);
+    login({ name: '', password: '' });
+  }, [login]);
   const onClose = useCallback(() => {
   }, []);
 
@@ -40,7 +46,22 @@ const Login = () => {
 
   useEffect(() => {
     fullScreen();
-  }, [fullScreen]);
+    return () => {
+      exitFullScreen();
+    };
+  }, [exitFullScreen, fullScreen]);
+  useEffect(() => {
+    console.log(loginRes);
+    if (!loginRes) return;
+    if (!loginRes.success) {
+      message.error(loginRes.return_message);
+      return;
+    }
+    exitFullScreen();
+    updateUser(loginRes.data);
+    localStorage.setItem('auth_token', loginRes.data.token);
+    setTimeout(props.history.goBack, 300);
+  }, [exitFullScreen, loginRes, props.history, updateUser]);
   return (
     <div className={style.container}>
       <Form
@@ -83,4 +104,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default withRouter(Login);

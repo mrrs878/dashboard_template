@@ -1,7 +1,7 @@
 /*
- * @Author: your name
+ * @Author: mrrs878@foxmail.com
  * @Date: 2021-02-24 10:13:41
- * @LastEditTime: 2021-04-07 18:57:10
+ * @LastEditTime: 2021-04-11 17:38:40
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /components_library/src/layout/index.tsx
@@ -11,19 +11,30 @@ import { ConfigProvider, Layout } from 'antd';
 import zhCN from 'antd/lib/locale/zh_CN';
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
+import {
+  compose, equals, not, prop, when,
+} from 'ramda';
 import MHeader from '../components/MHeader';
 import MMenu from '../components/MMenu';
-import MPageHeader from '../components/MPageHeader';
 import MTagsBar from '../components/MTagsBar';
+import useGetPermissionUrls from '../hook/useGetPermissionUrls';
 import useGetMenu from '../hook/useGetMenu';
-import Router from '../route';
+import Router, { ROUTES } from '../route';
 import { useFullScreen } from '../store';
+import useAutoLogin from '../hook/useAutoLogin';
 
 const { Content, Footer, Sider } = Layout;
 
 const MLayout = () => {
   const [isFullScreen] = useFullScreen();
+
+  when<any, void>(
+    compose(not, equals(false), prop('auth')),
+    useAutoLogin,
+  )(ROUTES.find((item) => item.path === window.location.href));
   useGetMenu(false, true);
+  useGetPermissionUrls(false, true);
+
   return (
     <BrowserRouter>
       <ConfigProvider locale={zhCN}>
@@ -38,18 +49,15 @@ const MLayout = () => {
           <Layout className="site-layout">
             {
             !isFullScreen && (
-              <MTagsBar />
+              <MHeader />
             )
           }
             {
             !isFullScreen && (
-              <MHeader />
+              <MTagsBar />
             )
           }
             <Content style={{ margin: '0 16px' }}>
-              {
-              !isFullScreen && <MPageHeader />
-            }
               <Router />
             </Content>
             <Footer style={{ textAlign: 'center' }}>

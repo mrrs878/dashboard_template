@@ -39,7 +39,34 @@
       "id": 0,
       "name": "tom",
       "age": 23,
-      "address": "Shanghai China"
+      "address": "Shanghai China",
+      "role": 0,
+      "token": "dalkd~!L/'.,;'noaMDSODJSODUSO"
+    },
+    {
+      "id": 1,
+      "name": "jerry",
+      "age": 23,
+      "address": "Taiwan China",
+      "role": 1,
+      "token": "dsasahhcuwhe23823~[]lu9cu"
+    }
+  ],
+  "permissionUrl": [
+    {
+      "id": 0,
+      "url": "/setting",
+      "role": 0
+    },
+    {
+      "id": 1,
+      "url": "/home",
+      "role": 3
+    },
+    {
+      "id": 2,
+      "url": "/auth/login",
+      "role": 3
     }
   ]
 }

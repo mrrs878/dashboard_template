@@ -1,5 +1,5 @@
 /*
- * @Author: your name
+ * @Author: mrrs878@foxmail.com
  * @Date: 2020-10-10 19:15:33
  * @LastEditTime: 2021-03-01 10:11:13
  * @LastEditors: Please set LastEditors
@@ -49,7 +49,7 @@ export default function useGetMenu(autoMsg = true, authFetch = false) {
   const [, updateMenuTitles] = useModel('menuTitles');
   useEffect(() => {
     if (!getMenusRes) return;
-    if (autoMsg) message.info(getMenusRes.msg);
+    if (autoMsg) message.info(getMenusRes.return_message);
     if (!getMenusRes.success) return;
     updateMenuTitles(getMenuTitles(getMenusRes.data));
     updateMenuRoutes(getMenuRoutes(getMenusRes.data));

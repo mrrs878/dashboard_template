@@ -1,7 +1,7 @@
 /*
- * @Author: your name
+ * @Author: mrrs878@foxmail.com
  * @Date: 2021-02-26 18:16:29
- * @LastEditTime: 2021-04-06 22:41:24
+ * @LastEditTime: 2021-04-11 17:02:55
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /dashboard_template/src/route/index.tsx
@@ -12,11 +12,12 @@ import { Route, Switch } from 'react-router-dom';
 import MLoading from '../components/MLoading';
 import useDocumentTitle from '../hook/useDocumentTitle';
 import { useModel } from '../store';
-import { getCookie } from '../tool';
 
 const Home = React.lazy(() => import('../view/home'));
 const Profile = React.lazy(() => import('../view/profile'));
 const Login = React.lazy(() => import('../view/auth/login'));
+const ForbiddenPage = React.lazy(() => import('../view/auth/403'));
+const Setting = React.lazy(() => import('../view/setting'));
 
 interface GuardComponentPropsI {
   component: any;
@@ -38,18 +39,32 @@ const ROUTES: Array<RouteConfigI> = [
     component: Profile,
   },
   {
-    path: '/login',
+    path: '/auth/login',
     component: Login,
+    auth: false,
+  },
+  {
+    path: '/setting',
+    component: Setting,
+    auth: true,
   },
 ];
 
 const GuardComponent = (props: GuardComponentPropsI) => {
   const [titles] = useModel('menuTitles');
+  const [permissionUrls] = useModel('permissionUrls');
+  const [user] = useModel('user');
   useDocumentTitle(titles[props.path]);
+  console.log(permissionUrls.find((item) => item.url === props.path)?.role);
+
   const Component = (props.component) as any;
   useEffect(() => {
-    if (props.auth && !getCookie('auth_token')) window.location.href = '/auth/login';
+    if (props.auth && !localStorage.getItem('auth_token')) window.location.href = '/auth/login';
   }, [props.auth]);
+  if (user.role !== -1
+    && user.role > (permissionUrls.find((item) => item.url === props.path)?.role || 0)) {
+    return <ForbiddenPage />;
+  }
   return <Component />;
 };
 
@@ -75,5 +90,7 @@ const Router = () => (
     </Switch>
   </Suspense>
 );
+
+export { ROUTES };
 
 export default Router;
