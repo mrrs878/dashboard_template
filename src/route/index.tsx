@@ -1,12 +1,15 @@
 /*
  * @Author: mrrs878@foxmail.com
  * @Date: 2021-02-26 18:16:29
- * @LastEditTime: 2021-04-11 17:02:55
+ * @LastEditTime: 2021-04-11 18:32:03
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /dashboard_template/src/route/index.tsx
  */
 
+import {
+  and, compose, equals, not, prop, when,
+} from 'ramda';
 import React, { Suspense, useEffect } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import MLoading from '../components/MLoading';
@@ -55,17 +58,20 @@ const GuardComponent = (props: GuardComponentPropsI) => {
   const [permissionUrls] = useModel('permissionUrls');
   const [user] = useModel('user');
   useDocumentTitle(titles[props.path]);
-  console.log(permissionUrls.find((item) => item.url === props.path)?.role);
 
   const Component = (props.component) as any;
+  let tmp = <Component />;
   useEffect(() => {
-    if (props.auth && !localStorage.getItem('auth_token')) window.location.href = '/auth/login';
+    when(
+      compose(and(props.auth), not),
+      () => { window.location.href = '/auth/login'; },
+    )(localStorage.getItem('auth_token'));
   }, [props.auth]);
   if (user.role !== -1
     && user.role > (permissionUrls.find((item) => item.url === props.path)?.role || 0)) {
-    return <ForbiddenPage />;
+    tmp = <ForbiddenPage />;
   }
-  return <Component />;
+  return tmp;
 };
 
 const Router = () => (
