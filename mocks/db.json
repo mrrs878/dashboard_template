@@ -59,6 +59,11 @@
       "role": 0
     },
     {
+      "id": 3,
+      "url": "/profile",
+      "role": 3
+    },
+    {
       "id": 1,
       "url": "/home",
       "role": 3

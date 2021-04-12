@@ -1,7 +1,7 @@
 /*
  * @Author: mrrs878@foxmail.com
  * @Date: 2021-03-01 10:19:29
- * @LastEditTime: 2021-03-30 11:10:19
+ * @LastEditTime: 2021-04-12 22:59:14
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /dashboard_template/src/view/profile/index.tsx
@@ -16,7 +16,6 @@ const Profile = () => {
 
   useEffect(() => {
     if (!getUsersRes?.success) return;
-    console.log(getUsersRes.data);
     setUsers(getUsersRes.data);
   }, [getUsersRes]);
 

@@ -1,7 +1,7 @@
 /*
  * @Author: mrrs878@foxmail.com
  * @Date: 2021-02-24 10:13:41
- * @LastEditTime: 2021-04-11 17:38:40
+ * @LastEditTime: 2021-04-12 22:56:05
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /components_library/src/layout/index.tsx
@@ -57,7 +57,7 @@ const MLayout = () => {
               <MTagsBar />
             )
           }
-            <Content style={{ margin: '0 16px' }}>
+            <Content style={{ margin: '16px' }}>
               <Router />
             </Content>
             <Footer style={{ textAlign: 'center' }}>

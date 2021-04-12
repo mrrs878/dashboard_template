@@ -1,14 +1,14 @@
 /*
  * @Author: mrrs878@foxmail.com
  * @Date: 2021-02-26 18:16:29
- * @LastEditTime: 2021-04-11 18:32:03
+ * @LastEditTime: 2021-04-12 22:45:07
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /dashboard_template/src/route/index.tsx
  */
 
 import {
-  and, compose, equals, not, prop, when,
+  and, compose, not, when,
 } from 'ramda';
 import React, { Suspense, useEffect } from 'react';
 import { Route, Switch } from 'react-router-dom';
@@ -61,14 +61,15 @@ const GuardComponent = (props: GuardComponentPropsI) => {
 
   const Component = (props.component) as any;
   let tmp = <Component />;
+
   useEffect(() => {
     when(
       compose(and(props.auth), not),
       () => { window.location.href = '/auth/login'; },
     )(localStorage.getItem('auth_token'));
   }, [props.auth]);
-  if (user.role !== -1
-    && user.role > (permissionUrls.find((item) => item.url === props.path)?.role || 0)) {
+  if (user.role === -1
+    || user.role > (permissionUrls.find((item) => item.url === props.path)?.role || 0)) {
     tmp = <ForbiddenPage />;
   }
   return tmp;
