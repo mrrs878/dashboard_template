@@ -4,7 +4,7 @@
  * @LastEditTime: 2021-02-24 11:23:43
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
- * @FilePath: /components_library/src/hook/useRequest.ts
+ * @FilePath: /dashboard_template/src/hook/useRequest.ts
  */
 import { useEffect, useState, useCallback } from 'react';
 

@@ -4,7 +4,7 @@
  * @LastEditTime: 2021-03-01 10:09:35
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
- * @FilePath: \components_library\src\view\home\index.tsx
+ * @FilePath: \dashboard_template\src\view\home\index.tsx
  */
 import { Button } from 'antd';
 import React from 'react';

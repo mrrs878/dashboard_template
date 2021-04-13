@@ -1,7 +1,7 @@
 /*
  * @Author: mrrs878@foxmail.com
  * @Date: 2021-02-26 10:49:28
- * @LastEditTime: 2021-04-13 18:31:05
+ * @LastEditTime: 2021-04-13 23:11:11
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /dashboard_template/mocks/route.js
@@ -19,7 +19,7 @@ const middlewares = jsonServer.defaults();
 router.render = (req, res) => {
   res.jsonp({
     success: true,
-    return_message: '',
+    return_message: '操作成功',
     return_code: 0,
     data: res.locals.data,
   });

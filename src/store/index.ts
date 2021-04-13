@@ -4,7 +4,7 @@
  * @LastEditTime: 2021-04-13 10:04:16
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
- * @FilePath: /components_library/src/store/index.ts
+ * @FilePath: /dashboard_template/src/store/index.ts
  */
 import { createContext, useCallback, useContext } from 'react';
 

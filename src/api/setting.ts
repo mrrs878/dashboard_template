@@ -4,7 +4,7 @@
  * @LastEditTime: 2021-04-13 18:01:16
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
- * @FilePath: /components_library/src/api/setting.ts
+ * @FilePath: /dashboard_template/src/api/setting.ts
  */
 import ajax from '../tool/ajax';
 

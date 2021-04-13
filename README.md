@@ -4,7 +4,7 @@
  * @LastEditTime: 2021-04-11 15:37:49
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
- * @FilePath: /components_library/README.md
+ * @FilePath: /dashboard_template/README.md
 -->
 # 简单后台模版
 

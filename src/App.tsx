@@ -4,7 +4,7 @@
  * @LastEditTime: 2021-03-29 13:53:07
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
- * @FilePath: /components_library/src/App.tsx
+ * @FilePath: /dashboard_template/src/App.tsx
  */
 import React, { useReducer } from 'react';
 import MErrorBoundary from './components/MErrorBoundary';

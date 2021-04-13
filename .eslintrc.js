@@ -4,7 +4,7 @@
  * @LastEditTime: 2021-04-13 10:43:39
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
- * @FilePath: /components_library/.eslintrc.js
+ * @FilePath: /dashboard_template/.eslintrc.js
  */
 module.exports = {
   extends: [

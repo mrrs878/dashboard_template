@@ -4,7 +4,7 @@
  * @LastEditTime: 2021-04-13 19:04:16
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
- * @FilePath: /components_library/src/components/MMenu.tsx
+ * @FilePath: /dashboard_template/src/components/MMenu.tsx
  */
 import React, { useCallback, useMemo } from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';

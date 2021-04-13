@@ -4,7 +4,7 @@
  * @LastEditTime: 2021-04-13 09:46:22
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
- * @FilePath: /components_library/src/components/MHeader.tsx
+ * @FilePath: /dashboard_template/src/components/MHeader.tsx
  */
 import React from 'react';
 import { useModel } from '../../store';

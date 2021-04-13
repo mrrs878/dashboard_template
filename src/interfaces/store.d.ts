@@ -4,7 +4,7 @@
  * @LastEditTime: 2021-04-13 10:04:03
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
- * @FilePath: /components_library/src/interfaces/index.d.ts
+ * @FilePath: /dashboard_template/src/interfaces/index.d.ts
  */
 interface IUser {
   name: string;

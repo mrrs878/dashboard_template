@@ -1,7 +1,7 @@
 /*
- * @Author: your name
+ * @Author: mrrs878@foxmail.com
  * @Date: 2021-04-13 10:19:21
- * @LastEditTime: 2021-04-13 18:40:21
+ * @LastEditTime: 2021-04-13 23:22:43
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /dashboard_template/src/view/setting/menu.tsx
@@ -11,10 +11,10 @@ import {
   Button, Divider, Form, Input, message, Modal, Radio, Space, Tree,
 } from 'antd';
 import {
-  and, clone, compose, equals, find, ifElse, isNil, last, prop,
+  and, clone, compose, equals, filter, find, ifElse, isNil, last, prop, sortBy,
 } from 'ramda';
 import React, {
-  ReactText, useCallback, useEffect, useState,
+  ReactText, useCallback, useEffect, useMemo, useState,
 } from 'react';
 import { withRouter } from 'react-router-dom';
 import * as _Icons from '@ant-design/icons';
@@ -29,6 +29,11 @@ import useRequest from '../../hook/useRequest';
 import { useModel } from '../../store';
 import { ITEM_STATUS_ARRAY, MAIN_CONFIG } from '../../config';
 import style from './menu.module.less';
+
+interface IMenuPositionRange {
+  max: number;
+  min: number;
+}
 
 const Icons = clone<Record<string, any>>(_Icons);
 
@@ -74,11 +79,11 @@ function findMenuItemPathsBy(conf: (item: IMenuItem) => boolean) {
 }
 
 const MenuSetting = () => {
-  const [menuItemArray, setMenuItemArray] = useState<Array<IMenuItem>>([]);
   const [treeData, setTreeData] = useState<Array<IMenuItem>>([]);
   const [editModalF, setEditModalF] = useState<boolean>(false);
   const [createOrUpdate, setCreateOrUpdate] = useState(false);
   const [selectedMenu, setSelectedMenu] = useState<IMenuItem>();
+  const [positionRange, setMenuPositionRange] = useState<IMenuPositionRange>({ max: 0, min: 0 });
   const [selectedMenuParent, setSelectedMenuParent] = useState<IMenuItem>();
   const [couldIcon, setCouldIcon] = useState<boolean>(false);
   const [isMenuAdding, setIsMenuAdding] = useState<boolean>(false);
@@ -95,9 +100,6 @@ const MenuSetting = () => {
   useEffect(() => {
     setTreeData(formatMenu(menuTree));
   }, [menuTree]);
-  useEffect(() => {
-    setMenuItemArray(menuArray);
-  }, [menuArray]);
 
   useEffect(() => {
     if (!createMenuRes) return;
@@ -117,7 +119,7 @@ const MenuSetting = () => {
     if (updateMenusRes.success) getMenus();
   }, [getMenus, updateMenusRes]);
 
-  const menuItemClickHandlers = {
+  const menuItemClickHandlers = useMemo(() => ({
     common(_selectMenu: IMenuItem) {
       const {
         title, path, icon_name, status, position,
@@ -134,10 +136,11 @@ const MenuSetting = () => {
       setEditModalF(true);
       setCouldAddMenu(false);
       setCreateOrUpdate(true);
-      setPaths(findMenuItemPathsBy((item) => item.parent === _selectMenu.id)(menuItemArray));
+      setPaths(findMenuItemPathsBy((item) => item.parent === _selectMenu.id)(menuArray));
       setSelectedMenuParent(_selectMenu);
+      form.setFieldsValue({ position: positionRange.max + 1 });
     },
-  };
+  }), [form, menuArray, positionRange]);
 
   const formFinishHandlers = {
     edit(values: any) {
@@ -153,12 +156,12 @@ const MenuSetting = () => {
       updateMenu(newValues);
     },
     add(values: any) {
-      const newValues = { ...values, role: [0, 1] };
+      const newValues: IMenuItem = clone(values);
       newValues.key = `${selectedMenuParent?.key}${values.path.slice(0, 1).toUpperCase()}${values.path.slice(1)}`;
       newValues.path = `${selectedMenuParent?.path ?? ''}/${values.path}`;
-      newValues.parent = selectedMenuParent?.key ?? '';
+      newValues.parent = selectedMenuParent?.id ?? -1;
       setEditModalF(false);
-      createMenu(newValues);
+      createMenu(values);
     },
   };
   const formResetHandlers = {
@@ -186,16 +189,25 @@ const MenuSetting = () => {
       formResetHandlers.common)(selectedMenuParent);
   }
 
-  function onTreeItemSelect(key: Array<ReactText>, info: SelectData) {
+  const onTreeItemSelect = useCallback((key: Array<ReactText>, info: SelectData) => {
     if (!info.selected) return;
     const selectMenuTmp: IMenuItem = info.selectedNodes[0];
     const isAddMenuItem = compose(equals(AddRootMenu.key), prop<'key', string>('key'));
+    const parentMenu = findMenuItemParent(selectMenuTmp)(menuArray);
     setSelectedMenu(selectMenuTmp);
     setCouldIcon(selectMenuTmp?.parent === AddRootMenu.parent);
-    compose(setSelectedMenuParent, findMenuItemParent(selectMenuTmp))(menuItemArray);
+    setSelectedMenuParent(parentMenu);
+    const max = compose(
+      prop<'position', IMenuItem['position']>('position'),
+      last,
+      sortBy(prop('position')),
+      filter<IMenuItem, 'array'>((item) => item.parent === selectMenuTmp?.parent),
+    )(menuArray);
+    console.log(max);
+    setMenuPositionRange({ min: 0, max });
     ifElse(isAddMenuItem,
       menuItemClickHandlers.add(selectMenuTmp), menuItemClickHandlers.common)(selectMenuTmp);
-  }
+  }, [menuArray, menuItemClickHandlers]);
 
   function onModalCancel() {
     setEditModalF(false);
@@ -291,15 +303,14 @@ const MenuSetting = () => {
             <Form.Item
               name="position"
               label="位置"
-              rules={[{ required: true, message: '请设置菜单位置!' }]}
             >
               <Input
                 disabled
                 type="number"
                 addonAfter={(
                   <Space>
-                    <Button disabled={selectedMenu?.position === 0 || selectedMenu?.key === 'root'} size="small" className={style.menuPositionCButton} onClick={onSwapPositionUp}>上移</Button>
-                    <Button disabled={selectedMenu?.position === 0 || selectedMenu?.key === 'root'} size="small" className={style.menuPositionCButton} onClick={onSwapPositionDown}>下移</Button>
+                    <Button disabled={selectedMenu?.position === positionRange.min || selectedMenu?.key === 'root'} size="small" className={style.menuPositionCButton} onClick={onSwapPositionUp}>上移</Button>
+                    <Button disabled={selectedMenu?.position === positionRange.max || selectedMenu?.key === 'root'} size="small" className={style.menuPositionCButton} onClick={onSwapPositionDown}>下移</Button>
                   </Space>
                 )}
               />

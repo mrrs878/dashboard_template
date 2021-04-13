@@ -4,7 +4,7 @@
  * @LastEditTime: 2021-04-13 18:38:17
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
- * @FilePath: /components_library/src/layout/index.tsx
+ * @FilePath: /dashboard_template/src/layout/index.tsx
  */
 
 import { ConfigProvider, Layout, message } from 'antd';

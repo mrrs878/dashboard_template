@@ -4,7 +4,7 @@
  * @LastEditTime: 2021-04-13 09:58:41
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
- * @FilePath: /components_library/src/interfaces/model.d.ts
+ * @FilePath: /dashboard_template/src/interfaces/model.d.ts
  */
 interface IMenuItem {
   id?: number;
