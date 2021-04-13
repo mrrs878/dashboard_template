@@ -1,7 +1,7 @@
 /*
  * @Author: mrrs878@foxmail.com
  * @Date: 2021-02-26 10:49:28
- * @LastEditTime: 2021-04-11 18:16:51
+ * @LastEditTime: 2021-04-13 18:31:05
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /dashboard_template/mocks/route.js
@@ -26,6 +26,7 @@ router.render = (req, res) => {
 };
 
 server.use(middlewares);
+server.use(jsonServer.bodyParser);
 
 server.use(jsonServer.rewriter({
   '/setting/*': '/$1',
@@ -56,6 +57,18 @@ server.get('/auth/autoLogin', (req, res) => {
     return_code: 0,
     data: router.db.get('user').value()[0],
   });
+});
+server.put('/menu', async (req, res) => {
+  try {
+    await router.db.set('menu', req.body).write();
+    res.jsonp({
+      success: true,
+      return_message: '更新成功',
+      return_code: 0,
+    });
+  } catch (e) {
+    console.log(e);
+  }
 });
 
 server.use(router);

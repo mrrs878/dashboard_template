@@ -1,13 +1,13 @@
 /*
  * @Author: mrrs878@foxmail.com
  * @Date: 2021-02-24 10:13:41
- * @LastEditTime: 2021-04-12 22:56:05
+ * @LastEditTime: 2021-04-13 18:38:17
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /components_library/src/layout/index.tsx
  */
 
-import { ConfigProvider, Layout } from 'antd';
+import { ConfigProvider, Layout, message } from 'antd';
 import zhCN from 'antd/lib/locale/zh_CN';
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
@@ -27,6 +27,8 @@ const { Content, Footer, Sider } = Layout;
 
 const MLayout = () => {
   const [isFullScreen] = useFullScreen();
+
+  message.config({ duration: 1 });
 
   when<any, void>(
     compose(not, equals(false), prop('auth')),

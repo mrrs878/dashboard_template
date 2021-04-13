@@ -1,7 +1,7 @@
 /*
  * @Author: mrrs878@foxmail.com
  * @Date: 2021-02-23 18:24:16
- * @LastEditTime: 2021-04-11 16:25:49
+ * @LastEditTime: 2021-04-13 10:04:16
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /components_library/src/store/index.ts
@@ -14,6 +14,7 @@ enum Actions {
   UPDATE_ADDRESSES,
   UPDATE_FULLSCREEN,
   UPDATE_MENU,
+  UPDATE_MENU_ARRAY,
   UPDATE_MENU_ROUTES,
   UPDATE_MENU_TITLES,
   UPDATE_PERMISSION_URLS,
@@ -25,12 +26,13 @@ type UpdateUser = IActions<Actions.UPDATE_USER, IUser>;
 type UpdateAddresses = IActions<Actions.UPDATE_ADDRESSES, Array<string>>;
 type UpdateFullScreen = IActions<Actions.UPDATE_FULLSCREEN, boolean>;
 type UpdateMenu = IActions<Actions.UPDATE_MENU, Array<IMenuItem>>;
+type UpdateMenuArray = IActions<Actions.UPDATE_MENU_ARRAY, Array<IMenuItem>>;
 type UpdateMenuRoutes = IActions<Actions.UPDATE_MENU_ROUTES, Record<string, string>>;
 type UpdateMenuTitles = IActions<Actions.UPDATE_MENU_TITLES, Record<string, string>>;
 type UpdatePermissionUrls = IActions<Actions.UPDATE_PERMISSION_URLS, Array<IPermissionUrl>>;
 
 type Action = UpdateModel<keyof IState>|UpdateUser|UpdateAddresses|UpdateFullScreen|UpdateMenu|
-UpdateMenuRoutes|UpdateMenuTitles|UpdatePermissionUrls;
+UpdateMenuArray|UpdateMenuRoutes|UpdateMenuTitles|UpdatePermissionUrls;
 
 const defaultState: IState = {
   user: {
@@ -39,6 +41,7 @@ const defaultState: IState = {
   addresses: [],
   fullScreen: false,
   menu: [],
+  menuArray: [],
   menuRoutes: {},
   menuTitles: {},
   permissionUrls: [],

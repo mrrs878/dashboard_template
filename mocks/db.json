@@ -6,8 +6,7 @@
       "icon_name": "DashboardOutlined",
       "title": "首页",
       "path": "/home",
-      "sub_menu": [],
-      "parent": "root",
+      "parent": -1,
       "position": 0,
       "status": 0
     },
@@ -17,8 +16,7 @@
       "icon_name": "UserOutlined",
       "title": "个人中心",
       "path": "/profile",
-      "sub_menu": [],
-      "parent": "root",
+      "parent": -1,
       "position": 1,
       "status": 0
     },
@@ -28,8 +26,17 @@
       "icon_name": "UserOutlined",
       "title": "设置",
       "path": "/setting",
-      "sub_menu": [],
-      "parent": "root",
+      "parent": -1,
+      "position": 2,
+      "status": 0
+    },
+    {
+      "id": 2,
+      "key": "menuSetting",
+      "icon_name": "UserOutlined",
+      "title": "菜单设置",
+      "path": "/setting/menu",
+      "parent": 2,
       "position": 1,
       "status": 0
     }
@@ -40,7 +47,7 @@
       "name": "tom",
       "age": 23,
       "address": "Shanghai China",
-      "role": 3,
+      "role": 0,
       "token": "dalkd~!L/'.,;'noaMDSODJSODUSO"
     },
     {
@@ -56,6 +63,11 @@
     {
       "id": 0,
       "url": "/setting",
+      "role": 0
+    },
+    {
+      "id": 0,
+      "url": "/setting/menu",
       "role": 0
     },
     {

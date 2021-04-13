@@ -1,7 +1,7 @@
 /*
  * @Author: mrrs878@foxmail.com
  * @Date: 2021-02-24 10:25:01
- * @LastEditTime: 2021-03-01 14:37:36
+ * @LastEditTime: 2021-04-13 10:17:39
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /components_library/src/components/MMenu.tsx
@@ -43,7 +43,7 @@ const MMenu: React.FC<PropsI> = (props: PropsI) => {
   const walkMenu = useCallback((item: IMenuItem) => {
     const icon = dynamicIcon(item.icon_name);
     if (item.status !== 0) return <></>;
-    if (item.sub_menu.length > 0) {
+    if ((item.children?.length || 0) > 0) {
       return (
         <SubMenu key={item.path} icon={icon} title={item.title}>
           {

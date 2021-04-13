@@ -19,11 +19,11 @@ interface GetInfoByTokenResI extends BaseResI<UserI>{
 }
 interface LogoutResI extends BaseResI<any>{
 }
-interface GetMenusResI extends BaseResI<Array<IMenuItem>>{
+interface IGetMenusRes extends BaseResI<Array<IMenuItem>>{
 }
-interface CreateMenuResI extends BaseResI<IMenuItem> {}
+interface ICreateMenuRes extends BaseResI<IMenuItem> {}
 
-interface UpdateMenuResI extends BaseResI<IMenuItem> {}
+interface IUpdateMenuRes extends BaseResI<IMenuItem> {}
 
 interface IGetPuzzleImgRes extends BaseResI<{ canvas: string, block: string, session: string }> {}
 

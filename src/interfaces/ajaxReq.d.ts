@@ -1,7 +1,7 @@
 /*
  * @Author: mrrs878@foxmail.com
  * @Date: 2020-09-22 09:42:32
- * @LastEditTime: 2021-04-07 15:34:49
+ * @LastEditTime: 2021-04-13 17:41:10
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \blog_dashboard\src\interface\ajaxReq.d.ts
@@ -10,12 +10,14 @@ interface ILoginReq {
   name: string,
   password: string
 }
-interface GetMenuReqI {
+interface IGetMenuReq {
 }
 
-interface CreateMenuReqI extends IMenuItem {}
+interface ICreateMenuReq extends IMenuItem {}
 
-interface UpdateMenuReqI extends IMenuItem {}
+interface IUpdateMenuReq extends IMenuItem {}
+
+interface IUpdateMenusReq extends Array<IMenuItem> {}
 
 interface ICheckPuzzleReq {
   left: number;
@@ -39,7 +41,7 @@ interface DeleteDictReqT {
   id: number
 }
 
-interface GetMenuReqI {
+interface IGetMenuReq {
   role: string
 }
 
