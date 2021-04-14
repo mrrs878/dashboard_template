@@ -17,7 +17,7 @@
       "title": "个人中心",
       "path": "/profile",
       "parent": -1,
-      "position": 1,
+      "position": 3,
       "status": 0
     },
     {
@@ -31,14 +31,24 @@
       "status": 0
     },
     {
-      "id": 2,
+      "id": 3,
       "key": "menuSetting",
       "icon_name": "UserOutlined",
       "title": "菜单设置",
       "path": "/setting/menu",
       "parent": 2,
-      "position": 1,
+      "position": 0,
       "status": 0
+    },
+    {
+      "title": "访客管理",
+      "path": "/profile/visitors",
+      "icon_name": "TeamOutlined",
+      "status": 0,
+      "position": 0,
+      "key": "profileVisitors",
+      "parent": 1,
+      "id": 4
     }
   ],
   "user": [

@@ -1,7 +1,7 @@
 /*
  * @Author: mrrs878@foxmail.com
  * @Date: 2021-04-13 10:19:21
- * @LastEditTime: 2021-04-13 23:22:43
+ * @LastEditTime: 2021-04-14 23:14:05
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /dashboard_template/src/view/setting/menu.tsx
@@ -61,7 +61,7 @@ const tailFormItemLayout = {
 };
 
 const AddRootMenu: IMenuItem = {
-  icon: <PlusCircleOutlined />, title: '添加', key: 'root', parent: -1, path: '', status: 1, children: [], position: -1,
+  icon: <PlusCircleOutlined />, title: '添加', id: -1, key: 'root', parent: -1, path: '', status: 1, children: [], position: -1,
 };
 
 function formatMenu(src: Array<IMenuItem>) {
@@ -71,7 +71,10 @@ function formatMenu(src: Array<IMenuItem>) {
 }
 
 function findMenuItemParent(menuItem: IMenuItem) {
-  return (src: Array<IMenuItem>) => find<IMenuItem>((item) => item.id === menuItem.parent, src);
+  return (src: Array<IMenuItem>) => {
+    if (menuItem.parent === -1) return AddRootMenu;
+    return find<IMenuItem>((item) => item.id === menuItem.parent, src);
+  };
 }
 
 function findMenuItemPathsBy(conf: (item: IMenuItem) => boolean) {
@@ -85,7 +88,6 @@ const MenuSetting = () => {
   const [selectedMenu, setSelectedMenu] = useState<IMenuItem>();
   const [positionRange, setMenuPositionRange] = useState<IMenuPositionRange>({ max: 0, min: 0 });
   const [selectedMenuParent, setSelectedMenuParent] = useState<IMenuItem>();
-  const [couldIcon, setCouldIcon] = useState<boolean>(false);
   const [isMenuAdding, setIsMenuAdding] = useState<boolean>(false);
   const [couldAddMenu, setCouldAddMenu] = useState<boolean>(true);
   const [paths, setPaths] = useState<Array<string>>([]);
@@ -119,6 +121,16 @@ const MenuSetting = () => {
     if (updateMenusRes.success) getMenus();
   }, [getMenus, updateMenusRes]);
 
+  const calculateMenuPosition = useCallback((parentMenuId: number|undefined) => {
+    const max = compose(
+      prop<'position', IMenuItem['position']>('position'),
+      last,
+      sortBy(prop('position')),
+      filter<IMenuItem, 'array'>((item) => item.parent === parentMenuId),
+    )(menuArray);
+    return max ?? -1;
+  }, [menuArray]);
+
   const menuItemClickHandlers = useMemo(() => ({
     common(_selectMenu: IMenuItem) {
       const {
@@ -128,7 +140,7 @@ const MenuSetting = () => {
         title, path: last(path?.split('/') || []), icon_name, status, position,
       });
       setEditModalF(true);
-      setCouldAddMenu(true);
+      setCouldAddMenu(_selectMenu.parent === -1 || _selectMenu.key === 'root');
     },
     add: (_selectMenu: IMenuItem | undefined) => () => {
       if (!_selectMenu) return;
@@ -138,9 +150,11 @@ const MenuSetting = () => {
       setCreateOrUpdate(true);
       setPaths(findMenuItemPathsBy((item) => item.parent === _selectMenu.id)(menuArray));
       setSelectedMenuParent(_selectMenu);
-      form.setFieldsValue({ position: positionRange.max + 1 });
+      const max = calculateMenuPosition(_selectMenu?.id);
+      setMenuPositionRange({ min: 0, max });
+      setTimeout(form.setFieldsValue, 500, { position: max + 1 });
     },
-  }), [form, menuArray, positionRange]);
+  }), [calculateMenuPosition, form, menuArray]);
 
   const formFinishHandlers = {
     edit(values: any) {
@@ -161,7 +175,7 @@ const MenuSetting = () => {
       newValues.path = `${selectedMenuParent?.path ?? ''}/${values.path}`;
       newValues.parent = selectedMenuParent?.id ?? -1;
       setEditModalF(false);
-      createMenu(values);
+      createMenu(newValues);
     },
   };
   const formResetHandlers = {
@@ -194,20 +208,14 @@ const MenuSetting = () => {
     const selectMenuTmp: IMenuItem = info.selectedNodes[0];
     const isAddMenuItem = compose(equals(AddRootMenu.key), prop<'key', string>('key'));
     const parentMenu = findMenuItemParent(selectMenuTmp)(menuArray);
-    setSelectedMenu(selectMenuTmp);
-    setCouldIcon(selectMenuTmp?.parent === AddRootMenu.parent);
-    setSelectedMenuParent(parentMenu);
-    const max = compose(
-      prop<'position', IMenuItem['position']>('position'),
-      last,
-      sortBy(prop('position')),
-      filter<IMenuItem, 'array'>((item) => item.parent === selectMenuTmp?.parent),
-    )(menuArray);
-    console.log(max);
+    console.log(parentMenu?.id);
+    const max = calculateMenuPosition(parentMenu?.id);
     setMenuPositionRange({ min: 0, max });
+    setSelectedMenu(selectMenuTmp);
+    setSelectedMenuParent(parentMenu);
     ifElse(isAddMenuItem,
       menuItemClickHandlers.add(selectMenuTmp), menuItemClickHandlers.common)(selectMenuTmp);
-  }, [menuArray, menuItemClickHandlers]);
+  }, [calculateMenuPosition, menuArray, menuItemClickHandlers]);
 
   function onModalCancel() {
     setEditModalF(false);
@@ -237,8 +245,16 @@ const MenuSetting = () => {
   }, [menuArray, selectedMenu, updateMenus]);
 
   const onSwapPositionDown = useCallback(() => {
-
-  }, []);
+    const position = selectedMenu?.position ?? -1;
+    if (position === positionRange.max) return;
+    const tmp = clone(menuArray);
+    const selectedMenuPosition = tmp.find((item) => item.position === selectedMenu?.position);
+    const preMenuPosition = tmp.find((item) => item.position === position - 1);
+    if (selectedMenuPosition?.position) selectedMenuPosition.position += 1;
+    if (preMenuPosition?.position) preMenuPosition.position -= 1;
+    updateMenus(tmp);
+    setEditModalF(false);
+  }, [menuArray, positionRange, selectedMenu, updateMenus]);
 
   return (
     <div className="container">
@@ -283,7 +299,7 @@ const MenuSetting = () => {
               rules={[{ validator: validateIcon }]}
             >
               <Input
-                disabled={!couldIcon}
+                disabled={selectedMenuParent?.id !== AddRootMenu.id}
                 addonAfter={<a href={MAIN_CONFIG.iconPreviewUrl} target="_blank" rel="noopener noreferrer">图标参考</a>}
               />
             </Form.Item>
