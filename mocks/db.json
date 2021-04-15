@@ -86,25 +86,31 @@
       "status": 0
     },
     {
-      "id": 0,
+      "id": 1,
       "url": "/setting/menu",
       "role": 0,
       "status": 0
     },
     {
-      "id": 3,
+      "id": 5,
+      "url": "/setting/menu/:id",
+      "role": 0,
+      "status": 0
+    },
+    {
+      "id": 2,
       "url": "/profile",
       "role": 3,
       "status": 0
     },
     {
-      "id": 1,
+      "id": 3,
       "url": "/home",
       "role": 3,
       "status": 0
     },
     {
-      "id": 2,
+      "id": 4,
       "url": "/auth/login",
       "role": 3,
       "status": 0

@@ -4,7 +4,7 @@
 /*
  * @Author: mrrs878@foxmail.com
  * @Date: 2021-03-29 09:58:37
- * @LastEditTime: 2021-04-13 09:56:25
+ * @LastEditTime: 2021-04-15 23:13:32
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /dashboard_template/src/components/MTagsView/index.tsx
@@ -20,11 +20,6 @@ import { insertBefore, isEqualBy } from '../../tool';
 import style from './index.module.less';
 
 interface IMTagsBarProps extends RouteComponentProps {}
-
-interface ITag {
-  path: string;
-  title: string;
-}
 
 interface IPosition {
   x: number;
@@ -61,11 +56,11 @@ let originTagPos: IPosition = { x: 0, y: 0 };
 let originMousePos: IPosition = { x: 0, y: 0 };
 
 const MTagsBar = (props: IMTagsBarProps) => {
-  const [menuTitles] = useModel('menuTitles');
   const [contextMenuVisible, setContextMenuVisible] = useState(false);
   const [contextMenuTag, setContextMenuTag] = useState('');
   const [contextMenuPos, setContextMenuPos] = useState<IPosition>({ x: 0, y: 0 });
-  const [tags, setTags] = useState<Array<ITag>>([]);
+  const [tagsSrc] = useModel('tags');
+  const [tags, setTags] = useState<Array<ITag>>(tagsSrc);
   const [currentTag, setCurrentTag] = useState(tags[0]?.path);
   const [movingTagPos, setMovingTagPos] = useState<IPosition>({ x: 0, y: 0 });
   const movingTagPath = useRef<string>('');
@@ -184,17 +179,20 @@ const MTagsBar = (props: IMTagsBarProps) => {
 
   useEffect(() => {
     const path = props.location.pathname;
-    setTags((pre) => uniqBy(
-      (item) => item.path,
-      [...pre, { path, title: menuTitles[path] }].filter(({ title }) => title !== undefined),
-    ));
     setCurrentTag(path);
-  }, [menuTitles, props.location.pathname]);
+  }, [props.location.pathname]);
 
   useEffect(() => {
     setCurrentTag(last(tags)?.path || '');
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tags.length]);
+
+  useEffect(() => {
+    setTags(() => uniqBy(
+      (item) => item.path,
+      tagsSrc.filter(({ title }) => title !== undefined),
+    ));
+  }, [tagsSrc]);
 
   return (
     <>

@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-04-15 16:34:56
- * @LastEditTime: 2021-04-15 17:13:48
+ * @LastEditTime: 2021-04-15 23:04:36
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /dashboard_template/src/view/setting/permission.ts
@@ -30,6 +30,7 @@ const Permission = () => {
   return (
     <div className="container">
       <Table
+        rowKey={(record) => String(record.id)}
         columns={columns}
         dataSource={permissionUrls}
       />

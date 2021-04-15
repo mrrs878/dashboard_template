@@ -1,7 +1,7 @@
 /*
  * @Author: mrrs878@foxmail.com
  * @Date: 2021-02-26 18:21:49
- * @LastEditTime: 2021-04-01 13:12:45
+ * @LastEditTime: 2021-04-15 23:22:47
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /dashboard_template/src/tool/index.ts
@@ -56,4 +56,8 @@ export function isEqualBy<T>(a: T[], b: T[], key: keyof T) {
     }
   });
   return flag;
+}
+
+export function isFunction(value: any) {
+  return typeof value === 'function';
 }

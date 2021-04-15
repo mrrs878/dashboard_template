@@ -1,14 +1,14 @@
 /*
  * @Author: mrrs878@foxmail.com
  * @Date: 2021-02-26 18:16:29
- * @LastEditTime: 2021-04-15 16:39:32
+ * @LastEditTime: 2021-04-15 23:35:05
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /dashboard_template/src/route/index.tsx
  */
 
 import {
-  and, compose, not, when,
+  and, compose, filter, not, uniqBy, when,
 } from 'ramda';
 import React, { Suspense, useEffect } from 'react';
 import { Route, Switch } from 'react-router-dom';
@@ -59,6 +59,11 @@ const ROUTES: Array<RouteConfigI> = [
     auth: true,
   },
   {
+    path: '/setting/menu/:id',
+    component: MenuSetting,
+    auth: true,
+  },
+  {
     path: '/setting/permission',
     component: Permission,
     auth: true,
@@ -69,7 +74,17 @@ const GuardComponent = (props: GuardComponentPropsI) => {
   const [titles] = useModel('menuTitles');
   const [permissionUrls] = useModel('permissionUrls');
   const [user] = useModel('user');
-  useDocumentTitle(titles[props.path]);
+  const [, updateTags] = useModel('tags');
+
+  const path = props.path.replace(/\/:(.+)/g, '');
+  useDocumentTitle(titles[path]);
+
+  useEffect(() => {
+    updateTags((pre) => compose(
+      uniqBy((item) => item.path),
+      filter<ITag, 'array'>(({ title }) => title !== undefined),
+    )([...pre, { path, title: titles[path] }]));
+  }, [path, titles, updateTags]);
 
   const Component = (props.component) as any;
   let tmp = <Component />;

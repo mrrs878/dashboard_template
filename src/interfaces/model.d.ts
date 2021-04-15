@@ -1,7 +1,7 @@
 /*
  * @Author: mrrs878@foxmail.com
  * @Date: 2021-02-24 14:31:07
- * @LastEditTime: 2021-04-13 09:58:41
+ * @LastEditTime: 2021-04-15 22:41:40
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /dashboard_template/src/interfaces/model.d.ts
@@ -32,4 +32,9 @@ interface IUser {
   age: number;
   address: string;
   role: number;
+}
+
+interface ITag {
+  path: string;
+  title: string;
 }

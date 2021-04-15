@@ -1,12 +1,14 @@
 /*
  * @Author: mrrs878@foxmail.com
  * @Date: 2021-02-23 18:24:16
- * @LastEditTime: 2021-04-13 10:04:16
+ * @LastEditTime: 2021-04-15 23:30:06
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /dashboard_template/src/store/index.ts
  */
-import { createContext, useCallback, useContext } from 'react';
+import {
+  createContext, useCallback, useContext, useRef,
+} from 'react';
 
 enum Actions {
   UPDATE_MODEL,
@@ -18,6 +20,7 @@ enum Actions {
   UPDATE_MENU_ROUTES,
   UPDATE_MENU_TITLES,
   UPDATE_PERMISSION_URLS,
+  UPDATE_TAGS,
 }
 
 type UpdateModel<T extends keyof IState> =
@@ -30,9 +33,10 @@ type UpdateMenuArray = IActions<Actions.UPDATE_MENU_ARRAY, Array<IMenuItem>>;
 type UpdateMenuRoutes = IActions<Actions.UPDATE_MENU_ROUTES, Record<string, string>>;
 type UpdateMenuTitles = IActions<Actions.UPDATE_MENU_TITLES, Record<string, string>>;
 type UpdatePermissionUrls = IActions<Actions.UPDATE_PERMISSION_URLS, Array<IPermissionUrl>>;
+type UpdateTags = IActions<Actions.UPDATE_TAGS, Array<ITag>>;
 
 type Action = UpdateModel<keyof IState>|UpdateUser|UpdateAddresses|UpdateFullScreen|UpdateMenu|
-UpdateMenuArray|UpdateMenuRoutes|UpdateMenuTitles|UpdatePermissionUrls;
+UpdateMenuArray|UpdateMenuRoutes|UpdateMenuTitles|UpdatePermissionUrls|UpdateTags;
 
 const defaultState: IState = {
   user: {
@@ -45,6 +49,7 @@ const defaultState: IState = {
   menuRoutes: {},
   menuTitles: {},
   permissionUrls: [],
+  tags: [],
 };
 
 const StoreContext = createContext<{ state: IState, dispatch: React.Dispatch<Action> }>(
@@ -54,11 +59,21 @@ const StoreContext = createContext<{ state: IState, dispatch: React.Dispatch<Act
   },
 );
 
+type g<T extends keyof IState> = (value: IState[T]) => IState[T];
+
 function useModel<T extends keyof IState>(modelName: T)
-  : [IState[T], (newModel: IState[T]) => void] {
+  : [IState[T], (newModel: IState[T]|g<T>) => void] {
   const { state, dispatch } = useContext(StoreContext);
-  const updateFunction = useCallback((modelValue: IState[T]) => dispatch(
-    { type: Actions.UPDATE_MODEL, data: { modelName, modelValue } },
+  const stateRef = useRef<IState>(state);
+  stateRef.current = state;
+  const updateFunction = useCallback((modelValue: IState[T]|g<T>) => dispatch(
+    {
+      type: Actions.UPDATE_MODEL,
+      data: {
+        modelName,
+        modelValue: typeof modelValue === 'function' ? modelValue(stateRef.current[modelName]) : modelValue,
+      },
+    },
   ), [dispatch, modelName]);
   return [
     state[modelName],
