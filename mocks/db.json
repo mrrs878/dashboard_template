@@ -49,6 +49,15 @@
       "key": "profileVisitors",
       "parent": 1,
       "id": 4
+    },
+    {
+      "title": "权限管理",
+      "path": "/setting/permission",
+      "status": 0,
+      "position": 1,
+      "key": "settingPermission",
+      "parent": 2,
+      "id": 5
     }
   ],
   "user": [
@@ -73,27 +82,32 @@
     {
       "id": 0,
       "url": "/setting",
-      "role": 0
+      "role": 0,
+      "status": 0
     },
     {
       "id": 0,
       "url": "/setting/menu",
-      "role": 0
+      "role": 0,
+      "status": 0
     },
     {
       "id": 3,
       "url": "/profile",
-      "role": 3
+      "role": 3,
+      "status": 0
     },
     {
       "id": 1,
       "url": "/home",
-      "role": 3
+      "role": 3,
+      "status": 0
     },
     {
       "id": 2,
       "url": "/auth/login",
-      "role": 3
+      "role": 3,
+      "status": 0
     }
   ]
 }

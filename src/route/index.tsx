@@ -1,7 +1,7 @@
 /*
  * @Author: mrrs878@foxmail.com
  * @Date: 2021-02-26 18:16:29
- * @LastEditTime: 2021-04-13 10:45:15
+ * @LastEditTime: 2021-04-15 16:39:32
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /dashboard_template/src/route/index.tsx
@@ -22,6 +22,7 @@ const Login = React.lazy(() => import('../view/auth/login'));
 const ForbiddenPage = React.lazy(() => import('../view/auth/403'));
 const Setting = React.lazy(() => import('../view/setting'));
 const MenuSetting = React.lazy(() => import('../view/setting/menu'));
+const Permission = React.lazy(() => import('../view/setting/permission'));
 
 interface GuardComponentPropsI {
   component: any;
@@ -55,6 +56,11 @@ const ROUTES: Array<RouteConfigI> = [
   {
     path: '/setting/menu',
     component: MenuSetting,
+    auth: true,
+  },
+  {
+    path: '/setting/permission',
+    component: Permission,
     auth: true,
   },
 ];

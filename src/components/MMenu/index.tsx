@@ -1,7 +1,7 @@
 /*
  * @Author: mrrs878@foxmail.com
  * @Date: 2021-02-24 10:25:01
- * @LastEditTime: 2021-04-13 19:04:16
+ * @LastEditTime: 2021-04-15 16:48:11
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /dashboard_template/src/components/MMenu.tsx
@@ -52,7 +52,7 @@ const MMenu: React.FC<PropsI> = (props: PropsI) => {
         </SubMenu>
       );
     }
-    return <Menu.Item icon={icon} key={item.path}>{ item.title }</Menu.Item>;
+    return <Menu.Item icon={item.parent === -1 ? icon : ''} key={item.path}>{ item.title }</Menu.Item>;
   }, [dynamicIcon]);
 
   const generateMenu = useCallback((menuTree: Array<IMenuItem> | undefined) => (
