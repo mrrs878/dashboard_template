@@ -4,13 +4,13 @@
 /*
  * @Author: mrrs878@foxmail.com
  * @Date: 2021-03-29 09:58:37
- * @LastEditTime: 2021-04-15 23:13:32
+ * @LastEditTime: 2021-04-16 19:12:30
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /dashboard_template/src/components/MTagsView/index.tsx
  */
 import { CloseCircleOutlined } from '@ant-design/icons';
-import { last, uniqBy } from 'ramda';
+import { last } from 'ramda';
 import React, {
   useCallback, useEffect, useRef, useState,
 } from 'react';
@@ -59,8 +59,7 @@ const MTagsBar = (props: IMTagsBarProps) => {
   const [contextMenuVisible, setContextMenuVisible] = useState(false);
   const [contextMenuTag, setContextMenuTag] = useState('');
   const [contextMenuPos, setContextMenuPos] = useState<IPosition>({ x: 0, y: 0 });
-  const [tagsSrc] = useModel('tags');
-  const [tags, setTags] = useState<Array<ITag>>(tagsSrc);
+  const [tags, setTags] = useModel('tags');
   const [currentTag, setCurrentTag] = useState(tags[0]?.path);
   const [movingTagPos, setMovingTagPos] = useState<IPosition>({ x: 0, y: 0 });
   const movingTagPath = useRef<string>('');
@@ -73,7 +72,7 @@ const MTagsBar = (props: IMTagsBarProps) => {
   const onTagCloseClick = useCallback((e, path) => {
     e.preventDefault();
     setTags((preTags) => preTags.filter((item) => item.path !== path));
-  }, []);
+  }, [setTags]);
 
   const onTagContextMenu = useCallback((e, path) => {
     e.preventDefault();
@@ -139,7 +138,7 @@ const MTagsBar = (props: IMTagsBarProps) => {
         return newTags;
       });
     },
-    [contextMenuTag],
+    [contextMenuTag, setTags],
   );
 
   const updateTags = useCallback((clientX: number) => {
@@ -163,7 +162,7 @@ const MTagsBar = (props: IMTagsBarProps) => {
       }
       setTags(ordered);
     }
-  }, [tags]);
+  }, [setTags, tags]);
 
   const onTagOver = useCallback((e) => {
     e.preventDefault();
@@ -186,13 +185,6 @@ const MTagsBar = (props: IMTagsBarProps) => {
     setCurrentTag(last(tags)?.path || '');
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tags.length]);
-
-  useEffect(() => {
-    setTags(() => uniqBy(
-      (item) => item.path,
-      tagsSrc.filter(({ title }) => title !== undefined),
-    ));
-  }, [tagsSrc]);
 
   return (
     <>
