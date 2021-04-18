@@ -1,7 +1,7 @@
 /*
  * @Author: mrrs878@foxmail.com
  * @Date: 2021-04-13 10:19:21
- * @LastEditTime: 2021-04-15 23:03:08
+ * @LastEditTime: 2021-04-18 22:55:02
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /dashboard_template/src/view/setting/menu.tsx
@@ -140,6 +140,7 @@ const MenuSetting = () => {
         title, path: last(path?.split('/') || []), icon_name, status, position,
       });
       setEditModalF(true);
+      setCreateOrUpdate(false);
       setCouldAddMenu(_selectMenu.parent === -1 || _selectMenu.key === 'root');
     },
     add: (_selectMenu: IMenuItem | undefined) => () => {
@@ -210,6 +211,8 @@ const MenuSetting = () => {
     const parentMenu = findMenuItemParent(selectMenuTmp)(menuArray);
     console.log(parentMenu?.id);
     const max = calculateMenuPosition(parentMenu?.id);
+    console.log(max);
+
     setMenuPositionRange({ min: 0, max });
     setSelectedMenu(selectMenuTmp);
     setSelectedMenuParent(parentMenu);
@@ -236,10 +239,12 @@ const MenuSetting = () => {
     const position = selectedMenu?.position ?? -1;
     if (position === 0) return;
     const tmp = clone(menuArray);
-    const selectedMenuPosition = tmp.find((item) => item.position === selectedMenu?.position);
-    const preMenuPosition = tmp.find((item) => item.position === position - 1);
-    if (selectedMenuPosition?.position) selectedMenuPosition.position -= 1;
-    if (preMenuPosition?.position) preMenuPosition.position += 1;
+    const selectedMenuPosition = tmp.find((item) => item.id === selectedMenu?.id);
+    const preMenuPosition = tmp.find(
+      (item) => item.position === position - 1 && item.parent === selectedMenu?.parent,
+    );
+    if (selectedMenuPosition?.position !== undefined) selectedMenuPosition.position -= 1;
+    if (preMenuPosition?.position !== undefined) preMenuPosition.position += 1;
     updateMenus(tmp);
     setEditModalF(false);
   }, [menuArray, selectedMenu, updateMenus]);
@@ -248,10 +253,12 @@ const MenuSetting = () => {
     const position = selectedMenu?.position ?? -1;
     if (position === positionRange.max) return;
     const tmp = clone(menuArray);
-    const selectedMenuPosition = tmp.find((item) => item.position === selectedMenu?.position);
-    const preMenuPosition = tmp.find((item) => item.position === position - 1);
-    if (selectedMenuPosition?.position) selectedMenuPosition.position += 1;
-    if (preMenuPosition?.position) preMenuPosition.position -= 1;
+    const selectedMenuPosition = tmp.find((item) => item.id === selectedMenu?.id);
+    const preMenuPosition = tmp.find(
+      (item) => item.position === position + 1 && item.parent === selectedMenu?.parent,
+    );
+    if (selectedMenuPosition?.position !== undefined) selectedMenuPosition.position += 1;
+    if (preMenuPosition?.position !== undefined) preMenuPosition.position -= 1;
     updateMenus(tmp);
     setEditModalF(false);
   }, [menuArray, positionRange, selectedMenu, updateMenus]);

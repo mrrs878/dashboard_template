@@ -4,7 +4,7 @@
 /*
  * @Author: mrrs878@foxmail.com
  * @Date: 2021-03-29 09:58:37
- * @LastEditTime: 2021-04-16 19:12:30
+ * @LastEditTime: 2021-04-18 23:22:24
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /dashboard_template/src/components/MTagsView/index.tsx
@@ -67,10 +67,12 @@ const MTagsBar = (props: IMTagsBarProps) => {
 
   const onTagClick = useCallback((e, path) => {
     setCurrentTag(path);
-  }, []);
+    setTimeout(props.history.replace, 100, path);
+  }, [props.history.replace]);
 
   const onTagCloseClick = useCallback((e, path) => {
     e.preventDefault();
+    e.stopPropagation();
     setTags((preTags) => preTags.filter((item) => item.path !== path));
   }, [setTags]);
 
@@ -182,9 +184,10 @@ const MTagsBar = (props: IMTagsBarProps) => {
   }, [props.location.pathname]);
 
   useEffect(() => {
-    setCurrentTag(last(tags)?.path || '');
+    const path = last(tags)?.path || '';
+    props.history.push(path);
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [tags.length]);
+  }, [props.history.push, tags.length]);
 
   return (
     <>
@@ -207,7 +210,9 @@ const MTagsBar = (props: IMTagsBarProps) => {
                 className={`${style.tagC} ${currentTag === tag.path ? style.active : ''}`}
                 style={{ left: movingTagPath.current === tag.path ? movingTagPos.x : 'unset' }}
               >
-                <span className={style.tagText}>{tag.title}</span>
+                <span className={style.tagText}>
+                  {tag.title}
+                </span>
                 <span
                   className={style.tagClose}
                   onClick={(e) => onTagCloseClick(e, tag.path)}

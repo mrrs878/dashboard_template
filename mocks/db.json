@@ -21,14 +21,14 @@
       "status": 0
     },
     {
-      "id": 2,
+      "parent": -1,
       "key": "setting",
-      "icon_name": "UserOutlined",
+      "id": 2,
       "title": "设置",
       "path": "/setting",
-      "parent": -1,
-      "position": 2,
-      "status": 0
+      "icon_name": "SettingOutlined",
+      "status": 0,
+      "position": 1
     },
     {
       "id": 3,
