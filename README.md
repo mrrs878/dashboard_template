@@ -1,7 +1,7 @@
 <!--
  * @Author: mrrs878@foxmail.com
  * @Date: 2021-02-23 10:19:55
- * @LastEditTime: 2021-04-11 15:37:49
+ * @LastEditTime: 2021-04-19 19:19:11
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /dashboard_template/README.md
@@ -26,7 +26,9 @@ husky + commitlint/eslint 保证git message/代码规范
 
 使用 useContext + useReducer 构建简单的store
 
-useModel: `<T extends keyof IState>(modelName: T): [IState[T], (newModel: IState[T]) => void]`
+`type g<T extends keyof IState> = (value: IState[T]) => IState[T];`
+
+`useModel<T extends keyof IState>(modelName: T): [IState[T], (newModel: IState[T]|g<T>) => void]`
 
 ```tsx
 const UserInfo = () => {
