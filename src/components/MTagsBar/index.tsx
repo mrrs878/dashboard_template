@@ -4,7 +4,7 @@
 /*
  * @Author: mrrs878@foxmail.com
  * @Date: 2021-03-29 09:58:37
- * @LastEditTime: 2021-04-18 23:22:24
+ * @LastEditTime: 2021-04-19 19:13:00
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /dashboard_template/src/components/MTagsView/index.tsx
@@ -215,6 +215,7 @@ const MTagsBar = (props: IMTagsBarProps) => {
                 </span>
                 <span
                   className={style.tagClose}
+                  onMouseDown={(e) => e.stopPropagation()}
                   onClick={(e) => onTagCloseClick(e, tag.path)}
                 >
                   <CloseCircleOutlined />
