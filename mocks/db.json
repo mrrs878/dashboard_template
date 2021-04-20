@@ -58,6 +58,16 @@
       "key": "settingPermission",
       "parent": 2,
       "id": 5
+    },
+    {
+      "parent": -1,
+      "key": "rootArticle",
+      "id": 6,
+      "title": "文章编辑",
+      "path": "/editor",
+      "icon_name": "EditOutlined",
+      "status": 0,
+      "position": 4
     }
   ],
   "user": [
