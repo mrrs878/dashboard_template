@@ -63,7 +63,7 @@
       "parent": -1,
       "key": "rootArticle",
       "id": 6,
-      "title": "文章编辑",
+      "title": "文本编辑器",
       "path": "/editor",
       "icon_name": "EditOutlined",
       "status": 0,
