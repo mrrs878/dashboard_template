@@ -1,7 +1,7 @@
 <!--
  * @Author: mrrs878@foxmail.com
  * @Date: 2021-02-23 10:19:55
- * @LastEditTime: 2021-04-19 19:19:11
+ * @LastEditTime: 2021-04-22 17:20:14
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /dashboard_template/README.md
@@ -63,3 +63,12 @@ role: 0-超级管理员, 1-管理员, 2-普通用户, 3-游客
 - 登录(检测auth_token可用性)
 - 获取菜单数据
 - 获取url权限
+
+## 异常信息捕获
+
+捕获信息分类：
+
+- Promise异常
+- 资源加载错误
+- JSRuntime异常
+- ajax请求异常

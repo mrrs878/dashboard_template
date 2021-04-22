@@ -1,7 +1,7 @@
 /*
  * @Author: mrrs878@foxmail.com
  * @Date: 2021-02-24 14:31:07
- * @LastEditTime: 2021-04-21 19:00:29
+ * @LastEditTime: 2021-04-22 17:31:17
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /dashboard_template/src/interfaces/model.d.ts
@@ -54,11 +54,13 @@ interface IJSRunTimeError extends IBaseErrorInfo {
   position: string;
   stack: string;
   selector: string;
+  message: string;
 }
 
 interface IAssetsError extends IBaseErrorInfo {
   url: string;
   nodeName: string;
+  message: string;
 }
 
 interface IAjaxError extends IBaseErrorInfo {
@@ -66,6 +68,7 @@ interface IAjaxError extends IBaseErrorInfo {
   status: number;
   method: string;
   url: string;
+  message: string;
 }
 
 interface IPromiseError extends IBaseErrorInfo {
