@@ -1,7 +1,7 @@
 /*
  * @Author: mrrs878@foxmail.com
  * @Date: 2021-02-26 10:49:28
- * @LastEditTime: 2021-04-13 23:11:11
+ * @LastEditTime: 2021-04-23 18:50:29
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /dashboard_template/mocks/route.js
@@ -17,10 +17,11 @@ const router = jsonServer.router(path.join(__dirname, 'db.json'));
 const middlewares = jsonServer.defaults();
 
 router.render = (req, res) => {
+  const success = res.statusCode >= 200 && res.statusCode <= 400;
   res.jsonp({
-    success: true,
-    return_message: '操作成功',
-    return_code: 0,
+    success,
+    return_message: success ? '操作成功' : '操作失败',
+    return_code: success ? 0 : -1,
     data: res.locals.data,
   });
 };
@@ -61,6 +62,19 @@ server.get('/auth/autoLogin', (req, res) => {
 server.put('/menu', async (req, res) => {
   try {
     await router.db.set('menu', req.body).write();
+    res.jsonp({
+      success: true,
+      return_message: '更新成功',
+      return_code: 0,
+    });
+  } catch (e) {
+    console.log(e);
+  }
+});
+server.get('/exceptionLog', async (req, res) => {
+  try {
+    const { error } = req.query;
+    await router.db.get('exceptionLog').insert({ ...JSON.parse(error), create_time: new Date().toLocaleString() }).write();
     res.jsonp({
       success: true,
       return_message: '更新成功',

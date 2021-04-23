@@ -31,7 +31,7 @@ interface GuardComponentPropsI {
   path: string;
 }
 
-const ROUTES: Array<RouteConfigI> = [
+const ROUTES: Array<IRouteConfig> = [
   {
     path: '/home',
     component: Home,

@@ -125,5 +125,26 @@
       "role": 3,
       "status": 0
     }
+  ],
+  "exceptionLog": [
+    {
+      "response": {
+        "success": false,
+        "return_message": "操作失败",
+        "return_code": -1,
+        "data": {}
+      },
+      "status": 404,
+      "method": "GET",
+      "url": "http://localhost:3003/auth/permissionUrl",
+      "message": "Not Found",
+      "title": "undefined",
+      "location": "http://localhost:8083/",
+      "kind": "stability",
+      "type": "error",
+      "errorType": "AjaxError",
+      "create_time": "2021/4/23 下午6:50:32",
+      "id": 1
+    }
   ]
 }

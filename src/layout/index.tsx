@@ -1,7 +1,7 @@
 /*
  * @Author: mrrs878@foxmail.com
  * @Date: 2021-02-24 10:13:41
- * @LastEditTime: 2021-04-22 19:24:27
+ * @LastEditTime: 2021-04-23 18:42:06
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /dashboard_template/src/layout/index.tsx
@@ -31,7 +31,7 @@ const MLayout = () => {
 
   useEffect(() => {
     message.config({ duration: 1 });
-    initExceptionSentry();
+    initExceptionSentry({ url: 'http://localhost:3003/exceptionLog' });
   }, []);
   when<any, void>(
     compose(not, equals(false), prop('auth')),

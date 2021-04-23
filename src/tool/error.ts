@@ -1,7 +1,7 @@
 /*
  * @Author: mrrs878@foxmail.com
  * @Date: 2021-04-21 15:16:48
- * @LastEditTime: 2021-04-22 19:22:53
+ * @LastEditTime: 2021-04-23 18:40:25
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /dashboard_template/src/tool/error.ts
@@ -13,6 +13,8 @@ enum ErrorTypes {
   'JSRuntimeError' = 'JSRuntimeError',
   'AjaxError' = 'AjaxError',
 }
+
+let sentryConfig: IExceptionSentryConfig = { url: '' };
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function getLastEvent(): undefined|Event {
@@ -48,7 +50,7 @@ function getSelector(path: Array<EventTarget>) {
 function report<T>(info: T) {
   console.log(info);
   const image = new Image();
-  image.src = '1';
+  image.src = `${sentryConfig.url}?error=${JSON.stringify(info)}`;
 }
 
 function catchPromiseError() {
@@ -154,7 +156,8 @@ function catchAjaxError() {
   };
 }
 
-function initExceptionSentry() {
+function initExceptionSentry(config: IExceptionSentryConfig) {
+  sentryConfig = config;
   catchPromiseError();
   catchAssetsError();
   catchAjaxError();

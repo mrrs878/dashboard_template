@@ -1,7 +1,7 @@
 /*
  * @Author: mrrs878@foxmail.com
  * @Date: 2021-02-23 11:22:06
- * @LastEditTime: 2021-04-13 10:43:39
+ * @LastEditTime: 2021-04-23 18:49:36
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /dashboard_template/.eslintrc.js
@@ -29,7 +29,7 @@ module.exports = {
         selector: 'property',
         format: ['strictCamelCase'],
         filter: {
-          regex: '^(icon_name|return_code|return_message|return_code)$',
+          regex: '^(icon_name|return_code|return_message|return_code|create_time)$',
           match: false,
         },
       },
