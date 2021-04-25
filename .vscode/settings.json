@@ -4,6 +4,7 @@
     "Sider",
     "bytemd",
     "commitlint",
+    "cond",
     "linebreak",
     "middlewares",
     "noninteractive",

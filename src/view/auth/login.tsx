@@ -1,7 +1,7 @@
 /*
  * @Author: mrrs878@foxmail.com
  * @Date: 2021-04-06 22:37:02
- * @LastEditTime: 2021-04-11 16:59:40
+ * @LastEditTime: 2021-04-25 16:43:07
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \dashboard_template\src\view\auth\login.tsx
@@ -15,7 +15,7 @@ import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { LOGIN } from '../../api/auth';
 import MVerify from '../../components/MVerify';
 import useRequest from '../../hook/useRequest';
-import { useFullScreen, useModel } from '../../store';
+import { useFullScreen, useUser } from '../../store';
 import style from './login.module.less';
 
 const layout = {
@@ -31,7 +31,7 @@ const Login = (props: RouteComponentProps) => {
   const [loginFrom] = useForm();
   const [verifyModalFlag, setVerifyModalFlag] = useState(false);
   const [, loginRes, login] = useRequest(LOGIN, false);
-  const [, updateUser] = useModel('user');
+  const [, updateUser] = useUser();
 
   const onSuccess = useCallback(() => {
     setVerifyModalFlag(false);
@@ -60,7 +60,7 @@ const Login = (props: RouteComponentProps) => {
     exitFullScreen();
     updateUser(loginRes.data);
     localStorage.setItem('auth_token', loginRes.data.token);
-    setTimeout(props.history.goBack, 300);
+    setTimeout(props.history.goBack, 500);
   }, [exitFullScreen, loginRes, props.history, updateUser]);
   return (
     <div className={style.container}>

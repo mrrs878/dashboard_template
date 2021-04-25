@@ -4,13 +4,15 @@
 /*
  * @Author: mrrs878@foxmail.com
  * @Date: 2021-03-29 09:58:37
- * @LastEditTime: 2021-04-19 19:13:00
+ * @LastEditTime: 2021-04-25 14:24:58
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /dashboard_template/src/components/MTagsView/index.tsx
  */
 import { CloseCircleOutlined } from '@ant-design/icons';
-import { last } from 'ramda';
+import {
+  compose, gt, last, length, prop, when,
+} from 'ramda';
 import React, {
   useCallback, useEffect, useRef, useState,
 } from 'react';
@@ -184,8 +186,12 @@ const MTagsBar = (props: IMTagsBarProps) => {
   }, [props.location.pathname]);
 
   useEffect(() => {
-    const path = last(tags)?.path || '';
-    props.history.push(path);
+    when<Array<ITag>, void>(
+      compose(gt(0), length),
+      compose<Array<ITag>, any, any, any>(props.history.push, prop('path'), last),
+    )(tags);
+    // const path = last(tags)?.path || '';
+    // props.history.push(path);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.history.push, tags.length]);
 

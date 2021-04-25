@@ -1,7 +1,7 @@
 /*
  * @Author: mrrs878@foxmail.com
  * @Date: 2021-02-26 10:49:28
- * @LastEditTime: 2021-04-23 18:50:29
+ * @LastEditTime: 2021-04-25 16:48:08
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /dashboard_template/mocks/route.js
@@ -56,7 +56,7 @@ server.get('/auth/autoLogin', (req, res) => {
     success: true,
     return_message: '登录信息失效，请重新登录',
     return_code: 0,
-    data: router.db.get('user').value()[0],
+    data: router.db.get('user').value()[1],
   });
 });
 server.put('/menu', async (req, res) => {

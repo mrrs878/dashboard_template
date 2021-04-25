@@ -1,7 +1,7 @@
 /*
  * @Author: mrrs878@foxmail.com
  * @Date: 2021-04-21 15:16:48
- * @LastEditTime: 2021-04-23 18:40:25
+ * @LastEditTime: 2021-04-25 10:35:23
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /dashboard_template/src/tool/error.ts
@@ -16,7 +16,6 @@ enum ErrorTypes {
 
 let sentryConfig: IExceptionSentryConfig = { url: '' };
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function getLastEvent(): undefined|Event {
   let lastEvent;
   ['click', 'touchstart', 'mousedown', 'keydown', 'mouseover'].forEach((eventType) => document.addEventListener(eventType, (event) => {

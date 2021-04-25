@@ -1,7 +1,7 @@
 <!--
  * @Author: mrrs878@foxmail.com
  * @Date: 2021-02-23 10:19:55
- * @LastEditTime: 2021-04-22 17:20:14
+ * @LastEditTime: 2021-04-25 17:28:57
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /dashboard_template/README.md
@@ -52,11 +52,53 @@ const UserInfo = () => {
 
 url + RBAC
 
-在跳转页面之前针对url做拦截, 某一url具有相关角色的用户才能访问
-
 role: 0-超级管理员, 1-管理员, 2-普通用户, 3-游客
 
-登录成功后auth_token存储在cookie中
+登录成功后auth_token存储在localStorage中
+
+打开应用时`useAutoLogin`执行（使用`auth_token`换取用户信息），更新`store.user`信息
+
+在`Route.render`函数里(`src/route/index.tsx`)进行拦截，某一url具有相关角色的用户才能访问
+
+``` tsx
+const GuardComponent = (props: GuardComponentPropsI) => {
+  const [permissionUrls] = useModel('permissionUrls');
+  const [user] = useModel('user');
+
+  // ...
+
+  const Component = (props.component) as any;
+  const urlRole = permissionUrls.find((item) => item.url === props.path)?.role || 0;
+
+  return cond([
+    [() => and(equals(user.role, -1), props.auth), () => <Redirect to="/auth/login" />],
+    [() => and(equals(user.role, -1), not(props.auth)), () => <Component />],
+    [() => gt(user.role, urlRole), () => <ForbiddenPage />],
+    [() => lte(user.role, urlRole), () => <Component />],
+  ])(user);
+};
+
+<Route
+  key={route.path}
+  path={route.path}
+  exact={route.exact || true}
+  render={() => (
+    <GuardComponent
+      // component对应的path
+      path={route.path}
+      // path对应的component
+      component={route.component}
+      // 该页面是否需要登录
+      auth={route.auth || false}
+    />
+  )}
+/>
+```
+
+1. `user.role === -1`，表示未登录
+  对于`auth === true`的页面，重定向到`/auth/login`；对于`auth === false`的页面，正常返回页面
+2. `user.role !== -1`，表示已登录
+  判断要前往的`url`的`role`，如果`user.role > url.role` --> 权限不够，返回`ForbiddenPage`；反之正常返回
 
 ## 一些必需api请求统一在`src/layout/index.tsx`中调用
 

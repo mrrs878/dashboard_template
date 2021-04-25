@@ -1,17 +1,17 @@
 /*
  * @Author: mrrs878@foxmail.com
  * @Date: 2021-02-26 18:16:29
- * @LastEditTime: 2021-04-20 23:10:43
+ * @LastEditTime: 2021-04-25 17:27:07
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /dashboard_template/src/route/index.tsx
  */
 
 import {
-  and, compose, filter, not, uniqBy, when,
+  and, compose, cond, equals, filter, gt, lte, not, uniqBy,
 } from 'ramda';
 import React, { Suspense, useEffect } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Redirect, Route, Switch } from 'react-router-dom';
 import MLoading from '../components/MLoading';
 import useDocumentTitle from '../hook/useDocumentTitle';
 import { useModel } from '../store';
@@ -24,6 +24,7 @@ const Setting = React.lazy(() => import('../view/setting'));
 const MenuSetting = React.lazy(() => import('../view/setting/menu'));
 const Permission = React.lazy(() => import('../view/setting/permission'));
 const Editor = React.lazy(() => import('../view/editor'));
+const ExceptionSentry = React.lazy(() => import('../view/exception'));
 
 interface GuardComponentPropsI {
   component: any;
@@ -73,6 +74,10 @@ const ROUTES: Array<IRouteConfig> = [
     path: '/editor',
     component: Editor,
   },
+  {
+    path: '/exceptionSentry',
+    component: ExceptionSentry,
+  },
 ];
 
 const GuardComponent = (props: GuardComponentPropsI) => {
@@ -92,19 +97,14 @@ const GuardComponent = (props: GuardComponentPropsI) => {
   }, [path, titles, updateTags]);
 
   const Component = (props.component) as any;
-  let tmp = <Component />;
+  const urlRole = permissionUrls.find((item) => item.url === props.path)?.role || 0;
 
-  useEffect(() => {
-    when(
-      compose(and(props.auth), not),
-      () => { window.location.href = '/auth/login'; },
-    )(localStorage.getItem('auth_token'));
-  }, [props.auth]);
-  if (user.role === -1
-    || user.role > (permissionUrls.find((item) => item.url === props.path)?.role || 0)) {
-    tmp = <ForbiddenPage />;
-  }
-  return tmp;
+  return cond([
+    [() => and(equals(user.role, -1), props.auth), () => <Redirect to="/auth/login" />],
+    [() => and(equals(user.role, -1), not(props.auth)), () => <Component />],
+    [() => gt(user.role, urlRole), () => <ForbiddenPage />],
+    [() => lte(user.role, urlRole), () => <Component />],
+  ])(user);
 };
 
 const Router = () => (

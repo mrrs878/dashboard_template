@@ -1,7 +1,7 @@
 /*
  * @Author: mrrs878@foxmail.com
  * @Date: 2021-02-23 18:24:16
- * @LastEditTime: 2021-04-15 23:30:06
+ * @LastEditTime: 2021-04-25 15:35:26
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /dashboard_template/src/store/index.ts
@@ -76,7 +76,7 @@ function useModel<T extends keyof IState>(modelName: T)
     },
   ), [dispatch, modelName]);
   return [
-    state[modelName],
+    stateRef.current[modelName],
     updateFunction,
   ];
 }
@@ -94,6 +94,31 @@ function useFullScreen(): [boolean, () => void, () => void] {
     state.fullScreen,
     fullScreen,
     exitFullScreen,
+  ];
+}
+
+function useUser(): [IUser, (newModel: IUser|g<'user'>) => void, () => void] {
+  const { state, dispatch } = useContext(StoreContext);
+  const stateRef = useRef<IState>(state);
+  stateRef.current = state;
+  const login = useCallback((modelValue: IUser|g<'user'>) => dispatch(
+    {
+      type: Actions.UPDATE_USER,
+      data: typeof modelValue === 'function' ? modelValue(stateRef.current.user) : modelValue,
+    },
+  ), [dispatch]);
+  const logout = useCallback(() => dispatch(
+    {
+      type: Actions.UPDATE_USER,
+      data: {
+        name: '', age: -1, address: '', id: -1, role: -1,
+      },
+    },
+  ), [dispatch]);
+  return [
+    stateRef.current.user,
+    login,
+    logout,
   ];
 }
 
@@ -120,5 +145,5 @@ function reducer(state: IState, action: Action): IState {
 }
 
 export {
-  reducer, StoreContext, defaultState, useFullScreen, useModel,
+  reducer, StoreContext, defaultState, useFullScreen, useModel, useUser,
 };
