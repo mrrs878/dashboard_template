@@ -1,7 +1,7 @@
 <!--
  * @Author: mrrs878@foxmail.com
  * @Date: 2021-02-23 10:19:55
- * @LastEditTime: 2021-04-25 17:28:57
+ * @LastEditTime: 2021-06-14 23:35:17
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /dashboard_template/README.md
@@ -42,7 +42,6 @@ const UserInfo = () => {
   );
 };
 ```
-
 
 ## 滑动🧩验证
 
@@ -105,6 +104,7 @@ const GuardComponent = (props: GuardComponentPropsI) => {
 - 登录(检测auth_token可用性)
 - 获取菜单数据
 - 获取url权限
+- 初始化异常信息捕获配置
 
 ## 异常信息捕获
 
