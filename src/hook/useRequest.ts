@@ -1,10 +1,9 @@
 /*
  * @Author: mrrs878@foxmail.com
  * @Date: 2021-02-24 11:22:31
- * @LastEditTime: 2021-02-24 11:23:43
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-07-29 15:10:53
+ * @LastEditors: mrrs878@foxmail.com
  * @Description: In User Settings Edit
- * @FilePath: /dashboard_template/src/hook/useRequest.ts
  */
 import { useEffect, useState, useCallback } from 'react';
 
@@ -17,11 +16,16 @@ function useRequest<P, T>(api: (params: P) => Promise<T>, visible = true, params
 
   const fetch = useCallback(async () => {
     if (autoFetch) {
-      const param = (newParams || {}) as P;
-      setLoading(true);
-      const tmp = await api(param);
-      setRes(tmp);
-      setLoading(false);
+      try {
+        const param = (newParams || {}) as P;
+        setLoading(true);
+        const tmp = await api(param);
+        setRes(tmp);
+        setLoading(false);
+      } catch (e) {
+        setLoading(false);
+        setRes(e);
+      }
     }
   }, [api, autoFetch, newParams]);
 
