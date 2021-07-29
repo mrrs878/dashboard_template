@@ -1,10 +1,9 @@
 /*
  * @Author: mrrs878@foxmail.com
  * @Date: 2021-02-26 18:16:29
- * @LastEditTime: 2021-04-25 17:27:07
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-07-29 20:16:17
+ * @LastEditors: mrrs878@foxmail.com
  * @Description: In User Settings Edit
- * @FilePath: /dashboard_template/src/route/index.tsx
  */
 
 import {
@@ -87,7 +86,7 @@ const GuardComponent = (props: GuardComponentPropsI) => {
   const [, updateTags] = useModel('tags');
 
   const path = props.path.replace(/\/:(.+)/g, '');
-  useDocumentTitle(titles[path]);
+  useDocumentTitle(titles[path] || '首页');
 
   useEffect(() => {
     updateTags((pre) => compose(
@@ -100,6 +99,7 @@ const GuardComponent = (props: GuardComponentPropsI) => {
   const urlRole = permissionUrls.find((item) => item.url === props.path)?.role || 0;
 
   return cond([
+    [() => equals(path, '/'), () => <Redirect to="/home" />],
     [() => and(equals(user.role, -1), props.auth), () => <Redirect to="/auth/login" />],
     [() => and(equals(user.role, -1), not(props.auth)), () => <Component />],
     [() => gt(user.role, urlRole), () => <ForbiddenPage />],

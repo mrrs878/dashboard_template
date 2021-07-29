@@ -78,6 +78,16 @@
       "key": "rootExceptionSentry",
       "parent": -1,
       "id": 7
+    },
+    {
+      "parent": -1,
+      "key": "rootForm",
+      "id": 8,
+      "title": "表单",
+      "path": "/form",
+      "icon_name": "FormOutlined",
+      "status": 1,
+      "position": 6
     }
   ],
   "user": [
@@ -94,7 +104,7 @@
       "name": "jerry",
       "age": 23,
       "address": "Taiwan China",
-      "role": 1,
+      "role": 0,
       "token": "dsasahhcuwhe23823~[]lu9cu"
     }
   ],
@@ -386,6 +396,76 @@
       "errorType": "JSRuntimeError",
       "create_time": "2021/4/25 下午4:49:51",
       "id": 15
+    },
+    {
+      "message": "ResizeObserver loop limit exceeded",
+      "filename": "http://localhost:8083/setting/menu",
+      "position": "0:0",
+      "selector": "",
+      "stack": "",
+      "title": "菜单设置",
+      "location": "http://localhost:8083/setting/menu",
+      "kind": "stability",
+      "type": "error",
+      "errorType": "JSRuntimeError",
+      "create_time": "2021/7/29 下午8:17:56",
+      "id": 16
+    },
+    {
+      "response": {
+        "success": true,
+        "return_message": "操作成功",
+        "return_code": 0,
+        "data": {
+          "title": "表单",
+          "path": "/form",
+          "icon_name": "FormOutlined",
+          "status": 0,
+          "position": 6,
+          "key": "rootForm",
+          "parent": -1,
+          "id": 8
+        }
+      },
+      "status": 201,
+      "method": "GET",
+      "url": "http://localhost:3003/setting/menu",
+      "message": "Created",
+      "title": "菜单设置",
+      "location": "http://localhost:8083/setting/menu",
+      "kind": "stability",
+      "type": "error",
+      "errorType": "AjaxError",
+      "create_time": "2021/7/29 下午8:20:40",
+      "id": 17
+    },
+    {
+      "message": "Uncaught TypeError: Cannot read property 'session' of undefined",
+      "filename": "http://localhost:8083/static/js/9.chunk.js",
+      "position": "237:98",
+      "selector": "",
+      "stack": "MVerify (http://localhost:8083/static/js/9.chunk.js:237:98)renderWithHooks (http://localhost:8083/static/js/vendors~main.chunk.js:120940:22)updateFunctionComponent (http://localhost:8083/static/js/vendors~main.chunk.js:123262:24)beginWork (http://localhost:8083/static/js/vendors~main.chunk.js:124915:20)HTMLUnknownElement.callCallback (http://localhost:8083/static/js/vendors~main.chunk.js:109890:18)Object.invokeGuardedCallbackDev (http://localhost:8083/static/js/vendors~main.chunk.js:109939:20)invokeGuardedCallback (http://localhost:8083/static/js/vendors~main.chunk.js:109999:35)beginWork$1 (http://localhost:8083/static/js/vendors~main.chunk.js:129741:11)performUnitOfWork (http://localhost:8083/static/js/vendors~main.chunk.js:128577:16)workLoopSync (http://localhost:8083/static/js/vendors~main.chunk.js:128514:9)renderRootSync (http://localhost:8083/static/js/vendors~main.chunk.js:128480:11)performSyncWorkOnRoot (http://localhost:8083/static/js/vendors~main.chunk.js:128097:22)http://localhost:8083/static/js/vendors~main.chunk.js:117350:30unstable_runWithPriority (http://localhost:8083/static/js/vendors~main.chunk.js:142685:16)runWithPriority$1 (http://localhost:8083/static/js/vendors~main.chunk.js:117296:14)flushSyncCallbackQueueImpl (http://localhost:8083/static/js/vendors~main.chunk.js:117345:13)flushSyncCallbackQueue (http://localhost:8083/static/js/vendors~main.chunk.js:117333:7)scheduleUpdateOnFiber (http://localhost:8083/static/js/vendors~main.chunk.js:127697:13)dispatchAction (http://localhost:8083/static/js/vendors~main.chunk.js:122066:9)http://localhost:8083/static/js/main.chunk.js:2894:9",
+      "title": "首页",
+      "location": "http://localhost:8083/auth/login",
+      "kind": "stability",
+      "type": "error",
+      "errorType": "JSRuntimeError",
+      "create_time": "2021/7/29 下午8:25:23",
+      "id": 18
+    },
+    {
+      "message": "ResizeObserver loop limit exceeded",
+      "filename": "http://localhost:8083/setting/menu",
+      "position": "0:0",
+      "selector": "",
+      "stack": "",
+      "title": "菜单设置",
+      "location": "http://localhost:8083/setting/menu",
+      "kind": "stability",
+      "type": "error",
+      "errorType": "JSRuntimeError",
+      "create_time": "2021/7/29 下午8:25:34",
+      "id": 19
     }
   ]
 }

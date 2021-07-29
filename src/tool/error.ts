@@ -1,10 +1,10 @@
 /*
  * @Author: mrrs878@foxmail.com
  * @Date: 2021-04-21 15:16:48
- * @LastEditTime: 2021-04-25 10:35:23
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-07-29 19:58:59
+ * @LastEditors: mrrs878@foxmail.com
  * @Description: In User Settings Edit
- * @FilePath: /dashboard_template/src/tool/error.ts
+ * @FilePath: \mindmapd:\Data\Personal\MyPro\dashboard_template\src\tool\error.ts
  */
 
 enum ErrorTypes {
@@ -47,7 +47,6 @@ function getSelector(path: Array<EventTarget>) {
 }
 
 function report<T>(info: T) {
-  console.log(info);
   const image = new Image();
   image.src = `${sentryConfig.url}?error=${JSON.stringify(info)}`;
 }
@@ -126,10 +125,8 @@ function catchAjaxError() {
         const { response, status, statusText } = event.currentTarget;
         const { method, url } = oldArgs;
 
-        console.log(event);
-
         report<IAjaxError>({
-          response: JSON.parse(response),
+          response: JSON.parse(response || '{}'),
           status,
           method,
           url,
