@@ -1,10 +1,9 @@
 /*
  * @Author: mrrs878@foxmail.com
  * @Date: 2021-02-23 18:24:16
- * @LastEditTime: 2021-04-25 15:35:26
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-07-30 10:38:51
+ * @LastEditors: mrrs878@foxmail.com
  * @Description: In User Settings Edit
- * @FilePath: /dashboard_template/src/store/index.ts
  */
 import {
   createContext, useCallback, useContext, useRef,
@@ -21,6 +20,11 @@ enum Actions {
   UPDATE_MENU_TITLES,
   UPDATE_PERMISSION_URLS,
   UPDATE_TAGS,
+}
+
+interface IActions<T extends Actions, P> {
+  type: T;
+  data: P;
 }
 
 type UpdateModel<T extends keyof IState> =

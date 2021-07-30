@@ -1,10 +1,9 @@
 /*
  * @Author: mrrs878@foxmail.com
  * @Date: 2021-02-24 09:45:17
- * @LastEditTime: 2021-04-15 22:42:11
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-07-30 10:37:34
+ * @LastEditors: mrrs878@foxmail.com
  * @Description: In User Settings Edit
- * @FilePath: /dashboard_template/src/interfaces/index.d.ts
  */
 interface IUser {
   name: string;
@@ -21,9 +20,4 @@ interface IState {
   menuTitles: Record<string, string>;
   permissionUrls: Array<IPermissionUrl>;
   tags: Array<ITag>,
-}
-
-interface IActions<T extends Actions, P> {
-  type: T;
-  data: P;
 }
