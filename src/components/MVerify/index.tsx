@@ -3,10 +3,10 @@
 /*
  * @Author: mrrs878@foxmail.com
  * @Date: 2021-04-06 22:33:55
- * @LastEditTime: 2021-04-08 10:51:26
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-08-02 19:42:34
+ * @LastEditors: mrrs878@foxmail.com
  * @Description: In User Settings Edit
- * @FilePath: \dashboard_template\src\components\MVerify\index.tsx
+ * @FilePath: d:\Data\Personal\MyPro\dashboard_template\src\components\MVerify\index.tsx
  */
 import { Spin } from 'antd';
 import React, {
@@ -52,8 +52,8 @@ const MVerify = (props: IMVerifyProps) => {
   const [checkPuzzleLoading, checkPuzzleRes, checkPuzzle] = useRequest(CHECK_PUZZLE_IMG, false);
 
   const verify = useCallback((left) => {
-    checkPuzzle({ left, session: puzzleImgRes?.data.session || '' });
-  }, [checkPuzzle, puzzleImgRes?.data.session]);
+    checkPuzzle({ left, session: puzzleImgRes?.data?.session || '' });
+  }, [checkPuzzle, puzzleImgRes?.data?.session]);
 
   const reset = useCallback(() => {
     setMoveX(0);
@@ -136,9 +136,9 @@ const MVerify = (props: IMVerifyProps) => {
             position: 'absolute', width: w, height: h, lineHeight: `${h}px`,
           }}
         />
-        <img src={puzzleImgRes?.data.canvas} alt="" srcSet="" width={w} height={h} crossOrigin="anonymous" />
+        <img src={puzzleImgRes?.data?.canvas} alt="" srcSet="" width={w} height={h} crossOrigin="anonymous" />
         <div onClick={getPuzzleImg} className={style.refreshIcon} />
-        <img src={puzzleImgRes?.data.block} alt="" srcSet="" className={style.block} style={{ left: moveX || 10 }} />
+        <img src={puzzleImgRes?.data?.block} alt="" srcSet="" className={style.block} style={{ left: moveX || 10 }} />
         <span
           className={`${style.resultTip}
             ${verifyStatus === VerifyStatus.success ? style.success : ''}

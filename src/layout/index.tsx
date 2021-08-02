@@ -1,10 +1,10 @@
 /*
  * @Author: mrrs878@foxmail.com
  * @Date: 2021-02-24 10:13:41
- * @LastEditTime: 2021-04-25 16:58:46
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-08-02 19:52:38
+ * @LastEditors: mrrs878@foxmail.com
  * @Description: In User Settings Edit
- * @FilePath: /dashboard_template/src/layout/index.tsx
+ * @FilePath: d:\Data\Personal\MyPro\dashboard_template\src\layout\index.tsx
  */
 
 import { ConfigProvider, Layout, message } from 'antd';

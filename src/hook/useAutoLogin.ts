@@ -2,10 +2,10 @@
 /*
  * @Author: mrrs878@foxmail.com
  * @Date: 2021-04-11 15:46:49
- * @LastEditTime: 2021-04-25 15:37:56
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-08-02 19:50:17
+ * @LastEditors: mrrs878@foxmail.com
  * @Description: In User Settings Edit
- * @FilePath: \dashboard_template\src\hook\useAutoLogin.ts
+ * @FilePath: d:\Data\Personal\MyPro\dashboard_template\src\hook\useAutoLogin.ts
  */
 import { message } from 'antd';
 import { useEffect } from 'react';

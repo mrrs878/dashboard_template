@@ -1,10 +1,10 @@
 <!--
  * @Author: mrrs878@foxmail.com
  * @Date: 2021-02-23 10:19:55
- * @LastEditTime: 2021-06-14 23:35:17
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-08-02 19:54:00
+ * @LastEditors: mrrs878@foxmail.com
  * @Description: In User Settings Edit
- * @FilePath: /dashboard_template/README.md
+ * @FilePath: d:\Data\Personal\MyPro\dashboard_template\README.md
 -->
 # 简单后台模版
 
@@ -114,3 +114,7 @@ const GuardComponent = (props: GuardComponentPropsI) => {
 - 资源加载错误
 - JSRuntime异常
 - ajax请求异常
+
+## bug🐞
+
+自动登录存在问题
