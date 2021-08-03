@@ -1,7 +1,7 @@
 /*
  * @Author: mrrs878@foxmail.com
  * @Date: 2021-02-26 18:16:29
- * @LastEditTime: 2021-08-02 19:49:48
+ * @LastEditTime: 2021-08-03 15:40:08
  * @LastEditors: mrrs878@foxmail.com
  * @Description: In User Settings Edit
  */
@@ -97,11 +97,12 @@ const GuardComponent = (props: GuardComponentPropsI) => {
 
   const Component = (props.component) as any;
   const urlRole = permissionUrls.find((item) => item.url === props.path)?.role || 0;
+  const token = localStorage.getItem('auth_token');
 
   return cond([
     [() => equals(path, '/'), () => <Redirect to="/home" />],
-    [() => and(equals(user.role, -1), props.auth), () => <Redirect to="/auth/login" />],
-    [() => and(equals(user.role, -1), not(props.auth)), () => <Component />],
+    [() => and(equals(token, ''), props.auth), () => <Redirect to="/auth/login" />],
+    [() => and(equals(token, ''), not(props.auth)), () => <Component />],
     [() => gt(user.role, urlRole), () => <ForbiddenPage />],
     [() => lte(user.role, urlRole), () => <Component />],
   ])(user);

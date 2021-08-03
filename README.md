@@ -1,7 +1,7 @@
 <!--
  * @Author: mrrs878@foxmail.com
  * @Date: 2021-02-23 10:19:55
- * @LastEditTime: 2021-08-02 19:54:00
+ * @LastEditTime: 2021-08-03 17:02:01
  * @LastEditors: mrrs878@foxmail.com
  * @Description: In User Settings Edit
  * @FilePath: d:\Data\Personal\MyPro\dashboard_template\README.md
@@ -55,7 +55,9 @@ role: 0-超级管理员, 1-管理员, 2-普通用户, 3-游客
 
 登录成功后auth_token存储在localStorage中
 
-打开应用时`useAutoLogin`执行（使用`auth_token`换取用户信息），更新`store.user`信息
+~~打开应用时`useAutoLogin`执行（使用`auth_token`换取用户信息），更新`store.user`信息~~
+
+`localStorage`中存储的`auth_token`为用户登录态标识，为空时表示登录态失效。会在登录成功/登录态失效后设置或重置
 
 在`Route.render`函数里(`src/route/index.tsx`)进行拦截，某一url具有相关角色的用户才能访问
 
@@ -117,4 +119,4 @@ const GuardComponent = (props: GuardComponentPropsI) => {
 
 ## bug🐞
 
-自动登录存在问题
+~~自动登录存在问题~~

@@ -1,10 +1,10 @@
 /*
  * @Author: mrrs878@foxmail.com
  * @Date: 2021-02-23 11:21:04
- * @LastEditTime: 2021-03-29 13:53:07
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-08-03 15:38:18
+ * @LastEditors: mrrs878@foxmail.com
  * @Description: In User Settings Edit
- * @FilePath: /dashboard_template/src/App.tsx
+ * @FilePath: d:\Data\Personal\MyPro\dashboard_template\src\App.tsx
  */
 import React, { useReducer } from 'react';
 import MErrorBoundary from './components/MErrorBoundary';

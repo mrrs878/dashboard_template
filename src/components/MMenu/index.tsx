@@ -1,16 +1,16 @@
 /*
  * @Author: mrrs878@foxmail.com
  * @Date: 2021-02-24 10:25:01
- * @LastEditTime: 2021-04-15 16:48:11
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-08-03 16:53:04
+ * @LastEditors: mrrs878@foxmail.com
  * @Description: In User Settings Edit
- * @FilePath: /dashboard_template/src/components/MMenu.tsx
+ * @FilePath: d:\Data\Personal\MyPro\dashboard_template\src\components\MMenu\index.tsx
  */
 import React, { useCallback, useMemo } from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { Menu } from 'antd';
 import * as _Icon from '@ant-design/icons';
-import { clone } from 'ramda';
+import { and, clone, ifElse } from 'ramda';
 import style from './index.module.less';
 import { useModel } from '../../store';
 
@@ -40,31 +40,30 @@ const MMenu: React.FC<PropsI> = (props: PropsI) => {
     return iconName ? React.createElement(Icon[iconName]) : '';
   }, []);
 
-  const walkMenu = useCallback((item: IMenuItem) => {
-    const icon = dynamicIcon(item.icon_name);
-    if (item.status !== 0) return <></>;
-    if ((item.children?.length || 0) > 0) {
-      return (
-        <SubMenu key={item.path} icon={icon} title={item.title}>
-          {
-            item.children?.map((child) => walkMenu(child))
-          }
-        </SubMenu>
-      );
-    }
-    return <Menu.Item icon={item.parent === -1 ? icon : ''} key={item.path}>{ item.title }</Menu.Item>;
-  }, [dynamicIcon]);
+  const walkMenu = useCallback((item: IMenuItem) => ifElse(
+    () => and(item.status === 0, (item.children?.length || 0) > 0),
+    () => (
+      <SubMenu key={item.key} icon={dynamicIcon(item.icon_name)} title={item.title}>
+        {
+          item.children?.map((child) => walkMenu(child))
+        }
+      </SubMenu>
+    ),
+    () => (
+      <Menu.Item icon={item.parent === -1 ? dynamicIcon(item.icon_name) : ''} key={item.key}>{ item.title }</Menu.Item>
+    ),
+  )(item), [dynamicIcon]);
 
   const generateMenu = useCallback((menuTree: Array<IMenuItem> | undefined) => (
     menuTree && (
       <Menu onClick={onMenuClick} activeKey={window.location.pathname} defaultSelectedKeys={[window.location.pathname]} mode="inline" theme="dark">
-        <div className={style.logo}>
+        <div className={style.logo} key="logo">
           <a href="https://" target="_blank" rel="noreferrer">
             this is logo
           </a>
         </div>
         {
-          menuTree?.map((item) => walkMenu(item))
+          menuTree?.filter((item) => item.status === 0).map((item) => walkMenu(item))
         }
       </Menu>
     )

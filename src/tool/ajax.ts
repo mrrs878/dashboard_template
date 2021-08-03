@@ -1,10 +1,10 @@
 /*
  * @Author: mrrs878@foxmail.com
  * @Date: 2021-02-24 14:29:29
- * @LastEditTime: 2021-04-25 11:06:38
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-08-03 15:41:33
+ * @LastEditors: mrrs878@foxmail.com
  * @Description: In User Settings Edit
- * @FilePath: /dashboard_template/src/tool/ajax.ts
+ * @FilePath: d:\Data\Personal\MyPro\dashboard_template\src\tool\ajax.ts
  */
 import axios from 'axios';
 import { clone } from 'ramda';
@@ -20,6 +20,7 @@ ajax.interceptors.request.use((config) => {
 });
 ajax.interceptors.response.use(async (response) => {
   if ([401].includes(response.data.code)) {
+    localStorage.setItem('auth_token', '');
     window.location.href = '/auth/login';
     return null;
   }

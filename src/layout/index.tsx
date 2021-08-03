@@ -1,7 +1,7 @@
 /*
  * @Author: mrrs878@foxmail.com
  * @Date: 2021-02-24 10:13:41
- * @LastEditTime: 2021-08-02 19:52:38
+ * @LastEditTime: 2021-08-03 15:39:01
  * @LastEditors: mrrs878@foxmail.com
  * @Description: In User Settings Edit
  * @FilePath: d:\Data\Personal\MyPro\dashboard_template\src\layout\index.tsx
@@ -12,16 +12,15 @@ import zhCN from 'antd/lib/locale/zh_CN';
 import React, { useEffect } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import {
-  compose, curry, equals, not, prop, when,
+  compose, curry, equals, not, when,
 } from 'ramda';
 import MHeader from '../components/MHeader';
 import MMenu from '../components/MMenu';
 import MTagsBar from '../components/MTagsBar';
 import useGetPermissionUrls from '../hook/useGetPermissionUrls';
 import useGetMenu from '../hook/useGetMenu';
-import Router, { ROUTES } from '../route';
+import Router from '../route';
 import { useFullScreen } from '../store';
-import useAutoLogin from '../hook/useAutoLogin';
 import initExceptionSentry from '../tool/error';
 
 const { Content, Footer, Sider } = Layout;
@@ -36,10 +35,6 @@ const MLayout = () => {
       curry(initExceptionSentry)({ url: 'http://localhost:3003/exceptionLog' }),
     )(process.env.NODE_ENV);
   }, []);
-  when<any, void>(
-    compose(not, equals(false), prop('auth')),
-    useAutoLogin,
-  )(ROUTES.find((item) => item.path === window.location.href));
   useGetMenu(false, true);
   useGetPermissionUrls(false, true);
 
