@@ -1,7 +1,7 @@
 /*
  * @Author: mrrs878@foxmail.com
  * @Date: 2021-02-24 10:25:01
- * @LastEditTime: 2021-08-03 16:53:04
+ * @LastEditTime: 2021-08-04 19:25:56
  * @LastEditors: mrrs878@foxmail.com
  * @Description: In User Settings Edit
  * @FilePath: d:\Data\Personal\MyPro\dashboard_template\src\components\MMenu\index.tsx
@@ -40,8 +40,13 @@ const MMenu: React.FC<PropsI> = (props: PropsI) => {
     return iconName ? React.createElement(Icon[iconName]) : '';
   }, []);
 
+  const menuAvailable = (item: IMenuItem) => and(
+    item.status === 0,
+    (item.children?.length || 0) > 0,
+  );
+
   const walkMenu = useCallback((item: IMenuItem) => ifElse(
-    () => and(item.status === 0, (item.children?.length || 0) > 0),
+    menuAvailable,
     () => (
       <SubMenu key={item.key} icon={dynamicIcon(item.icon_name)} title={item.title}>
         {

@@ -1,7 +1,7 @@
 <!--
  * @Author: mrrs878@foxmail.com
  * @Date: 2021-02-23 10:19:55
- * @LastEditTime: 2021-08-03 17:02:01
+ * @LastEditTime: 2021-08-03 19:14:05
  * @LastEditors: mrrs878@foxmail.com
  * @Description: In User Settings Edit
  * @FilePath: d:\Data\Personal\MyPro\dashboard_template\README.md
@@ -120,3 +120,11 @@ const GuardComponent = (props: GuardComponentPropsI) => {
 ## bug🐞
 
 ~~自动登录存在问题~~
+
+## 注意❗
+
+在安装新依赖时偶尔会报
+``` sh
+error An unexpected error occurred: "EPERM: operation not permitted, unlink '\\Personal\\MyPro\\dashboard_template\\node_modules\\canvas\\build\\Release\\libcairo-gobject-2.dll'".
+```
+这种错，可以尝试将`yarn mock`和`yarn start`停掉重试
