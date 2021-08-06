@@ -1625,10 +1625,10 @@
     "@types/yargs" "^15.0.0"
     chalk "^4.0.0"
 
-"@mrrs878/js-library@^0.0.8":
-  version "0.0.8"
-  resolved "https://registry.yarnpkg.com/@mrrs878/js-library/-/js-library-0.0.8.tgz#19a663d5c55b0a1cd9232eb8a1fe4f511991237a"
-  integrity sha512-NUk6Mr8fB1mjPW5rCcTxU9ngeVu6M2xwvU+bDqSWW7ixbS5j4JCfvQgS/veFnnrL8V84Cmf6tvyftMhzjcP/jA==
+"@mrrs878/js-library@^0.0.10":
+  version "0.0.10"
+  resolved "https://registry.yarnpkg.com/@mrrs878/js-library/-/js-library-0.0.10.tgz#96f910b71be7c8d8ce783c4c39f52e971a5c5a7c"
+  integrity sha512-3vtrTKioD+rfY2s2TtLOo4QqXTyMpYHzSe25R6wD6vyKsM7pH+RmF6g67pg/LZaIdrrlgtXBPhspX0AmYhvi4A==
 
 "@nodelib/fs.scandir@2.1.4":
   version "2.1.4"

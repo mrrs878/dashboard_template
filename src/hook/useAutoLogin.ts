@@ -2,7 +2,7 @@
 /*
  * @Author: mrrs878@foxmail.com
  * @Date: 2021-04-11 15:46:49
- * @LastEditTime: 2021-08-02 19:50:17
+ * @LastEditTime: 2021-08-05 10:13:39
  * @LastEditors: mrrs878@foxmail.com
  * @Description: In User Settings Edit
  * @FilePath: d:\Data\Personal\MyPro\dashboard_template\src\hook\useAutoLogin.ts
@@ -12,9 +12,11 @@ import { useEffect } from 'react';
 import {
   equals, prop, compose, when,
 } from 'ramda';
+import { reactHooks } from '@mrrs878/js-library';
 import { AUTO_LOGIN } from '../api/auth';
 import { useUser } from '../store';
-import useRequest from './useRequest';
+
+const { useRequest } = reactHooks;
 
 export default function useAutoLogin() {
   const [, loginRes] = useRequest(AUTO_LOGIN);

@@ -1,14 +1,16 @@
 /*
  * @Author: mrrs878@foxmail.com
  * @Date: 2021-03-01 10:19:29
- * @LastEditTime: 2021-04-12 22:59:14
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-08-05 10:18:13
+ * @LastEditors: mrrs878@foxmail.com
  * @Description: In User Settings Edit
- * @FilePath: /dashboard_template/src/view/profile/index.tsx
+ * @FilePath: d:\Data\Personal\MyPro\dashboard_template\src\view\profile\index.tsx
  */
 import React, { useEffect, useState } from 'react';
+import { reactHooks } from '@mrrs878/js-library';
 import { GET_USERS } from '../../api/user';
-import useRequest from '../../hook/useRequest';
+
+const { useRequest } = reactHooks;
 
 const Profile = () => {
   const [users, setUsers] = useState<Array<any>>([]);
