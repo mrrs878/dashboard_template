@@ -920,6 +920,48 @@
       "errorType": "JSRuntimeError",
       "create_time": "2021/8/3 下午4:09:59",
       "id": 48
+    },
+    {
+      "message": "ResizeObserver loop limit exceeded",
+      "filename": "http://localhost:8083/setting/menu",
+      "position": "0:0",
+      "selector": "",
+      "stack": "",
+      "title": "菜单设置",
+      "location": "http://localhost:8083/setting/menu",
+      "kind": "stability",
+      "type": "error",
+      "errorType": "JSRuntimeError",
+      "create_time": "2021/8/6 下午3:16:41",
+      "id": 49
+    },
+    {
+      "message": "ResizeObserver loop limit exceeded",
+      "filename": "http://localhost:8083/setting/menu",
+      "position": "0:0",
+      "selector": "",
+      "stack": "",
+      "title": "菜单设置",
+      "location": "http://localhost:8083/setting/menu",
+      "kind": "stability",
+      "type": "error",
+      "errorType": "JSRuntimeError",
+      "create_time": "2021/8/6 下午3:23:02",
+      "id": 50
+    },
+    {
+      "message": "ResizeObserver loop limit exceeded",
+      "filename": "http://localhost:8083/setting/menu",
+      "position": "0:0",
+      "selector": "",
+      "stack": "",
+      "title": "首页",
+      "location": "http://localhost:8083/setting/menu",
+      "kind": "stability",
+      "type": "error",
+      "errorType": "JSRuntimeError",
+      "create_time": "2021/8/6 下午7:20:15",
+      "id": 51
     }
   ]
 }

@@ -1,7 +1,7 @@
 /*
  * @Author: mrrs878@foxmail.com
  * @Date: 2021-02-24 10:25:01
- * @LastEditTime: 2021-08-04 19:25:56
+ * @LastEditTime: 2021-08-06 15:16:36
  * @LastEditors: mrrs878@foxmail.com
  * @Description: In User Settings Edit
  * @FilePath: d:\Data\Personal\MyPro\dashboard_template\src\components\MMenu\index.tsx
@@ -55,7 +55,7 @@ const MMenu: React.FC<PropsI> = (props: PropsI) => {
       </SubMenu>
     ),
     () => (
-      <Menu.Item icon={item.parent === -1 ? dynamicIcon(item.icon_name) : ''} key={item.key}>{ item.title }</Menu.Item>
+      <Menu.Item icon={item.parent === -1 ? dynamicIcon(item.icon_name) : ''} key={item.path}>{ item.title }</Menu.Item>
     ),
   )(item), [dynamicIcon]);
 

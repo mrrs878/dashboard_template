@@ -1,12 +1,13 @@
 /*
  * @Author: mrrs878@foxmail.com
  * @Date: 2021-02-26 18:16:29
- * @LastEditTime: 2021-08-05 10:11:45
+ * @LastEditTime: 2021-08-06 15:22:56
  * @LastEditors: mrrs878@foxmail.com
  * @Description: In User Settings Edit
  */
 
 import {
+  always,
   and, compose, cond, equals, filter, gt, lte, not, uniqBy,
 } from 'ramda';
 import React, { Suspense, useEffect } from 'react';
@@ -62,7 +63,7 @@ const ROUTES: Array<IRouteConfig> = [
     auth: true,
   },
   {
-    path: '/setting/menu/:id',
+    path: '/setting/menu/:id(\\d+)',
     component: MenuSetting,
     auth: true,
   },
@@ -102,11 +103,11 @@ const GuardComponent = (props: GuardComponentPropsI) => {
   const token = localStorage.getItem('auth_token');
 
   return cond([
-    [() => equals(path, '/'), () => <Redirect to="/home" />],
-    [() => and(equals(token, ''), props.auth), () => <Redirect to="/auth/login" />],
-    [() => and(equals(token, ''), not(props.auth)), () => <Component />],
-    [() => gt(user.role, urlRole), () => <ForbiddenPage />],
-    [() => lte(user.role, urlRole), () => <Component />],
+    [always(equals(path, '/')), always(<Redirect to="/home" />)],
+    [always(and(equals(token, ''), props.auth)), always(<Redirect to="/auth/login" />)],
+    [always(and(equals(token, ''), not(props.auth))), always(<Component />)],
+    [always(gt(user.role, urlRole)), always(<ForbiddenPage />)],
+    [always(lte(user.role, urlRole)), always(<Component />)],
   ])(user);
 };
 
