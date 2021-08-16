@@ -1,10 +1,10 @@
 /*
  * @Author: mrrs878@foxmail.com
  * @Date: 2021-02-24 10:13:41
- * @LastEditTime: 2021-08-03 15:39:01
+ * @LastEditTime: 2021-08-16 13:49:35
  * @LastEditors: mrrs878@foxmail.com
  * @Description: In User Settings Edit
- * @FilePath: d:\Data\Personal\MyPro\dashboard_template\src\layout\index.tsx
+ * @FilePath: \awesomee:\frontEnd\myPro\dashboard_template\src\layout\index.tsx
  */
 
 import { ConfigProvider, Layout, message } from 'antd';
@@ -12,7 +12,7 @@ import zhCN from 'antd/lib/locale/zh_CN';
 import React, { useEffect } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import {
-  compose, curry, equals, not, when,
+  compose, curry, equals, not, when, always,
 } from 'ramda';
 import MHeader from '../components/MHeader';
 import MMenu from '../components/MMenu';
@@ -24,6 +24,8 @@ import { useFullScreen } from '../store';
 import initExceptionSentry from '../tool/error';
 
 const { Content, Footer, Sider } = Layout;
+
+const withFullScreen = (com: any) => when(equals(false), always(com));
 
 const MLayout = () => {
   const [isFullScreen] = useFullScreen();
@@ -43,23 +45,23 @@ const MLayout = () => {
       <ConfigProvider locale={zhCN}>
         <Layout style={{ minHeight: '100vh' }}>
           {
-          !isFullScreen && (
-          <Sider collapsible>
-            <MMenu />
-          </Sider>
-          )
-        }
+            withFullScreen(
+              <Sider collapsible>
+                <MMenu />
+              </Sider>,
+            )(isFullScreen)
+          }
           <Layout className="site-layout">
             {
-            !isFullScreen && (
-              <MHeader />
-            )
-          }
+              withFullScreen(
+                <MHeader />,
+              )(isFullScreen)
+            }
             {
-            !isFullScreen && (
-              <MTagsBar />
-            )
-          }
+              withFullScreen(
+                <MTagsBar />,
+              )(isFullScreen)
+            }
             <Content style={{ margin: '16px' }}>
               <Router />
             </Content>
