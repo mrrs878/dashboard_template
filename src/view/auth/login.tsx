@@ -1,24 +1,22 @@
 /*
  * @Author: mrrs878@foxmail.com
  * @Date: 2021-04-06 22:37:02
- * @LastEditTime: 2021-08-05 10:16:07
+ * @LastEditTime: 2021-08-19 13:48:17
  * @LastEditors: mrrs878@foxmail.com
  * @Description: In User Settings Edit
- * @FilePath: d:\Data\Personal\MyPro\dashboard_template\src\view\auth\login.tsx
+ * @FilePath: \dashboard_template\src\view\auth\login.tsx
  */
 import {
   Button, Checkbox, Form, Input, message, Modal,
 } from 'antd';
 import { useForm } from 'antd/lib/form/Form';
 import React, { useCallback, useEffect, useState } from 'react';
-import { reactHooks } from '@mrrs878/js-library';
+import { useRequest } from '@mrrs878/hooks';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { LOGIN } from '../../api/auth';
 import MVerify from '../../components/MVerify';
 import { useFullScreen, useUser } from '../../store';
 import style from './login.module.less';
-
-const { useRequest } = reactHooks;
 
 const layout = {
   labelCol: { span: 10 },

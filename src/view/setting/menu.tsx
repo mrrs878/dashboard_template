@@ -1,10 +1,10 @@
 /*
  * @Author: mrrs878@foxmail.com
  * @Date: 2021-04-13 10:19:21
- * @LastEditTime: 2021-08-05 10:18:32
+ * @LastEditTime: 2021-08-19 13:48:52
  * @LastEditors: mrrs878@foxmail.com
  * @Description: In User Settings Edit
- * @FilePath: d:\Data\Personal\MyPro\dashboard_template\src\view\setting\menu.tsx
+ * @FilePath: \dashboard_template\src\view\setting\menu.tsx
  */
 import { PlusCircleOutlined } from '@ant-design/icons';
 import {
@@ -23,14 +23,12 @@ import * as _Icons from '@ant-design/icons';
 import { SelectData } from 'rc-tree';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { RuleObject, StoreValue } from 'rc-field-form/lib/interface';
-import { reactHooks } from '@mrrs878/js-library';
+import { useRequest } from '@mrrs878/hooks';
 import { CREATE_MENU, UPDATE_MENU, UPDATE_MENUS } from '../../api/setting';
 import useGetMenu from '../../hook/useGetMenu';
 import { useModel } from '../../store';
 import { ITEM_STATUS_ARRAY, MAIN_CONFIG } from '../../config';
 import style from './menu.module.less';
-
-const { useRequest } = reactHooks;
 
 interface IMenuPositionRange {
   max: number;
