@@ -1,10 +1,10 @@
 /*
  * @Author: mrrs878@foxmail.com
  * @Date: 2020-10-15 09:49:52
- * @LastEditTime: 2021-04-11 15:50:41
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-08-19 21:55:01
+ * @LastEditors: mrrs878@foxmail.com
  * @Description: In User Settings Edit
- * @FilePath: \blog_dashboard\src\interfaces\ajaxRes.d.ts
+ * @FilePath: \dashboard_template\src\interfaces\ajaxRes.d.ts
  */
 interface BaseResI<T> {
   success: boolean;
@@ -25,7 +25,8 @@ interface ICreateMenuRes extends BaseResI<IMenuItem> {}
 
 interface IUpdateMenuRes extends BaseResI<IMenuItem> {}
 
-interface IGetPuzzleImgRes extends BaseResI<{ canvas: string, block: string, session: string }> {}
+interface IGetPuzzleImgRes extends
+  BaseResI<{ background: string, block: string, session: string }> {}
 
 interface ICheckPuzzleRes extends BaseResI<any> {}
 

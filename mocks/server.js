@@ -1,20 +1,53 @@
 /*
  * @Author: mrrs878@foxmail.com
  * @Date: 2021-02-26 10:49:28
- * @LastEditTime: 2021-04-25 16:48:08
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-08-19 21:58:43
+ * @LastEditors: mrrs878@foxmail.com
  * @Description: In User Settings Edit
- * @FilePath: /dashboard_template/mocks/route.js
+ * @FilePath: \dashboard_template\mocks\server.js
  */
 // eslint-disable-next-line import/no-extraneous-dependencies
 const jsonServer = require('json-server');
 const path = require('path');
-const { getPuzzleImg, verifyPuzzle } = require('./puzzle');
+const { omit } = require('ramda');
+const { getPuzzleImg } = require('@mrrs878/sliding-puzzle');
 
 const server = jsonServer.create();
 const router = jsonServer.router(path.join(__dirname, 'db.json'));
 
 const middlewares = jsonServer.defaults();
+
+const cacheService = {
+  data: {},
+  get(key) {
+    return this.data[key];
+  },
+  set(key, value) {
+    this.data[key] = value;
+  },
+  delete(key) {
+    this.data = omit([key], this.data);
+  },
+};
+
+async function verifyPuzzle(session, left) {
+  try {
+    const cacheLeft = parseInt(cacheService.get(session) || '', 10);
+    cacheService.delete(session);
+    const success = left > cacheLeft - 5 && left < cacheLeft + 5;
+    return {
+      success,
+      msg: success ? '验证成功' : '验证失败',
+      code: success ? 0 : -1,
+    };
+  } catch (e) {
+    return {
+      success: false,
+      msg: e.toString(),
+      code: -1,
+    };
+  }
+}
 
 router.render = (req, res) => {
   const success = res.statusCode >= 200 && res.statusCode <= 400;
@@ -40,8 +73,16 @@ server.get('/auth/verifyPuzzle/:session/:left', async (req, res) => {
   res.jsonp(data);
 });
 server.get('/auth/puzzleImg', async (req, res) => {
-  const data = await getPuzzleImg();
-  res.jsonp(data);
+  const data = await getPuzzleImg('https://img2.baidu.com/it/u=1759559009,1100199201&fm=26&fmt=auto&gp=0.jpg');
+  const session = `${new Date().getTime()}`;
+  console.log(data);
+  cacheService.set(session, data.positionX);
+  res.jsonp({
+    success: true,
+    return_code: 0,
+    return_message: '获取成功',
+    data: { ...data, session },
+  });
 });
 server.post('/auth/login', (req, res) => {
   res.jsonp({

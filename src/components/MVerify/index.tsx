@@ -3,7 +3,7 @@
 /*
  * @Author: mrrs878@foxmail.com
  * @Date: 2021-04-06 22:33:55
- * @LastEditTime: 2021-08-19 13:47:19
+ * @LastEditTime: 2021-08-19 21:55:03
  * @LastEditors: mrrs878@foxmail.com
  * @Description: In User Settings Edit
  * @FilePath: \dashboard_template\src\components\MVerify\index.tsx
@@ -136,7 +136,7 @@ const MVerify = (props: IMVerifyProps) => {
             position: 'absolute', width: w, height: h, lineHeight: `${h}px`,
           }}
         />
-        <img src={puzzleImgRes?.data?.canvas} alt="" srcSet="" width={w} height={h} crossOrigin="anonymous" />
+        <img src={puzzleImgRes?.data?.background} alt="" srcSet="" width={w} height={h} crossOrigin="anonymous" />
         <div onClick={getPuzzleImg} className={style.refreshIcon} />
         <img src={puzzleImgRes?.data?.block} alt="" srcSet="" className={style.block} style={{ left: moveX || 10 }} />
         <span

@@ -962,6 +962,58 @@
       "errorType": "JSRuntimeError",
       "create_time": "2021/8/6 下午7:20:15",
       "id": 51
+    },
+    {
+      "message": "ResizeObserver loop limit exceeded",
+      "filename": "http://localhost:8083/setting/menu",
+      "position": "0:0",
+      "selector": "",
+      "stack": "",
+      "title": "菜单设置",
+      "location": "http://localhost:8083/setting/menu",
+      "kind": "stability",
+      "type": "error",
+      "errorType": "JSRuntimeError",
+      "create_time": "2021/8/19 下午9:52:33",
+      "id": 52
+    },
+    {
+      "response": {
+        "success": false,
+        "return_message": "操作失败",
+        "return_code": -1,
+        "data": {}
+      },
+      "status": 404,
+      "method": "GET",
+      "url": "http://localhost:3003/auth/verifyPuzzle//216",
+      "message": "Not Found",
+      "title": "首页",
+      "location": "http://localhost:8083/auth/login",
+      "kind": "stability",
+      "type": "error",
+      "errorType": "AjaxError",
+      "create_time": "2021/8/19 下午9:55:19",
+      "id": 53
+    },
+    {
+      "response": {
+        "success": false,
+        "return_message": "操作失败",
+        "return_code": -1,
+        "data": {}
+      },
+      "status": 404,
+      "method": "GET",
+      "url": "http://localhost:3003/auth/verifyPuzzle//244",
+      "message": "Not Found",
+      "title": "首页",
+      "location": "http://localhost:8083/auth/login",
+      "kind": "stability",
+      "type": "error",
+      "errorType": "AjaxError",
+      "create_time": "2021/8/19 下午9:55:29",
+      "id": 54
     }
   ]
 }
