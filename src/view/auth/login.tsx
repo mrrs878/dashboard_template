@@ -1,7 +1,7 @@
 /*
  * @Author: mrrs878@foxmail.com
  * @Date: 2021-04-06 22:37:02
- * @LastEditTime: 2021-08-19 13:48:17
+ * @LastEditTime: 2021-08-20 21:45:46
  * @LastEditors: mrrs878@foxmail.com
  * @Description: In User Settings Edit
  * @FilePath: \dashboard_template\src\view\auth\login.tsx
@@ -13,10 +13,11 @@ import { useForm } from 'antd/lib/form/Form';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useRequest } from '@mrrs878/hooks';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
-import { LOGIN } from '../../api/auth';
-import MVerify from '../../components/MVerify';
+import { MVerify } from '@mrrs878/sliding-puzzle';
+import { CHECK_PUZZLE_IMG, GET_PUZZLE_IMG, LOGIN } from '../../api/auth';
 import { useFullScreen, useUser } from '../../store';
 import style from './login.module.less';
+import '@mrrs878/sliding-puzzle/dist/index.css';
 
 const layout = {
   labelCol: { span: 10 },
@@ -30,19 +31,23 @@ const Login = (props: RouteComponentProps) => {
   const [, fullScreen, exitFullScreen] = useFullScreen();
   const [loginFrom] = useForm();
   const [verifyModalFlag, setVerifyModalFlag] = useState(false);
-  const [, loginRes, login] = useRequest(LOGIN, false);
+  const [, loginRes] = useRequest(LOGIN, false);
+  const [, puzzleImgRes, getPuzzleImg, reGetPuzzleImg] = useRequest(GET_PUZZLE_IMG, false);
+  useRequest(CHECK_PUZZLE_IMG, false);
   const [, updateUser] = useUser();
 
-  const onSuccess = useCallback(() => {
-    setVerifyModalFlag(false);
-    login({ name: '', password: '' });
-  }, [login]);
-  const onClose = useCallback(() => {
-  }, []);
+  // const onSuccess = useCallback(() => {
+  //   setVerifyModalFlag(false);
+  //   login({ name: '', password: '' });
+  // }, [login]);
+  // const onClose = useCallback(() => {
+  // }, []);
 
   const onLoginFormFinish = useCallback(() => {
     setVerifyModalFlag(true);
-  }, []);
+    getPuzzleImg();
+    console.log(2);
+  }, [getPuzzleImg]);
 
   useEffect(() => {
     fullScreen();
@@ -98,7 +103,20 @@ const Login = (props: RouteComponentProps) => {
         </Form.Item>
       </Form>
       <Modal visible={verifyModalFlag} footer={false} onCancel={() => setVerifyModalFlag(false)}>
-        <MVerify onSuccess={onSuccess} onClose={onClose} />
+        <MVerify
+          background={puzzleImgRes?.data.background || ''}
+          block={puzzleImgRes?.data.block || ''}
+          onRelease={() => {
+            console.log('release');
+            console.log(`session--->${puzzleImgRes?.data.session}`);
+            return Promise.resolve(true);
+          }}
+          onRefresh={() => {
+            console.log('refresh');
+            reGetPuzzleImg();
+            return Promise.resolve(true);
+          }}
+        />
       </Modal>
     </div>
   );

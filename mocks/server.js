@@ -1,7 +1,7 @@
 /*
  * @Author: mrrs878@foxmail.com
  * @Date: 2021-02-26 10:49:28
- * @LastEditTime: 2021-08-19 21:58:43
+ * @LastEditTime: 2021-08-20 20:28:47
  * @LastEditors: mrrs878@foxmail.com
  * @Description: In User Settings Edit
  * @FilePath: \dashboard_template\mocks\server.js
@@ -75,7 +75,6 @@ server.get('/auth/verifyPuzzle/:session/:left', async (req, res) => {
 server.get('/auth/puzzleImg', async (req, res) => {
   const data = await getPuzzleImg('https://img2.baidu.com/it/u=1759559009,1100199201&fm=26&fmt=auto&gp=0.jpg');
   const session = `${new Date().getTime()}`;
-  console.log(data);
   cacheService.set(session, data.positionX);
   res.jsonp({
     success: true,
