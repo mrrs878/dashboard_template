@@ -1,7 +1,7 @@
 /*
  * @Author: mrrs878@foxmail.com
  * @Date: 2021-02-26 10:49:28
- * @LastEditTime: 2021-08-20 20:28:47
+ * @LastEditTime: 2021-08-25 21:22:32
  * @LastEditors: mrrs878@foxmail.com
  * @Description: In User Settings Edit
  * @FilePath: \dashboard_template\mocks\server.js
@@ -36,15 +36,13 @@ async function verifyPuzzle(session, left) {
     cacheService.delete(session);
     const success = left > cacheLeft - 5 && left < cacheLeft + 5;
     return {
-      success,
-      msg: success ? '验证成功' : '验证失败',
-      code: success ? 0 : -1,
+      return_message: success ? '验证成功' : '验证失败',
+      return_code: success ? 0 : -1,
     };
   } catch (e) {
     return {
-      success: false,
-      msg: e.toString(),
-      code: -1,
+      return_message: e.toString(),
+      return_code: -1,
     };
   }
 }
@@ -123,6 +121,9 @@ server.get('/exceptionLog', async (req, res) => {
   } catch (e) {
     console.log(e);
   }
+});
+server.get('/useRequest', (req, res) => {
+  res.jsonp({});
 });
 
 server.use(router);

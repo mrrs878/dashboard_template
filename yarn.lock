@@ -1640,26 +1640,19 @@
     semver "^7.3.4"
     tar "^6.1.0"
 
-"@mrrs878/drag-verify@^0.2.0":
-  version "0.2.0"
-  resolved "https://npm.pkg.github.com/download/@mrrs878/drag-verify/0.2.0/bd02081f8f0d32f7644c0b40f982f95989bd1eb2a924ad5ca1ee8a4b1583b5da#2dcedda4772376cb73783723539112459d735b22"
-  integrity sha512-EcEAm5rivTo52Fv3p//MFkwy42TgCSGeZYMaRpDzqLgr4/ZJV993fyv5LG1M7FFf5kaBckRr5iQFe7nhLr2WPg==
-  dependencies:
-    canvas "^2.8.0"
-
-"@mrrs878/hooks@^0.2.2":
-  version "0.2.2"
-  resolved "https://npm.pkg.github.com/download/@mrrs878/hooks/0.2.2/79543871fdb9e1ac0e944dbb04ece747ac1840caf50a345fef1fecb7e7f650c7#0746f75c7971204065baa2a6cb930bc06e290429"
-  integrity sha512-S/5Qyxj1HJ0f1oRDMgwUumsqqjDmsJZDnNGUXITbVr/p4DeQ8B3XxyJ6SKwBB67I5QHeSCK0zaR83UaS7qNdXg==
+"@mrrs878/hooks@^0.0.2":
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/@mrrs878/hooks/-/hooks-0.0.2.tgz#353a831ef9f432d4eb1302aa8191033c18150c87"
+  integrity sha512-c6O9dATnBNcKzG9BoiYJp1iry2xtBedA1uLa5B9XaPdlni44WlpCYFKub1LPx16ihwwewaYeIB/YFJZNQbiGfA==
   dependencies:
     "@types/js-cookie" "^2.2.7"
     js-cookie "^3.0.0"
     screenfull "^5.1.0"
 
-"@mrrs878/sliding-puzzle@^0.2.1":
-  version "0.2.1"
-  resolved "https://npm.pkg.github.com/download/@mrrs878/sliding-puzzle/0.2.1/cb8b4605dcbd83515f133b77798489e2f06060a0a7654413bbaf36609cef1cbd#b32e17970aa88f67eb5b2e868647392d404661f6"
-  integrity sha512-o2MqrBXu+AF9HQBL5XS/ZKK64cM3ZPsyNwlDrcCIkSIGqcPUs6cEdkHsF3O/InoP2yNEGtnnsIY7oFZxMhgsJg==
+"@mrrs878/sliding-puzzle@^0.0.5":
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/@mrrs878/sliding-puzzle/-/sliding-puzzle-0.0.5.tgz#3fe9b864125e01efbccf453c82aec587adc4264d"
+  integrity sha512-mu+Ae2Yo1HxGJyHprZg4bpHE2W+A2lwttc1pZZCxmOBvocWls0qFTdJMSKl7erxBR5MusW383Xb2YaGUbw0iYA==
   dependencies:
     canvas "^2.8.0"
 
