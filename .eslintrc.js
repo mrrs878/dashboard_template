@@ -1,10 +1,10 @@
 /*
  * @Author: mrrs878@foxmail.com
  * @Date: 2021-02-23 11:22:06
- * @LastEditTime: 2021-04-23 18:49:36
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-09-02 19:18:06
+ * @LastEditors: mrrs878@foxmail.com
  * @Description: In User Settings Edit
- * @FilePath: /dashboard_template/.eslintrc.js
+ * @FilePath: \dashboard_template\.eslintrc.js
  */
 module.exports = {
   extends: [
@@ -23,6 +23,9 @@ module.exports = {
     'react-hooks/exhaustive-deps': process.env.NODE_ENV === 'production' ? 'error' : 'warn',
     '@typescript-eslint/no-unused-vars': process.env.NODE_ENV === 'production' ? 'error' : 'warn',
     'react/destructuring-assignment': [0],
+    'import/prefer-default-export': 0,
+    'react/react-in-jsx-scope': 0,
+    'react/no-unused-prop-types': process.env.NODE_ENV === 'production' ? 'error' : 'warn',
     '@typescript-eslint/naming-convention': [
       'error',
       {
