@@ -2,25 +2,43 @@
  * @Author: mrrs878@foxmail.com
  * @Date: 2021-09-02 17:29:57
  * @LastEditors: mrrs878@foxmail.com
- * @LastEditTime: 2021-09-02 21:53:00
+ * @LastEditTime: 2021-09-03 16:33:33
  * @FilePath: \dashboard_template\src\components\MDragCard\Card.tsx
  */
-import { useRef, useMemo, useEffect } from 'react';
+import {
+  memo, useRef, useMemo, useEffect, FunctionComponent,
+} from 'react';
 import { useDrop, useDrag } from 'react-dnd';
 import style from './card.module.less';
 
+export type CardSize = 'small' | 'medium' | 'large';
+export type MoveCard = (dragIndex: number, hoverIndex: number) => void;
+interface IProps {
+  id: string;
+  size: CardSize;
+  editable: boolean;
+  moveCard: MoveCard;
+  index: number;
+  Element: FunctionComponent
+}
+
+interface IDropItem {
+  id: string;
+  index: number;
+}
+
 export const Card = ({
-  id, Node, index, moveCard, size, editable,
-}: any) => {
+  id, Element, index, moveCard, size, editable,
+}: IProps) => {
   const ref = useRef<HTMLDivElement>(null);
-  const [{ handlerId }, drop] = useDrop({
+  const [{ handlerId }, drop] = useDrop<IDropItem, any, any>({
     accept: 'card',
     collect(monitor) {
       return {
         handlerId: monitor.getHandlerId(),
       };
     },
-    hover(item: any, monitor) {
+    hover(item, monitor) {
       if (!ref.current) {
         return;
       }
@@ -52,6 +70,7 @@ export const Card = ({
     }),
   });
   const opacity = useMemo(() => (isDragging ? 0 : 1), [isDragging]);
+  const Node = memo(Element);
 
   useEffect(() => {
     if (editable) drag(drop(ref));

@@ -1,7 +1,7 @@
 /*
  * @Author: mrrs878@foxmail.com
  * @Date: 2021-03-01 10:19:29
- * @LastEditTime: 2021-09-02 22:02:41
+ * @LastEditTime: 2021-09-03 16:52:21
  * @LastEditors: mrrs878@foxmail.com
  * @Description: In User Settings Edit
  * @FilePath: \dashboard_template\src\view\profile\index.tsx
@@ -15,7 +15,7 @@ import { UserInfo } from './components/UserInfo';
 import style from './index.module.less';
 
 const ORDER_KEY = 'order';
-const ORDER = JSON.parse(localStorage.getItem(ORDER_KEY) || '[]') ?? ['userInfo', 'tasks', 'comments'];
+const ORDER = JSON.parse(localStorage.getItem(ORDER_KEY) || '[]');
 
 const Profile = () => {
   const [editable, setEditable] = useState(false);
@@ -43,23 +43,20 @@ const Profile = () => {
         editable={editable}
         order={dragResult}
         onDragEnd={setDragResult}
-        cards={[
-          {
-            element: UserInfo,
-            key: 'userInfo',
+        cards={{
+          userInfo: {
+            element: () => <UserInfo name="tom&jerry" />,
             size: 'small',
           },
-          {
+          tasks: {
             element: Tasks,
-            key: 'tasks',
             size: 'small',
           },
-          {
+          comments: {
             element: Comments,
-            key: 'comments',
             size: 'large',
           },
-        ]}
+        }}
       />
     </div>
   );
