@@ -2,7 +2,7 @@
  * @Author: mrrs878@foxmail.com
  * @Date: 2021-09-02 17:37:07
  * @LastEditors: mrrs878@foxmail.com
- * @LastEditTime: 2021-09-03 16:31:46
+ * @LastEditTime: 2021-09-06 16:33:46
  * @FilePath: \dashboard_template\src\components\MDragCard\Container.tsx
  */
 import {
@@ -36,8 +36,9 @@ export const MDragContainer = ({
 }: IProps) => {
   const moveCard = useCallback(
     (dragIndex, hoverIndex) => {
-      const dragCard = order[dragIndex];
-      const newOrder = update(order, {
+      const preOrder = isEmpty(order) ? keys(cards) : order;
+      const dragCard = preOrder[dragIndex];
+      const newOrder = update(preOrder, {
         $splice: [
           [dragIndex, 1],
           [hoverIndex, 0, dragCard],
@@ -45,7 +46,7 @@ export const MDragContainer = ({
       });
       onDragEnd(newOrder);
     },
-    [onDragEnd, order],
+    [cards, onDragEnd, order],
   );
 
   const cardsTmp: Array<any> = ifElse(
