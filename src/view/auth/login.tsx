@@ -1,7 +1,7 @@
 /*
  * @Author: mrrs878@foxmail.com
  * @Date: 2021-04-06 22:37:02
- * @LastEditTime: 2021-08-27 19:27:58
+ * @LastEditTime: 2021-09-14 21:26:00
  * @LastEditors: mrrs878@foxmail.com
  * @Description: In User Settings Edit
  * @FilePath: \dashboard_template\src\view\auth\login.tsx
@@ -10,7 +10,7 @@ import {
   Button, Checkbox, Form, Input, message, Modal,
 } from 'antd';
 import { useForm } from 'antd/lib/form/Form';
-import React, { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useRequest } from '@mrrs878/hooks';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { MVerify } from '@mrrs878/sliding-puzzle';

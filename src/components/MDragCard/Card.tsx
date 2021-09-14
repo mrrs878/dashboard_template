@@ -2,7 +2,7 @@
  * @Author: mrrs878@foxmail.com
  * @Date: 2021-09-02 17:29:57
  * @LastEditors: mrrs878@foxmail.com
- * @LastEditTime: 2021-09-03 16:33:33
+ * @LastEditTime: 2021-09-09 11:55:40
  * @FilePath: \dashboard_template\src\components\MDragCard\Card.tsx
  */
 import {
@@ -78,7 +78,7 @@ export const Card = ({
 
   return (
     <div
-      className={`${style[`card-${size}`]} ${style.card} ${editable ? 'edit' : ''}`}
+      className={`${style[`card-${size}`]} ${style.card} ${editable ? style.edit : ''}`}
       ref={ref}
       style={{ opacity }}
       data-handler-id={handlerId}
