@@ -1,7 +1,7 @@
 /*
  * @Author: mrrs878@foxmail.com
  * @Date: 2021-04-06 22:37:02
- * @LastEditTime: 2021-09-14 21:26:00
+ * @LastEditTime: 2021-09-22 21:59:28
  * @LastEditors: mrrs878@foxmail.com
  * @Description: In User Settings Edit
  * @FilePath: \dashboard_template\src\view\auth\login.tsx
@@ -32,14 +32,13 @@ const Login = (props: RouteComponentProps) => {
   const [loginFrom] = useForm();
   const [verifyModalFlag, setVerifyModalFlag] = useState(false);
   const [, loginRes, login] = useRequest(LOGIN, false);
-  const [, puzzleImgRes, getPuzzleImg, reGetPuzzleImg] = useRequest(GET_PUZZLE_IMG, false);
+  const [loading, puzzleImgRes, getPuzzleImg, reGetPuzzleImg] = useRequest(GET_PUZZLE_IMG, false);
   const [,, checkPuzzle] = useRequest(CHECK_PUZZLE, false);
   const [, updateUser] = useUser();
 
   const onLoginFormFinish = useCallback(() => {
     setVerifyModalFlag(true);
     getPuzzleImg();
-    console.log(2);
   }, [getPuzzleImg]);
 
   const onPuzzleRelease = useCallback(async (left) => {
@@ -108,9 +107,10 @@ const Login = (props: RouteComponentProps) => {
         <MVerify
           background={puzzleImgRes?.data.background || ''}
           block={puzzleImgRes?.data.block || ''}
+          loading={loading}
           onRelease={onPuzzleRelease}
-          onRefresh={() => {
-            reGetPuzzleImg();
+          onRefresh={async () => {
+            await reGetPuzzleImg();
             return Promise.resolve(true);
           }}
         />
