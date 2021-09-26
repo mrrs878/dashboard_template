@@ -1649,10 +1649,10 @@
     js-cookie "^3.0.0"
     screenfull "^5.1.0"
 
-"@mrrs878/sliding-puzzle@^0.0.8":
-  version "0.0.8"
-  resolved "https://registry.yarnpkg.com/@mrrs878/sliding-puzzle/-/sliding-puzzle-0.0.8.tgz#4b588684c2216e3981f2f4dc52dbe2ccad607fdd"
-  integrity sha512-+Hu6Li7mCjOysxit37gDPBzs8Bw03CiYVUSOWTY25SVixBECvR3LTlQ97DFjStN6ch+cK9S/ziT2mBXiM0kboA==
+"@mrrs878/sliding-puzzle@^0.0.10":
+  version "0.0.10"
+  resolved "https://registry.npmjs.org/@mrrs878/sliding-puzzle/-/sliding-puzzle-0.0.10.tgz#2e77ee8219d2e81321cb6812883a16a3edeff92f"
+  integrity sha512-xRPIEbBjmpSU6+687VdmO0mdaWkn1UxRTsANvgov8D5SnF6g3pr7h2le0epf/q32yhzWq2m/zTpYavz814ZPiA==
   dependencies:
     canvas "^2.8.0"
 
