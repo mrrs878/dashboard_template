@@ -1,10 +1,10 @@
 /*
  * @Author: mrrs878@foxmail.com
  * @Date: 2021-02-24 10:13:41
- * @LastEditTime: 2021-08-16 13:49:35
+ * @LastEditTime: 2021-09-26 21:09:09
  * @LastEditors: mrrs878@foxmail.com
  * @Description: In User Settings Edit
- * @FilePath: \awesomee:\frontEnd\myPro\dashboard_template\src\layout\index.tsx
+ * @FilePath: \dashboard_template\src\layout\index.tsx
  */
 
 import { ConfigProvider, Layout, message } from 'antd';
@@ -14,14 +14,14 @@ import { BrowserRouter } from 'react-router-dom';
 import {
   compose, curry, equals, not, when, always,
 } from 'ramda';
-import MHeader from '../components/MHeader';
-import MMenu from '../components/MMenu';
-import MTagsBar from '../components/MTagsBar';
-import useGetPermissionUrls from '../hook/useGetPermissionUrls';
-import useGetMenu from '../hook/useGetMenu';
-import Router from '../route';
-import { useFullScreen } from '../store';
-import initExceptionSentry from '../tool/error';
+import MHeader from 'src/components/MHeader';
+import MMenu from 'src/components/MMenu';
+import MTagsBar from 'src/components/MTagsBar';
+import useGetPermissionUrls from 'src/hook/useGetPermissionUrls';
+import useGetMenu from 'src/hook/useGetMenu';
+import Router from 'src/route';
+import { useFullScreen } from 'src/store';
+import initExceptionSentry from 'src/tool/error';
 
 const { Content, Footer, Sider } = Layout;
 

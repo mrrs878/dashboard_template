@@ -1,12 +1,12 @@
 /*
  * @Author: mrrs878@foxmail.com
  * @Date: 2021-02-24 14:24:50
- * @LastEditTime: 2021-04-13 18:01:16
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-09-26 21:07:54
+ * @LastEditors: mrrs878@foxmail.com
  * @Description: In User Settings Edit
- * @FilePath: /dashboard_template/src/api/setting.ts
+ * @FilePath: \dashboard_template\src\api\setting.ts
  */
-import ajax from '../tool/ajax';
+import ajax from 'src/tool/ajax';
 
 const BASE_URL = `${process.env.REACT_APP_BASE_URL}/setting`;
 

@@ -1,7 +1,7 @@
 /*
  * @Author: mrrs878@foxmail.com
  * @Date: 2021-02-26 18:16:29
- * @LastEditTime: 2021-08-19 13:48:05
+ * @LastEditTime: 2021-09-26 21:09:22
  * @LastEditors: mrrs878@foxmail.com
  * @Description: In User Settings Edit
  */
@@ -13,18 +13,18 @@ import {
 import React, { Suspense, useEffect } from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import { useDocumentTitle } from '@mrrs878/hooks';
-import MLoading from '../components/MLoading';
-import { useModel } from '../store';
+import MLoading from 'src/components/MLoading';
+import { useModel } from 'src/store';
 
-const Home = React.lazy(() => import('../view/home'));
-const Profile = React.lazy(() => import('../view/profile'));
-const Login = React.lazy(() => import('../view/auth/login'));
-const ForbiddenPage = React.lazy(() => import('../view/auth/403'));
-const Setting = React.lazy(() => import('../view/setting'));
-const MenuSetting = React.lazy(() => import('../view/setting/menu'));
-const Permission = React.lazy(() => import('../view/setting/permission'));
-const Editor = React.lazy(() => import('../view/editor'));
-const ExceptionSentry = React.lazy(() => import('../view/exception'));
+const Home = React.lazy(() => import('src/view/home'));
+const Profile = React.lazy(() => import('src/view/profile'));
+const Login = React.lazy(() => import('src/view/auth/login'));
+const ForbiddenPage = React.lazy(() => import('src/view/auth/403'));
+const Setting = React.lazy(() => import('src/view/setting'));
+const MenuSetting = React.lazy(() => import('src/view/setting/menu'));
+const Permission = React.lazy(() => import('src/view/setting/permission'));
+const Editor = React.lazy(() => import('src/view/editor'));
+const ExceptionSentry = React.lazy(() => import('src/view/exception'));
 
 interface GuardComponentPropsI {
   component: any;

@@ -1,15 +1,15 @@
 /*
  * @Author: mrrs878@foxmail.com
  * @Date: 2021-02-24 23:04:18
- * @LastEditTime: 2021-08-16 20:31:58
+ * @LastEditTime: 2021-09-26 21:09:28
  * @LastEditors: mrrs878@foxmail.com
  * @Description: In User Settings Edit
- * @FilePath: e:\frontEnd\myPro\dashboard_template\src\view\home\index.tsx
+ * @FilePath: \dashboard_template\src\view\home\index.tsx
  */
 import { Button } from 'antd';
 import { always, ifElse } from 'ramda';
 import React from 'react';
-import { useFullScreen, useModel } from '../../store';
+import { useFullScreen, useModel } from 'src/store';
 
 const Home = () => {
   const [user, updateUser] = useModel('user');

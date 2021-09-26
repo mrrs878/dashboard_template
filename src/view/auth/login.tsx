@@ -1,7 +1,7 @@
 /*
  * @Author: mrrs878@foxmail.com
  * @Date: 2021-04-06 22:37:02
- * @LastEditTime: 2021-09-22 21:59:28
+ * @LastEditTime: 2021-09-26 21:06:33
  * @LastEditors: mrrs878@foxmail.com
  * @Description: In User Settings Edit
  * @FilePath: \dashboard_template\src\view\auth\login.tsx
@@ -14,8 +14,8 @@ import { useCallback, useEffect, useState } from 'react';
 import { useRequest } from '@mrrs878/hooks';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { MVerify } from '@mrrs878/sliding-puzzle';
-import { CHECK_PUZZLE, GET_PUZZLE_IMG, LOGIN } from '../../api/auth';
-import { useFullScreen, useUser } from '../../store';
+import { CHECK_PUZZLE, GET_PUZZLE_IMG, LOGIN } from 'src/api/auth';
+import { useFullScreen, useUser } from 'src/store';
 import style from './login.module.less';
 import '@mrrs878/sliding-puzzle/dist/index.css';
 

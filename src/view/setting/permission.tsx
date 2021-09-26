@@ -1,15 +1,15 @@
 /*
  * @Author: your name
  * @Date: 2021-04-15 16:34:56
- * @LastEditTime: 2021-08-02 20:08:17
+ * @LastEditTime: 2021-09-26 21:10:06
  * @LastEditors: mrrs878@foxmail.com
  * @Description: In User Settings Edit
- * @FilePath: d:\Data\Personal\MyPro\dashboard_template\src\view\setting\permission.tsx
+ * @FilePath: \dashboard_template\src\view\setting\permission.tsx
  */
 import { Table } from 'antd';
 import React, { useMemo } from 'react';
-import useKeepScroll from '../../hook/useKeepScroll';
-import { useModel } from '../../store';
+import useKeepScroll from 'src/hook/useKeepScroll';
+import { useModel } from 'src/store';
 
 const Permission = () => {
   useKeepScroll(window, { key: 'permissionUrls' });

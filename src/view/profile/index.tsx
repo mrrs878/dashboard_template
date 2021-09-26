@@ -1,14 +1,14 @@
 /*
  * @Author: mrrs878@foxmail.com
  * @Date: 2021-03-01 10:19:29
- * @LastEditTime: 2021-09-03 16:52:21
+ * @LastEditTime: 2021-09-26 21:09:34
  * @LastEditors: mrrs878@foxmail.com
  * @Description: In User Settings Edit
  * @FilePath: \dashboard_template\src\view\profile\index.tsx
  */
 import { Button } from 'antd';
 import { useState } from 'react';
-import { MDragContainer } from '../../components/MDragCard';
+import { MDragContainer } from 'src/components/MDragCard';
 import { Comments } from './components/Comments';
 import { Tasks } from './components/Tasks';
 import { UserInfo } from './components/UserInfo';

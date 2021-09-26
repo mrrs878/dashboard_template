@@ -1,7 +1,7 @@
 /*
  * @Author: mrrs878@foxmail.com
  * @Date: 2021-04-13 10:19:21
- * @LastEditTime: 2021-08-19 13:48:52
+ * @LastEditTime: 2021-09-26 21:10:02
  * @LastEditors: mrrs878@foxmail.com
  * @Description: In User Settings Edit
  * @FilePath: \dashboard_template\src\view\setting\menu.tsx
@@ -24,10 +24,10 @@ import { SelectData } from 'rc-tree';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { RuleObject, StoreValue } from 'rc-field-form/lib/interface';
 import { useRequest } from '@mrrs878/hooks';
-import { CREATE_MENU, UPDATE_MENU, UPDATE_MENUS } from '../../api/setting';
-import useGetMenu from '../../hook/useGetMenu';
-import { useModel } from '../../store';
-import { ITEM_STATUS_ARRAY, MAIN_CONFIG } from '../../config';
+import { CREATE_MENU, UPDATE_MENU, UPDATE_MENUS } from 'src/api/setting';
+import useGetMenu from 'src/hook/useGetMenu';
+import { useModel } from 'src/store';
+import { ITEM_STATUS_ARRAY, MAIN_CONFIG } from 'src/config';
 import style from './menu.module.less';
 
 interface IMenuPositionRange {

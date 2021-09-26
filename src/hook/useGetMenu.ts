@@ -1,7 +1,7 @@
 /*
  * @Author: mrrs878@foxmail.com
  * @Date: 2020-10-10 19:15:33
- * @LastEditTime: 2021-08-18 22:24:55
+ * @LastEditTime: 2021-09-26 21:08:49
  * @LastEditors: mrrs878@foxmail.com
  * @Description: In User Settings Edit
  * @FilePath: \dashboard_template\src\hook\useGetMenu.ts
@@ -10,8 +10,8 @@ import { message } from 'antd';
 import { useEffect } from 'react';
 import { clone } from 'ramda';
 import { useRequest } from '@mrrs878/hooks';
-import { GET_MENUS } from '../api/setting';
-import { useModel } from '../store';
+import { GET_MENUS } from 'src/api/setting';
+import { useModel } from 'src/store';
 
 function menuArray2Tree(src: Array<IMenuItem>) {
   const res: Array<IMenuItem> = [];

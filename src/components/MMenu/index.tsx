@@ -1,18 +1,18 @@
 /*
  * @Author: mrrs878@foxmail.com
  * @Date: 2021-02-24 10:25:01
- * @LastEditTime: 2021-08-06 15:16:36
+ * @LastEditTime: 2021-09-26 21:08:15
  * @LastEditors: mrrs878@foxmail.com
  * @Description: In User Settings Edit
- * @FilePath: d:\Data\Personal\MyPro\dashboard_template\src\components\MMenu\index.tsx
+ * @FilePath: \dashboard_template\src\components\MMenu\index.tsx
  */
 import React, { useCallback, useMemo } from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { Menu } from 'antd';
 import * as _Icon from '@ant-design/icons';
 import { and, clone, ifElse } from 'ramda';
+import { useModel } from 'src/store';
 import style from './index.module.less';
-import { useModel } from '../../store';
 
 const { SubMenu } = Menu;
 const Icon: Record<string, any> = clone(_Icon);
