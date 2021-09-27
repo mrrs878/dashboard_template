@@ -2,11 +2,11 @@
  * @Author: mrrs878@foxmail.com
  * @Date: 2021-09-02 17:29:57
  * @LastEditors: mrrs878@foxmail.com
- * @LastEditTime: 2021-09-09 11:55:40
+ * @LastEditTime: 2021-09-27 15:47:53
  * @FilePath: \dashboard_template\src\components\MDragCard\Card.tsx
  */
 import {
-  memo, useRef, useMemo, useEffect, FunctionComponent,
+  useRef, useEffect, FunctionComponent,
 } from 'react';
 import { useDrop, useDrag } from 'react-dnd';
 import style from './card.module.less';
@@ -16,10 +16,9 @@ export type MoveCard = (dragIndex: number, hoverIndex: number) => void;
 interface IProps {
   id: string;
   size: CardSize;
-  editable: boolean;
   moveCard: MoveCard;
   index: number;
-  Element: FunctionComponent
+  Element: FunctionComponent;
 }
 
 interface IDropItem {
@@ -28,7 +27,7 @@ interface IDropItem {
 }
 
 export const Card = ({
-  id, Element, index, moveCard, size, editable,
+  id, Element, index, moveCard, size,
 }: IProps) => {
   const ref = useRef<HTMLDivElement>(null);
   const [{ handlerId }, drop] = useDrop<IDropItem, any, any>({
@@ -69,21 +68,20 @@ export const Card = ({
       isDragging: monitor.isDragging(),
     }),
   });
-  const opacity = useMemo(() => (isDragging ? 0 : 1), [isDragging]);
-  const Node = memo(Element);
+  const opacity = isDragging ? 0 : 1;
 
   useEffect(() => {
-    if (editable) drag(drop(ref));
-  }, [drag, drop, editable]);
+    drag(drop(ref));
+  }, [drag, drop]);
 
   return (
     <div
-      className={`${style[`card-${size}`]} ${style.card} ${editable ? style.edit : ''}`}
+      className={`${style[`card-${size}`]} ${style.card}`}
       ref={ref}
       style={{ opacity }}
       data-handler-id={handlerId}
     >
-      <Node />
+      <Element />
     </div>
   );
 };

@@ -346,6 +346,62 @@
       "errorType": "JSRuntimeError",
       "create_time": "2021/9/3 下午4:52:59",
       "id": 10
+    },
+    {
+      "message": "Uncaught Error: Function components cannot have string refs. We recommend using useRef() instead. Learn more about using refs safely here: https://reactjs.org/link/strict-mode-string-ref",
+      "filename": "http://localhost:8083/static/js/vendors~main.chunk.js",
+      "position": "137490:23",
+      "selector": "",
+      "stack": "coerceRef (http://localhost:8083/static/js/vendors~main.chunk.js:137490:23)reconcileSingleElement (http://localhost:8083/static/js/vendors~main.chunk.js:138324:38)reconcileChildFibers (http://localhost:8083/static/js/vendors~main.chunk.js:138412:39)reconcileChildren (http://localhost:8083/static/js/vendors~main.chunk.js:141252:32)updateFunctionComponent (http://localhost:8083/static/js/vendors~main.chunk.js:141619:7)beginWork (http://localhost:8083/static/js/vendors~main.chunk.js:143250:20)HTMLUnknownElement.callCallback (http://localhost:8083/static/js/vendors~main.chunk.js:128225:18)Object.invokeGuardedCallbackDev (http://localhost:8083/static/js/vendors~main.chunk.js:128274:20)invokeGuardedCallback (http://localhost:8083/static/js/vendors~main.chunk.js:128334:35)beginWork$1 (http://localhost:8083/static/js/vendors~main.chunk.js:148076:11)performUnitOfWork (http://localhost:8083/static/js/vendors~main.chunk.js:146912:16)workLoopSync (http://localhost:8083/static/js/vendors~main.chunk.js:146849:9)renderRootSync (http://localhost:8083/static/js/vendors~main.chunk.js:146815:11)performSyncWorkOnRoot (http://localhost:8083/static/js/vendors~main.chunk.js:146432:22)http://localhost:8083/static/js/vendors~main.chunk.js:135685:30unstable_runWithPriority (http://localhost:8083/static/js/vendors~main.chunk.js:161020:16)runWithPriority$1 (http://localhost:8083/static/js/vendors~main.chunk.js:135631:14)flushSyncCallbackQueueImpl (http://localhost:8083/static/js/vendors~main.chunk.js:135680:13)flushSyncCallbackQueue (http://localhost:8083/static/js/vendors~main.chunk.js:135668:7)flushSync (http://localhost:8083/static/js/vendors~main.chunk.js:146607:11)scheduleRefresh (http://localhost:8083/static/js/vendors~main.chunk.js:148537:9)Object.renderer.scheduleRefresh (chrome-extension://fmkadmapgofadopljbjfkapdkoienihi/build/react_devtools_backend.js:5230:16)http://localhost:8083/static/js/vendors~main.chunk.js:152987:21Set.forEach (<anonymous>)Object.performReactRefresh (http://localhost:8083/static/js/vendors~main.chunk.js:152976:30)http://localhost:8083/static/js/vendors~main.chunk.js:80913:17",
+      "title": "个人中心",
+      "location": "http://localhost:8083/profile",
+      "kind": "stability",
+      "type": "error",
+      "errorType": "JSRuntimeError",
+      "create_time": "2021/9/27 下午3:03:05",
+      "id": 11
+    },
+    {
+      "message": "Uncaught Invariant Violation: Expected drag drop context",
+      "filename": "http://localhost:8083/static/js/8.chunk.js",
+      "position": "360:15",
+      "selector": "",
+      "stack": "invariant (http://localhost:8083/static/js/8.chunk.js:360:15)useDragDropManager (http://localhost:8083/static/js/8.chunk.js:7099:73)useDropTargetMonitor (http://localhost:8083/static/js/8.chunk.js:7488:95)useDrop (http://localhost:8083/static/js/8.chunk.js:7399:99)Card (http://localhost:8083/10.90c755104f51f154afa1.hot-update.js:49:71)renderWithHooks (http://localhost:8083/static/js/vendors~main.chunk.js:139275:22)mountIndeterminateComponent (http://localhost:8083/static/js/vendors~main.chunk.js:142037:17)beginWork (http://localhost:8083/static/js/vendors~main.chunk.js:143236:20)HTMLUnknownElement.callCallback (http://localhost:8083/static/js/vendors~main.chunk.js:128225:18)Object.invokeGuardedCallbackDev (http://localhost:8083/static/js/vendors~main.chunk.js:128274:20)invokeGuardedCallback (http://localhost:8083/static/js/vendors~main.chunk.js:128334:35)beginWork$1 (http://localhost:8083/static/js/vendors~main.chunk.js:148076:11)performUnitOfWork (http://localhost:8083/static/js/vendors~main.chunk.js:146912:16)workLoopSync (http://localhost:8083/static/js/vendors~main.chunk.js:146849:9)renderRootSync (http://localhost:8083/static/js/vendors~main.chunk.js:146815:11)performSyncWorkOnRoot (http://localhost:8083/static/js/vendors~main.chunk.js:146432:22)http://localhost:8083/static/js/vendors~main.chunk.js:135685:30unstable_runWithPriority (http://localhost:8083/static/js/vendors~main.chunk.js:161020:16)runWithPriority$1 (http://localhost:8083/static/js/vendors~main.chunk.js:135631:14)flushSyncCallbackQueueImpl (http://localhost:8083/static/js/vendors~main.chunk.js:135680:13)flushSyncCallbackQueue (http://localhost:8083/static/js/vendors~main.chunk.js:135668:7)flushSync (http://localhost:8083/static/js/vendors~main.chunk.js:146607:11)scheduleRefresh (http://localhost:8083/static/js/vendors~main.chunk.js:148537:9)Object.renderer.scheduleRefresh (chrome-extension://fmkadmapgofadopljbjfkapdkoienihi/build/react_devtools_backend.js:5230:16)http://localhost:8083/static/js/vendors~main.chunk.js:152987:21Set.forEach (<anonymous>)Object.performReactRefresh (http://localhost:8083/static/js/vendors~main.chunk.js:152976:30)http://localhost:8083/static/js/vendors~main.chunk.js:80913:17",
+      "title": "个人中心",
+      "location": "http://localhost:8083/profile",
+      "kind": "stability",
+      "type": "error",
+      "errorType": "JSRuntimeError",
+      "create_time": "2021/9/27 下午3:25:28",
+      "id": 12
+    },
+    {
+      "message": "Uncaught Error: Element type is invalid: expected a string (for built-in components) or a class/function (for composite components) but got: undefined. You likely forgot to export your component from the file it's defined in, or you might have mixed up default and named imports.\n\nCheck the render method of `MDragContainer`.",
+      "filename": "http://localhost:8083/static/js/vendors~main.chunk.js",
+      "position": "149152:25",
+      "selector": "",
+      "stack": "Check the render method of `MDragContainer`.createFiberFromTypeAndProps (http://localhost:8083/static/js/vendors~main.chunk.js:149152:25)createFiberFromElement (http://localhost:8083/static/js/vendors~main.chunk.js:149177:19)reconcileSingleElement (http://localhost:8083/static/js/vendors~main.chunk.js:138352:27)reconcileChildFibers (http://localhost:8083/static/js/vendors~main.chunk.js:138412:39)reconcileChildren (http://localhost:8083/static/js/vendors~main.chunk.js:141252:32)updateHostComponent (http://localhost:8083/static/js/vendors~main.chunk.js:141868:7)beginWork (http://localhost:8083/static/js/vendors~main.chunk.js:143267:18)HTMLUnknownElement.callCallback (http://localhost:8083/static/js/vendors~main.chunk.js:128225:18)Object.invokeGuardedCallbackDev (http://localhost:8083/static/js/vendors~main.chunk.js:128274:20)invokeGuardedCallback (http://localhost:8083/static/js/vendors~main.chunk.js:128334:35)beginWork$1 (http://localhost:8083/static/js/vendors~main.chunk.js:148076:11)performUnitOfWork (http://localhost:8083/static/js/vendors~main.chunk.js:146912:16)workLoopSync (http://localhost:8083/static/js/vendors~main.chunk.js:146849:9)renderRootSync (http://localhost:8083/static/js/vendors~main.chunk.js:146815:11)performSyncWorkOnRoot (http://localhost:8083/static/js/vendors~main.chunk.js:146432:22)http://localhost:8083/static/js/vendors~main.chunk.js:135685:30unstable_runWithPriority (http://localhost:8083/static/js/vendors~main.chunk.js:161020:16)runWithPriority$1 (http://localhost:8083/static/js/vendors~main.chunk.js:135631:14)flushSyncCallbackQueueImpl (http://localhost:8083/static/js/vendors~main.chunk.js:135680:13)flushSyncCallbackQueue (http://localhost:8083/static/js/vendors~main.chunk.js:135668:7)flushSync (http://localhost:8083/static/js/vendors~main.chunk.js:146607:11)scheduleRefresh (http://localhost:8083/static/js/vendors~main.chunk.js:148537:9)Object.renderer.scheduleRefresh (chrome-extension://fmkadmapgofadopljbjfkapdkoienihi/build/react_devtools_backend.js:5230:16)http://localhost:8083/static/js/vendors~main.chunk.js:152987:21Set.forEach (<anonymous>)Object.performReactRefresh (http://localhost:8083/static/js/vendors~main.chunk.js:152976:30)http://localhost:8083/static/js/vendors~main.chunk.js:80913:17",
+      "title": "个人中心",
+      "location": "http://localhost:8083/profile",
+      "kind": "stability",
+      "type": "error",
+      "errorType": "JSRuntimeError",
+      "create_time": "2021/9/27 下午3:28:00",
+      "id": 13
+    },
+    {
+      "message": "Uncaught Error: Element type is invalid: expected a string (for built-in components) or a class/function (for composite components) but got: undefined. You likely forgot to export your component from the file it's defined in, or you might have mixed up default and named imports.\n\nCheck the render method of `MDragContainer`.",
+      "filename": "http://localhost:8083/static/js/vendors~main.chunk.js",
+      "position": "149152:25",
+      "selector": "",
+      "stack": "Check the render method of `MDragContainer`.createFiberFromTypeAndProps (http://localhost:8083/static/js/vendors~main.chunk.js:149152:25)createFiberFromElement (http://localhost:8083/static/js/vendors~main.chunk.js:149177:19)reconcileSingleElement (http://localhost:8083/static/js/vendors~main.chunk.js:138352:27)reconcileChildFibers (http://localhost:8083/static/js/vendors~main.chunk.js:138412:39)reconcileChildren (http://localhost:8083/static/js/vendors~main.chunk.js:141245:32)updateHostComponent (http://localhost:8083/static/js/vendors~main.chunk.js:141868:7)beginWork (http://localhost:8083/static/js/vendors~main.chunk.js:143267:18)HTMLUnknownElement.callCallback (http://localhost:8083/static/js/vendors~main.chunk.js:128225:18)Object.invokeGuardedCallbackDev (http://localhost:8083/static/js/vendors~main.chunk.js:128274:20)invokeGuardedCallback (http://localhost:8083/static/js/vendors~main.chunk.js:128334:35)beginWork$1 (http://localhost:8083/static/js/vendors~main.chunk.js:148076:11)performUnitOfWork (http://localhost:8083/static/js/vendors~main.chunk.js:146912:16)workLoopSync (http://localhost:8083/static/js/vendors~main.chunk.js:146849:9)renderRootSync (http://localhost:8083/static/js/vendors~main.chunk.js:146815:11)performSyncWorkOnRoot (http://localhost:8083/static/js/vendors~main.chunk.js:146432:22)http://localhost:8083/static/js/vendors~main.chunk.js:135685:30unstable_runWithPriority (http://localhost:8083/static/js/vendors~main.chunk.js:161020:16)runWithPriority$1 (http://localhost:8083/static/js/vendors~main.chunk.js:135631:14)flushSyncCallbackQueueImpl (http://localhost:8083/static/js/vendors~main.chunk.js:135680:13)workLoop (http://localhost:8083/static/js/vendors~main.chunk.js:160964:38)flushWork (http://localhost:8083/static/js/vendors~main.chunk.js:160920:20)MessagePort.performWorkUntilDeadline (http://localhost:8083/static/js/vendors~main.chunk.js:160524:31)",
+      "title": "首页",
+      "location": "http://localhost:8083/profile",
+      "kind": "stability",
+      "type": "error",
+      "errorType": "JSRuntimeError",
+      "create_time": "2021/9/27 下午3:28:06",
+      "id": 14
     }
   ]
 }

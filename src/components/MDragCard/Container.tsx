@@ -2,7 +2,7 @@
  * @Author: mrrs878@foxmail.com
  * @Date: 2021-09-02 17:37:07
  * @LastEditors: mrrs878@foxmail.com
- * @LastEditTime: 2021-09-06 16:33:46
+ * @LastEditTime: 2021-09-27 15:30:05
  * @FilePath: \dashboard_template\src\components\MDragCard\Container.tsx
  */
 import {
@@ -57,8 +57,10 @@ export const MDragContainer = ({
 
   return (
     <div className={style.container}>
-      <DndProvider backend={HTML5Backend}>
-        {
+      {
+        editable ? (
+          <DndProvider backend={HTML5Backend}>
+            {
           cardsTmp.map(({ card, key }, index) => (
             <Card
               key={key}
@@ -67,11 +69,23 @@ export const MDragContainer = ({
               Element={card.element}
               size={card.size}
               moveCard={moveCard}
-              editable={editable}
             />
           ))
         }
-      </DndProvider>
+          </DndProvider>
+        ) : (
+          cardsTmp.map(({ card }) => {
+            const Element = card.element;
+            return (
+              <div
+                className={`${style[`card-${card.size}`]} ${style.card}`}
+              >
+                <Element />
+              </div>
+            );
+          })
+        )
+      }
     </div>
   );
 };
