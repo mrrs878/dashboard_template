@@ -2,7 +2,7 @@
 * @Author: mrrs878@foxmail.com
 * @Date: 2021-09-28 19:39:40
  * @LastEditors: mrrs878@foxmail.com
- * @LastEditTime: 2021-09-28 20:54:19
+ * @LastEditTime: 2021-09-28 21:26:01
  * @FilePath: \dashboard_template\src\view\setting\hooks\useSwapMenu.ts
 */
 import { useRequest } from '@mrrs878/hooks';
@@ -16,10 +16,7 @@ enum Direction {
   'down',
 }
 
-type Swap = (action: Direction, target: IMenuItem | undefined, menuArray: Array<IMenuItem>)
-=> Promise<void>;
-
-function useSwapMenu(): [boolean, Swap] {
+function useSwapMenu() {
   const { getMenus } = useGetMenu(false, false);
   const [swapping,,updateMenus] = useRequest(UPDATE_MENUS, false);
   const swap = async (
@@ -60,10 +57,10 @@ function useSwapMenu(): [boolean, Swap] {
       message.error('网络错误，稍后重试');
     }
   };
-  return [
+  return <const>([
     swapping,
     swap,
-  ];
+  ]);
 }
 
 export { useSwapMenu, Direction };

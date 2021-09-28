@@ -1,7 +1,7 @@
 /*
  * @Author: mrrs878@foxmail.com
  * @Date: 2021-04-13 10:19:21
- * @LastEditTime: 2021-09-28 20:42:42
+ * @LastEditTime: 2021-09-28 21:15:22
  * @LastEditors: mrrs878@foxmail.com
  * @Description: In User Settings Edit
  * @FilePath: \dashboard_template\src\view\setting\menu.tsx
@@ -80,6 +80,12 @@ function findMenuItemParent(menuItem: IMenuItem) {
 
 function findMenuItemPathsBy(conf: (item: IMenuItem) => boolean) {
   return (src: Array<IMenuItem>) => src.filter(conf).map((item) => last(item.path.split('/')) || '');
+}
+
+function validateIcon(rule: RuleObject, value: StoreValue) {
+  if (!value) return Promise.resolve();
+  const Icon = Icons[value];
+  return isNil(Icon) ? Promise.reject(new Error('该图标不存在，请输入其他值')) : Promise.resolve();
 }
 
 const calculateMenuPosition = (menuArray: Array<IMenuItem>, parentMenuId: number|undefined) => {
@@ -204,10 +210,7 @@ const MenuSetting = () => {
     const selectMenuTmp: IMenuItem = info.selectedNodes[0];
     const isAddMenuItem = compose(equals(AddRootMenu.key), prop<'key', string>('key'));
     const parentMenu = findMenuItemParent(selectMenuTmp)(menuArray);
-    console.log(parentMenu?.id);
     const max = calculateMenuPosition(menuArray, parentMenu?.id);
-    console.log(max);
-
     setMenuPositionRange({ min: 0, max });
     setSelectedMenu(selectMenuTmp);
     setSelectedMenuParent(parentMenu);
@@ -217,12 +220,6 @@ const MenuSetting = () => {
 
   function onModalCancel() {
     setEditModalF(false);
-  }
-
-  function validateIcon(rule: RuleObject, value: StoreValue) {
-    if (!value) return Promise.resolve();
-    const Icon = Icons[value];
-    return isNil(Icon) ? Promise.reject(new Error('该图标不存在，请输入其他值')) : Promise.resolve();
   }
 
   function validatePath(rule: RuleObject, value: StoreValue) {
