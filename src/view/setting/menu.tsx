@@ -1,7 +1,7 @@
 /*
  * @Author: mrrs878@foxmail.com
  * @Date: 2021-04-13 10:19:21
- * @LastEditTime: 2021-09-26 21:10:02
+ * @LastEditTime: 2021-09-28 20:42:42
  * @LastEditors: mrrs878@foxmail.com
  * @Description: In User Settings Edit
  * @FilePath: \dashboard_template\src\view\setting\menu.tsx
@@ -13,7 +13,7 @@ import {
 import {
   and, clone, compose, equals, filter, find, ifElse, isNil, last, prop, sortBy,
 } from 'ramda';
-import React, {
+import {
   ReactText, useCallback, useEffect, useMemo, useState,
 } from 'react';
 import { withRouter } from 'react-router-dom';
@@ -24,11 +24,12 @@ import { SelectData } from 'rc-tree';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { RuleObject, StoreValue } from 'rc-field-form/lib/interface';
 import { useRequest } from '@mrrs878/hooks';
-import { CREATE_MENU, UPDATE_MENU, UPDATE_MENUS } from 'src/api/setting';
+import { CREATE_MENU, UPDATE_MENU } from 'src/api/setting';
 import useGetMenu from 'src/hook/useGetMenu';
 import { useModel } from 'src/store';
 import { ITEM_STATUS_ARRAY, MAIN_CONFIG } from 'src/config';
 import style from './menu.module.less';
+import { Direction, useSwapMenu } from './hooks/useSwapMenu';
 
 interface IMenuPositionRange {
   max: number;
@@ -81,6 +82,16 @@ function findMenuItemPathsBy(conf: (item: IMenuItem) => boolean) {
   return (src: Array<IMenuItem>) => src.filter(conf).map((item) => last(item.path.split('/')) || '');
 }
 
+const calculateMenuPosition = (menuArray: Array<IMenuItem>, parentMenuId: number|undefined) => {
+  const max = compose(
+    prop<'position', IMenuItem['position']>('position'),
+    last,
+    sortBy(prop('position')),
+    filter<IMenuItem, 'array'>((item) => item.parent === parentMenuId),
+  )(menuArray);
+  return max ?? -1;
+};
+
 const MenuSetting = () => {
   const [treeData, setTreeData] = useState<Array<IMenuItem>>([]);
   const [editModalF, setEditModalF] = useState<boolean>(false);
@@ -93,11 +104,11 @@ const MenuSetting = () => {
   const [paths, setPaths] = useState<Array<string>>([]);
   const [, createMenuRes, createMenu] = useRequest(CREATE_MENU, false);
   const [, updateMenuRes, updateMenu] = useRequest(UPDATE_MENU, false);
-  const [, updateMenusRes, updateMenus] = useRequest(UPDATE_MENUS, false);
   const { getMenus } = useGetMenu(false, false);
   const [menuTree] = useModel('menu');
   const [menuArray] = useModel('menuArray');
   const [form] = Form.useForm();
+  const [swapping, swapMenu] = useSwapMenu();
 
   useEffect(() => {
     setTreeData(formatMenu(menuTree));
@@ -114,22 +125,6 @@ const MenuSetting = () => {
     message.info(updateMenuRes.return_message);
     if (updateMenuRes.success) getMenus();
   }, [getMenus, updateMenuRes]);
-
-  useEffect(() => {
-    if (!updateMenusRes) return;
-    message.info(updateMenusRes.return_message);
-    if (updateMenusRes.success) getMenus();
-  }, [getMenus, updateMenusRes]);
-
-  const calculateMenuPosition = useCallback((parentMenuId: number|undefined) => {
-    const max = compose(
-      prop<'position', IMenuItem['position']>('position'),
-      last,
-      sortBy(prop('position')),
-      filter<IMenuItem, 'array'>((item) => item.parent === parentMenuId),
-    )(menuArray);
-    return max ?? -1;
-  }, [menuArray]);
 
   const menuItemClickHandlers = useMemo(() => ({
     common(_selectMenu: IMenuItem) {
@@ -151,11 +146,11 @@ const MenuSetting = () => {
       setCreateOrUpdate(true);
       setPaths(findMenuItemPathsBy((item) => item.parent === _selectMenu.id)(menuArray));
       setSelectedMenuParent(_selectMenu);
-      const max = calculateMenuPosition(_selectMenu?.id);
+      const max = calculateMenuPosition(menuArray, _selectMenu?.id);
       setMenuPositionRange({ min: 0, max });
       setTimeout(form.setFieldsValue, 500, { position: max + 1 });
     },
-  }), [calculateMenuPosition, form, menuArray]);
+  }), [form, menuArray]);
 
   const formFinishHandlers = {
     edit(values: any) {
@@ -210,7 +205,7 @@ const MenuSetting = () => {
     const isAddMenuItem = compose(equals(AddRootMenu.key), prop<'key', string>('key'));
     const parentMenu = findMenuItemParent(selectMenuTmp)(menuArray);
     console.log(parentMenu?.id);
-    const max = calculateMenuPosition(parentMenu?.id);
+    const max = calculateMenuPosition(menuArray, parentMenu?.id);
     console.log(max);
 
     setMenuPositionRange({ min: 0, max });
@@ -218,7 +213,7 @@ const MenuSetting = () => {
     setSelectedMenuParent(parentMenu);
     ifElse(isAddMenuItem,
       menuItemClickHandlers.add(selectMenuTmp), menuItemClickHandlers.common)(selectMenuTmp);
-  }, [calculateMenuPosition, menuArray, menuItemClickHandlers]);
+  }, [menuArray, menuItemClickHandlers]);
 
   function onModalCancel() {
     setEditModalF(false);
@@ -235,33 +230,15 @@ const MenuSetting = () => {
     return paths.includes(value) ? Promise.reject(new Error('该路径已被占用，请输入其他值')) : Promise.resolve();
   }
 
-  const onSwapPositionUp = useCallback(() => {
-    const position = selectedMenu?.position ?? -1;
-    if (position === 0) return;
-    const tmp = clone(menuArray);
-    const selectedMenuPosition = tmp.find((item) => item.id === selectedMenu?.id);
-    const preMenuPosition = tmp.find(
-      (item) => item.position === position - 1 && item.parent === selectedMenu?.parent,
-    );
-    if (selectedMenuPosition?.position !== undefined) selectedMenuPosition.position -= 1;
-    if (preMenuPosition?.position !== undefined) preMenuPosition.position += 1;
-    updateMenus(tmp);
+  const onSwapPositionUp = useCallback(async () => {
+    await swapMenu(Direction.up, selectedMenu, menuArray);
     setEditModalF(false);
-  }, [menuArray, selectedMenu, updateMenus]);
+  }, [menuArray, selectedMenu, swapMenu]);
 
-  const onSwapPositionDown = useCallback(() => {
-    const position = selectedMenu?.position ?? -1;
-    if (position === positionRange.max) return;
-    const tmp = clone(menuArray);
-    const selectedMenuPosition = tmp.find((item) => item.id === selectedMenu?.id);
-    const preMenuPosition = tmp.find(
-      (item) => item.position === position + 1 && item.parent === selectedMenu?.parent,
-    );
-    if (selectedMenuPosition?.position !== undefined) selectedMenuPosition.position += 1;
-    if (preMenuPosition?.position !== undefined) preMenuPosition.position -= 1;
-    updateMenus(tmp);
+  const onSwapPositionDown = useCallback(async () => {
+    await swapMenu(Direction.down, selectedMenu, menuArray);
     setEditModalF(false);
-  }, [menuArray, positionRange, selectedMenu, updateMenus]);
+  }, [menuArray, selectedMenu, swapMenu]);
 
   return (
     <div className="container">
@@ -332,8 +309,8 @@ const MenuSetting = () => {
                 type="number"
                 addonAfter={(
                   <Space>
-                    <Button disabled={selectedMenu?.position === positionRange.min || selectedMenu?.key === 'root'} size="small" className={style.menuPositionCButton} onClick={onSwapPositionUp}>上移</Button>
-                    <Button disabled={selectedMenu?.position === positionRange.max || selectedMenu?.key === 'root'} size="small" className={style.menuPositionCButton} onClick={onSwapPositionDown}>下移</Button>
+                    <Button loading={swapping} disabled={selectedMenu?.position === positionRange.min || selectedMenu?.key === 'root'} size="small" className={style.menuPositionCButton} onClick={onSwapPositionUp}>上移</Button>
+                    <Button loading={swapping} disabled={selectedMenu?.position === positionRange.max || selectedMenu?.key === 'root'} size="small" className={style.menuPositionCButton} onClick={onSwapPositionDown}>下移</Button>
                   </Space>
                 )}
               />
