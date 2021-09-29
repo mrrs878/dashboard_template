@@ -4,15 +4,13 @@
 /*
  * @Author: mrrs878@foxmail.com
  * @Date: 2021-03-29 09:58:37
- * @LastEditTime: 2021-09-26 21:08:25
+ * @LastEditTime: 2021-09-29 21:09:37
  * @LastEditors: mrrs878@foxmail.com
  * @Description: In User Settings Edit
  * @FilePath: \dashboard_template\src\components\MTagsBar\index.tsx
  */
 import { CloseCircleOutlined } from '@ant-design/icons';
-import {
-  compose, gt, last, length, prop, when,
-} from 'ramda';
+import { last } from 'ramda';
 import {
   useCallback, useEffect, useRef, useState,
 } from 'react';
@@ -182,23 +180,19 @@ const MTagsBar = (props: IMTagsBarProps) => {
 
   useEffect(() => {
     const path = props.location.pathname;
-    setCurrentTag(path);
-  }, [props.location.pathname]);
+    if (tags.map((item) => item.path).includes(path)) setCurrentTag(path);
+  }, [props.location.pathname, tags]);
 
   useEffect(() => {
-    when<Array<ITag>, void>(
-      compose(gt(0), length),
-      compose<Array<ITag>, any, any, any>(props.history.push, prop('path'), last),
-    )(tags);
-    // const path = last(tags)?.path || '';
-    // props.history.push(path);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    if (tags.length > 0) {
+      props.history.push(last(tags)?.path || '');
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.history.push, tags.length]);
 
   return (
     <>
       {tags.length > 0 && (
-        // eslint-disable-next-line jsx-a11y/mouse-events-have-key-events
         <div className={style.container}>
           <div className={style.top} />
           <div
