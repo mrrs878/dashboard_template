@@ -1,7 +1,7 @@
 /*
  * @Author: mrrs878@foxmail.com
  * @Date: 2021-04-13 10:19:21
- * @LastEditTime: 2021-09-28 21:15:22
+ * @LastEditTime: 2021-09-29 19:28:39
  * @LastEditors: mrrs878@foxmail.com
  * @Description: In User Settings Edit
  * @FilePath: \dashboard_template\src\view\setting\menu.tsx
@@ -108,8 +108,8 @@ const MenuSetting = () => {
   const [isMenuAdding, setIsMenuAdding] = useState<boolean>(false);
   const [couldAddMenu, setCouldAddMenu] = useState<boolean>(true);
   const [paths, setPaths] = useState<Array<string>>([]);
-  const [, createMenuRes, createMenu] = useRequest(CREATE_MENU, false);
-  const [, updateMenuRes, updateMenu] = useRequest(UPDATE_MENU, false);
+  const [,,createMenu] = useRequest(CREATE_MENU, false);
+  const [,,updateMenu] = useRequest(UPDATE_MENU, false);
   const { getMenus } = useGetMenu(false, false);
   const [menuTree] = useModel('menu');
   const [menuArray] = useModel('menuArray');
@@ -119,18 +119,6 @@ const MenuSetting = () => {
   useEffect(() => {
     setTreeData(formatMenu(menuTree));
   }, [menuTree]);
-
-  useEffect(() => {
-    if (!createMenuRes) return;
-    message.info(createMenuRes.return_message);
-    if (createMenuRes.success) getMenus();
-  }, [createMenuRes, getMenus]);
-
-  useEffect(() => {
-    if (!updateMenuRes) return;
-    message.info(updateMenuRes.return_message);
-    if (updateMenuRes.success) getMenus();
-  }, [getMenus, updateMenuRes]);
 
   const menuItemClickHandlers = useMemo(() => ({
     common(_selectMenu: IMenuItem) {
@@ -159,7 +147,7 @@ const MenuSetting = () => {
   }), [form, menuArray]);
 
   const formFinishHandlers = {
-    edit(values: any) {
+    async edit(values: any) {
       const {
         role, key, parent, id,
       } = menuArray.find((item) => item.id === selectedMenu?.id) || {};
@@ -169,15 +157,19 @@ const MenuSetting = () => {
         role, parent, key, id, ...values, position: newPosition, path: `${selectedMenuParent?.path ?? ''}/${values.path}`,
       };
       setEditModalF(false);
-      updateMenu(newValues);
+      const updateMenuRes = await updateMenu(newValues);
+      message.info(updateMenuRes.return_message);
+      if (updateMenuRes.success) getMenus();
     },
-    add(values: any) {
+    async add(values: any) {
       const newValues: IMenuItem = clone(values);
       newValues.key = `${selectedMenuParent?.key}${values.path.slice(0, 1).toUpperCase()}${values.path.slice(1)}`;
       newValues.path = `${selectedMenuParent?.path ?? ''}/${values.path}`;
       newValues.parent = selectedMenuParent?.id ?? -1;
       setEditModalF(false);
-      createMenu(newValues);
+      const createMenuRes = await createMenu(newValues);
+      message.info(createMenuRes.return_message);
+      if (createMenuRes.success) getMenus();
     },
   };
   const formResetHandlers = {
@@ -214,27 +206,25 @@ const MenuSetting = () => {
     setMenuPositionRange({ min: 0, max });
     setSelectedMenu(selectMenuTmp);
     setSelectedMenuParent(parentMenu);
-    ifElse(isAddMenuItem,
-      menuItemClickHandlers.add(selectMenuTmp), menuItemClickHandlers.common)(selectMenuTmp);
+    ifElse(
+      isAddMenuItem,
+      menuItemClickHandlers.add(selectMenuTmp),
+      menuItemClickHandlers.common,
+    )(selectMenuTmp);
   }, [menuArray, menuItemClickHandlers]);
 
   function onModalCancel() {
     setEditModalF(false);
   }
 
-  function validatePath(rule: RuleObject, value: StoreValue) {
+  const validatePath = useCallback((rule: RuleObject, value: StoreValue) => {
     if (!value) return Promise.resolve();
     return paths.includes(value) ? Promise.reject(new Error('该路径已被占用，请输入其他值')) : Promise.resolve();
-  }
+  }, [paths]);
 
-  const onSwapPositionUp = useCallback(async () => {
-    await swapMenu(Direction.up, selectedMenu, menuArray);
-    setEditModalF(false);
-  }, [menuArray, selectedMenu, swapMenu]);
-
-  const onSwapPositionDown = useCallback(async () => {
-    await swapMenu(Direction.down, selectedMenu, menuArray);
-    setEditModalF(false);
+  const onSwapPosition = useCallback((direction: Direction) => async () => {
+    const res = await swapMenu(direction, selectedMenu, menuArray);
+    if (res) setEditModalF(false);
   }, [menuArray, selectedMenu, swapMenu]);
 
   return (
@@ -306,8 +296,24 @@ const MenuSetting = () => {
                 type="number"
                 addonAfter={(
                   <Space>
-                    <Button loading={swapping} disabled={selectedMenu?.position === positionRange.min || selectedMenu?.key === 'root'} size="small" className={style.menuPositionCButton} onClick={onSwapPositionUp}>上移</Button>
-                    <Button loading={swapping} disabled={selectedMenu?.position === positionRange.max || selectedMenu?.key === 'root'} size="small" className={style.menuPositionCButton} onClick={onSwapPositionDown}>下移</Button>
+                    <Button
+                      loading={swapping}
+                      disabled={selectedMenu?.position === positionRange.min || selectedMenu?.key === 'root'}
+                      size="small"
+                      className={style.menuPositionCButton}
+                      onClick={onSwapPosition(Direction.up)}
+                    >
+                      上移
+                    </Button>
+                    <Button
+                      loading={swapping}
+                      disabled={selectedMenu?.position === positionRange.max || selectedMenu?.key === 'root'}
+                      size="small"
+                      className={style.menuPositionCButton}
+                      onClick={onSwapPosition(Direction.down)}
+                    >
+                      下移
+                    </Button>
                   </Space>
                 )}
               />

@@ -7,7 +7,7 @@
       "title": "首页",
       "path": "/home",
       "parent": -1,
-      "position": 0,
+      "position": 7,
       "status": 0
     },
     {
@@ -28,7 +28,7 @@
       "path": "/setting",
       "icon_name": "SettingOutlined",
       "status": 0,
-      "position": 1
+      "position": 0
     },
     {
       "id": 3,
@@ -45,7 +45,7 @@
       "path": "/visitors",
       "icon_name": "TeamOutlined",
       "status": 0,
-      "position": 7,
+      "position": 1,
       "key": "profileVisitors",
       "parent": -1,
       "id": 4
@@ -67,14 +67,14 @@
       "path": "/editor",
       "icon_name": "EditOutlined",
       "status": 0,
-      "position": 4
+      "position": 7
     },
     {
       "title": "异常监控",
       "path": "/exceptionSentry",
       "icon_name": "AlertOutlined",
       "status": 0,
-      "position": 5,
+      "position": 7,
       "key": "rootExceptionSentry",
       "parent": -1,
       "id": 7
@@ -402,6 +402,48 @@
       "errorType": "JSRuntimeError",
       "create_time": "2021/9/27 下午3:28:06",
       "id": 14
+    },
+    {
+      "response": {},
+      "status": 0,
+      "method": "PUT",
+      "url": "http://localhost:3003/setting/menu",
+      "message": "",
+      "title": "菜单设置",
+      "location": "http://localhost:8083/setting/menu",
+      "kind": "stability",
+      "type": "error",
+      "errorType": "AjaxError",
+      "create_time": "2021/9/29 下午7:31:47",
+      "id": 15
+    },
+    {
+      "message": "Uncaught Error: Element type is invalid: expected a string (for built-in components) or a class/function (for composite components) but got: undefined. You likely forgot to export your component from the file it's defined in, or you might have mixed up default and named imports.\n\nCheck the render method of `MTagsBar`.",
+      "filename": "http://localhost:8083/static/js/vendors~main.chunk.js",
+      "position": "149152:19",
+      "selector": "",
+      "stack": "Check the render method of `MTagsBar`.createFiberFromTypeAndProps (http://localhost:8083/static/js/vendors~main.chunk.js:149152:25)createFiberFromElement (http://localhost:8083/static/js/vendors~main.chunk.js:149177:19)reconcileSingleElement (http://localhost:8083/static/js/vendors~main.chunk.js:138352:27)reconcileChildFibers (http://localhost:8083/static/js/vendors~main.chunk.js:138412:39)reconcileChildren (http://localhost:8083/static/js/vendors~main.chunk.js:141252:32)updateFunctionComponent (http://localhost:8083/static/js/vendors~main.chunk.js:141619:7)beginWork (http://localhost:8083/static/js/vendors~main.chunk.js:143250:20)HTMLUnknownElement.callCallback (http://localhost:8083/static/js/vendors~main.chunk.js:128225:18)Object.invokeGuardedCallbackDev (http://localhost:8083/static/js/vendors~main.chunk.js:128274:20)invokeGuardedCallback (http://localhost:8083/static/js/vendors~main.chunk.js:128334:35)beginWork$1 (http://localhost:8083/static/js/vendors~main.chunk.js:148076:11)performUnitOfWork (http://localhost:8083/static/js/vendors~main.chunk.js:146912:16)workLoopSync (http://localhost:8083/static/js/vendors~main.chunk.js:146849:9)renderRootSync (http://localhost:8083/static/js/vendors~main.chunk.js:146815:11)performSyncWorkOnRoot (http://localhost:8083/static/js/vendors~main.chunk.js:146432:22)http://localhost:8083/static/js/vendors~main.chunk.js:135685:30unstable_runWithPriority (http://localhost:8083/static/js/vendors~main.chunk.js:161020:16)runWithPriority$1 (http://localhost:8083/static/js/vendors~main.chunk.js:135631:14)flushSyncCallbackQueueImpl (http://localhost:8083/static/js/vendors~main.chunk.js:135680:13)flushSyncCallbackQueue (http://localhost:8083/static/js/vendors~main.chunk.js:135668:7)flushSync (http://localhost:8083/static/js/vendors~main.chunk.js:146607:11)scheduleRefresh (http://localhost:8083/static/js/vendors~main.chunk.js:148537:9)Object.renderer.scheduleRefresh (chrome-extension://fmkadmapgofadopljbjfkapdkoienihi/build/react_devtools_backend.js:5230:16)http://localhost:8083/static/js/vendors~main.chunk.js:152987:21Set.forEach (<anonymous>)Object.performReactRefresh (http://localhost:8083/static/js/vendors~main.chunk.js:152976:30)http://localhost:8083/static/js/vendors~main.chunk.js:80913:17",
+      "title": "个人中心",
+      "location": "http://localhost:8083/profile",
+      "kind": "stability",
+      "type": "error",
+      "errorType": "JSRuntimeError",
+      "create_time": "2021/9/29 下午7:59:16",
+      "id": 16
+    },
+    {
+      "message": "Uncaught Error: Element type is invalid: expected a string (for built-in components) or a class/function (for composite components) but got: undefined. You likely forgot to export your component from the file it's defined in, or you might have mixed up default and named imports.\n\nCheck the render method of `MTagsBar`.",
+      "filename": "http://localhost:8083/static/js/vendors~main.chunk.js",
+      "position": "157726:25",
+      "selector": "",
+      "stack": "Check the render method of `MTagsBar`.createFiberFromTypeAndProps (http://localhost:8083/static/js/vendors~main.chunk.js:157726:25)createFiberFromElement (http://localhost:8083/static/js/vendors~main.chunk.js:157751:19)reconcileSingleElement (http://localhost:8083/static/js/vendors~main.chunk.js:146926:27)reconcileChildFibers (http://localhost:8083/static/js/vendors~main.chunk.js:146986:39)reconcileChildren (http://localhost:8083/static/js/vendors~main.chunk.js:149826:32)updateFunctionComponent (http://localhost:8083/static/js/vendors~main.chunk.js:150193:7)beginWork (http://localhost:8083/static/js/vendors~main.chunk.js:151824:20)HTMLUnknownElement.callCallback (http://localhost:8083/static/js/vendors~main.chunk.js:136799:18)Object.invokeGuardedCallbackDev (http://localhost:8083/static/js/vendors~main.chunk.js:136848:20)invokeGuardedCallback (http://localhost:8083/static/js/vendors~main.chunk.js:136908:35)beginWork$1 (http://localhost:8083/static/js/vendors~main.chunk.js:156650:11)performUnitOfWork (http://localhost:8083/static/js/vendors~main.chunk.js:155486:16)workLoopSync (http://localhost:8083/static/js/vendors~main.chunk.js:155423:9)renderRootSync (http://localhost:8083/static/js/vendors~main.chunk.js:155389:11)performSyncWorkOnRoot (http://localhost:8083/static/js/vendors~main.chunk.js:155006:22)http://localhost:8083/static/js/vendors~main.chunk.js:144259:30unstable_runWithPriority (http://localhost:8083/static/js/vendors~main.chunk.js:171527:16)runWithPriority$1 (http://localhost:8083/static/js/vendors~main.chunk.js:144205:14)flushSyncCallbackQueueImpl (http://localhost:8083/static/js/vendors~main.chunk.js:144254:13)flushSyncCallbackQueue (http://localhost:8083/static/js/vendors~main.chunk.js:144242:7)flushSync (http://localhost:8083/static/js/vendors~main.chunk.js:155181:11)scheduleRefresh (http://localhost:8083/static/js/vendors~main.chunk.js:157111:9)Object.renderer.scheduleRefresh (chrome-extension://fmkadmapgofadopljbjfkapdkoienihi/build/react_devtools_backend.js:5230:16)http://localhost:8083/static/js/vendors~main.chunk.js:161561:21Set.forEach (<anonymous>)Object.performReactRefresh (http://localhost:8083/static/js/vendors~main.chunk.js:161550:30)http://localhost:8083/static/js/vendors~main.chunk.js:80913:17",
+      "title": "个人中心",
+      "location": "http://localhost:8083/profile",
+      "kind": "stability",
+      "type": "error",
+      "errorType": "JSRuntimeError",
+      "create_time": "2021/9/29 下午8:04:37",
+      "id": 17
     }
   ]
 }

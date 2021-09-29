@@ -2,7 +2,7 @@
 * @Author: mrrs878@foxmail.com
 * @Date: 2021-09-28 19:39:40
  * @LastEditors: mrrs878@foxmail.com
- * @LastEditTime: 2021-09-28 21:26:01
+ * @LastEditTime: 2021-09-29 19:35:48
  * @FilePath: \dashboard_template\src\view\setting\hooks\useSwapMenu.ts
 */
 import { useRequest } from '@mrrs878/hooks';
@@ -25,36 +25,37 @@ function useSwapMenu() {
     menuArray: Array<IMenuItem>,
   ) => {
     const position = target?.position ?? -1;
-    if (position === -1) return;
+    if (position === -1) return true;
 
     const tmp = clone(menuArray);
     const selectedMenu = tmp.find((item) => item.id === target?.id);
-    if (!selectedMenu) return;
+    if (!selectedMenu) return true;
 
     let preMenu;
-    const sub = tmp.filter((item) => item.parent === target?.parent)
-      .sort((a, b) => a.position - b.position);
+    const sub = tmp.filter((item) => item.parent === target?.parent);
     if (action === Direction.up) {
-      preMenu = sub.find(
+      preMenu = sub.sort((a, b) => b.position - a.position).find(
         (item) => item.position < position && item.parent === target?.parent,
       );
     } else if (action === Direction.down) {
-      preMenu = sub.find(
+      preMenu = sub.sort((a, b) => a.position - b.position).find(
         (item) => item.position > position && item.parent === target?.parent,
       );
     }
-    if (!preMenu) return;
+    if (!preMenu) return true;
 
     try {
       const positionTmp = preMenu.position;
-      selectedMenu.position = positionTmp;
       preMenu.position = selectedMenu.position;
+      selectedMenu.position = positionTmp;
 
       const { return_code, return_message } = await updateMenus(tmp);
       message.info(return_message);
       if (return_code === 0) getMenus();
+      return true;
     } catch (e) {
       message.error('网络错误，稍后重试');
+      return true;
     }
   };
   return <const>([
