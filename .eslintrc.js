@@ -1,7 +1,7 @@
 /*
  * @Author: mrrs878@foxmail.com
  * @Date: 2021-02-23 11:22:06
- * @LastEditTime: 2021-09-03 14:24:05
+ * @LastEditTime: 2021-09-30 17:42:43
  * @LastEditors: mrrs878@foxmail.com
  * @Description: In User Settings Edit
  * @FilePath: \dashboard_template\.eslintrc.js
@@ -26,6 +26,7 @@ module.exports = {
     'import/prefer-default-export': 0,
     'react/react-in-jsx-scope': 0,
     'react/no-unused-prop-types': process.env.NODE_ENV === 'production' ? 'error' : 'warn',
+    'react/require-default-props': [0],
     '@typescript-eslint/naming-convention': [
       'error',
       {

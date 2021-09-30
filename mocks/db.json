@@ -444,6 +444,62 @@
       "errorType": "JSRuntimeError",
       "create_time": "2021/9/29 下午8:04:37",
       "id": 17
+    },
+    {
+      "message": "ResizeObserver loop limit exceeded",
+      "filename": "http://localhost:8084/setting/menu",
+      "position": "0:0",
+      "selector": "",
+      "stack": "",
+      "title": "首页",
+      "location": "http://localhost:8084/setting/menu",
+      "kind": "stability",
+      "type": "error",
+      "errorType": "JSRuntimeError",
+      "create_time": "2021/9/30 下午4:42:02",
+      "id": 18
+    },
+    {
+      "message": "Uncaught Error: Invariant failed: You should not use <withRouter(MLayout) /> outside a <Router>",
+      "filename": "http://localhost:8083/static/js/vendors~main.chunk.js",
+      "position": "161617:9",
+      "selector": "",
+      "stack": "invariant (http://localhost:8083/static/js/vendors~main.chunk.js:161617:9)http://localhost:8083/static/js/vendors~main.chunk.js:154470:88updateContextConsumer (http://localhost:8083/static/js/vendors~main.chunk.js:142940:23)beginWork (http://localhost:8083/static/js/vendors~main.chunk.js:143301:18)HTMLUnknownElement.callCallback (http://localhost:8083/static/js/vendors~main.chunk.js:128225:18)Object.invokeGuardedCallbackDev (http://localhost:8083/static/js/vendors~main.chunk.js:128274:20)invokeGuardedCallback (http://localhost:8083/static/js/vendors~main.chunk.js:128334:35)beginWork$1 (http://localhost:8083/static/js/vendors~main.chunk.js:148076:11)performUnitOfWork (http://localhost:8083/static/js/vendors~main.chunk.js:146912:16)workLoopSync (http://localhost:8083/static/js/vendors~main.chunk.js:146849:9)renderRootSync (http://localhost:8083/static/js/vendors~main.chunk.js:146815:11)performSyncWorkOnRoot (http://localhost:8083/static/js/vendors~main.chunk.js:146432:22)http://localhost:8083/static/js/vendors~main.chunk.js:135685:30unstable_runWithPriority (http://localhost:8083/static/js/vendors~main.chunk.js:161020:16)runWithPriority$1 (http://localhost:8083/static/js/vendors~main.chunk.js:135631:14)flushSyncCallbackQueueImpl (http://localhost:8083/static/js/vendors~main.chunk.js:135680:13)flushSyncCallbackQueue (http://localhost:8083/static/js/vendors~main.chunk.js:135668:7)flushSync (http://localhost:8083/static/js/vendors~main.chunk.js:146607:11)scheduleRefresh (http://localhost:8083/static/js/vendors~main.chunk.js:148537:9)Object.renderer.scheduleRefresh (chrome-extension://fmkadmapgofadopljbjfkapdkoienihi/build/react_devtools_backend.js:5230:16)http://localhost:8083/static/js/vendors~main.chunk.js:152987:21Set.forEach (<anonymous>)Object.performReactRefresh (http://localhost:8083/static/js/vendors~main.chunk.js:152976:30)http://localhost:8083/static/js/vendors~main.chunk.js:80913:17",
+      "title": "异常监控",
+      "location": "http://localhost:8083/exceptionSentry",
+      "kind": "stability",
+      "type": "error",
+      "errorType": "JSRuntimeError",
+      "create_time": "2021/9/30 下午5:20:09",
+      "id": 19
+    },
+    {
+      "message": "Uncaught Error: Invariant failed: You should not use <withRouter(MLayout) /> outside a <Router>",
+      "filename": "http://localhost:8084/static/js/vendors~main.chunk.js",
+      "position": "161617:9",
+      "selector": "",
+      "stack": "invariant (http://localhost:8084/static/js/vendors~main.chunk.js:161617:9)http://localhost:8084/static/js/vendors~main.chunk.js:154470:88updateContextConsumer (http://localhost:8084/static/js/vendors~main.chunk.js:142940:23)beginWork (http://localhost:8084/static/js/vendors~main.chunk.js:143301:18)HTMLUnknownElement.callCallback (http://localhost:8084/static/js/vendors~main.chunk.js:128225:18)Object.invokeGuardedCallbackDev (http://localhost:8084/static/js/vendors~main.chunk.js:128274:20)invokeGuardedCallback (http://localhost:8084/static/js/vendors~main.chunk.js:128334:35)beginWork$1 (http://localhost:8084/static/js/vendors~main.chunk.js:148076:11)performUnitOfWork (http://localhost:8084/static/js/vendors~main.chunk.js:146912:16)workLoopSync (http://localhost:8084/static/js/vendors~main.chunk.js:146849:9)renderRootSync (http://localhost:8084/static/js/vendors~main.chunk.js:146815:11)performSyncWorkOnRoot (http://localhost:8084/static/js/vendors~main.chunk.js:146432:22)http://localhost:8084/static/js/vendors~main.chunk.js:135685:30unstable_runWithPriority (http://localhost:8084/static/js/vendors~main.chunk.js:161020:16)runWithPriority$1 (http://localhost:8084/static/js/vendors~main.chunk.js:135631:14)flushSyncCallbackQueueImpl (http://localhost:8084/static/js/vendors~main.chunk.js:135680:13)flushSyncCallbackQueue (http://localhost:8084/static/js/vendors~main.chunk.js:135668:7)flushSync (http://localhost:8084/static/js/vendors~main.chunk.js:146607:11)Object.scheduleRefresh (http://localhost:8084/static/js/vendors~main.chunk.js:148537:9)http://localhost:8084/static/js/vendors~main.chunk.js:152987:21Set.forEach (<anonymous>)Object.performReactRefresh (http://localhost:8084/static/js/vendors~main.chunk.js:152976:30)http://localhost:8084/static/js/vendors~main.chunk.js:80913:17",
+      "title": "个人中心",
+      "location": "http://localhost:8084/profile",
+      "kind": "stability",
+      "type": "error",
+      "errorType": "JSRuntimeError",
+      "create_time": "2021/9/30 下午5:20:22",
+      "id": 20
+    },
+    {
+      "message": "Uncaught TypeError: props.setActiveTag is not a function",
+      "filename": "http://localhost:8084/main.77af72d2b1a9d52e0e35.hot-update.js",
+      "position": "306:65",
+      "selector": "",
+      "stack": "http://localhost:8084/main.77af72d2b1a9d52e0e35.hot-update.js:306:65invokePassiveEffectCreate (http://localhost:8084/static/js/vendors~main.chunk.js:147609:24)HTMLUnknownElement.callCallback (http://localhost:8084/static/js/vendors~main.chunk.js:128225:18)Object.invokeGuardedCallbackDev (http://localhost:8084/static/js/vendors~main.chunk.js:128274:20)invokeGuardedCallback (http://localhost:8084/static/js/vendors~main.chunk.js:128334:35)flushPassiveEffectsImpl (http://localhost:8084/static/js/vendors~main.chunk.js:147691:13)unstable_runWithPriority (http://localhost:8084/static/js/vendors~main.chunk.js:161020:16)runWithPriority$1 (http://localhost:8084/static/js/vendors~main.chunk.js:135631:14)flushPassiveEffects (http://localhost:8084/static/js/vendors~main.chunk.js:147568:18)http://localhost:8084/static/js/vendors~main.chunk.js:147449:15workLoop (http://localhost:8084/static/js/vendors~main.chunk.js:160964:38)flushWork (http://localhost:8084/static/js/vendors~main.chunk.js:160920:20)MessagePort.performWorkUntilDeadline (http://localhost:8084/static/js/vendors~main.chunk.js:160524:31)",
+      "title": "首页",
+      "location": "http://localhost:8084/home",
+      "kind": "stability",
+      "type": "error",
+      "errorType": "JSRuntimeError",
+      "create_time": "2021/9/30 下午5:36:41",
+      "id": 21
     }
   ]
 }
