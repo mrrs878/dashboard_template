@@ -1640,19 +1640,20 @@
     semver "^7.3.4"
     tar "^6.1.0"
 
-"@mrrs878/hooks@^0.2.0":
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/@mrrs878/hooks/-/hooks-0.2.0.tgz#a84ccc5ad0d8cc783a21daf868a3173cbf7eed2e"
-  integrity sha512-Z+GO1vxuubL/oYnqo6hvbW+jPIbI4nL47CAZlPbGaQFLccW0tBS7s+AUBi2eBZh4cy4cuzL9Js4QUGQUpVENIA==
+"@mrrs878/hooks@^0.3.2":
+  version "0.3.2"
+  resolved "https://registry.yarnpkg.com/@mrrs878/hooks/-/hooks-0.3.2.tgz#4e04fe043063f24df4f97fd19192ae98b1750931"
+  integrity sha512-xeKgl6TOGjMMzcn0BpL8AYsqmCmcavuCGH9GyRC+DeioxECEquAZaHkt+7LivJBbUo/N8Ekehmu9FgOrBqFzGw==
   dependencies:
     "@types/js-cookie" "^2.2.7"
     js-cookie "^3.0.0"
+    ramda "^0.27.1"
     screenfull "^5.1.0"
 
-"@mrrs878/sliding-puzzle@^0.0.10":
-  version "0.0.10"
-  resolved "https://registry.npmjs.org/@mrrs878/sliding-puzzle/-/sliding-puzzle-0.0.10.tgz#2e77ee8219d2e81321cb6812883a16a3edeff92f"
-  integrity sha512-xRPIEbBjmpSU6+687VdmO0mdaWkn1UxRTsANvgov8D5SnF6g3pr7h2le0epf/q32yhzWq2m/zTpYavz814ZPiA==
+"@mrrs878/sliding-puzzle@^0.0.12":
+  version "0.0.12"
+  resolved "https://registry.yarnpkg.com/@mrrs878/sliding-puzzle/-/sliding-puzzle-0.0.12.tgz#62270e4a223a4ff2d7af5d57bb63e878f7fecd88"
+  integrity sha512-8B8QFsBHqN25bwWWu5iSwTRyuXCHfKqFpjEOQK5uAKIZgpR4uXtfGbZ6V/iBx3gd3/PIf7Z4wlcbOQUiOW+UBw==
   dependencies:
     canvas "^2.8.0"
 
