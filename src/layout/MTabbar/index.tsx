@@ -5,7 +5,7 @@
  * @Author: mrrs878@foxmail.com
  * @Date: 2021-09-30 16:44:07
  * @LastEditors: mrrs878@foxmail.com
- * @LastEditTime: 2021-09-30 17:57:23
+ * @LastEditTime: 2021-10-08 21:09:44
  * @FilePath: \dashboard_template\src\layout\MTabbar\index.tsx
  */
 import {
@@ -50,16 +50,16 @@ function isEqualBy<T>(a: T[], b: T[], key: keyof T) {
   return flag;
 }
 
-interface ITag {
+export interface ITab {
   path: string;
   title: string;
 }
 
-interface IMTagsBarProps {
-  tags: Array<ITag>;
-  activeTag: string;
-  updateTags: (tags: Array<ITag>) => void;
-  onTagChange?: (path: string, index: number) => void;
+export interface IMTabbarProps {
+  tabs: Array<ITab>;
+  activeTab: string;
+  updateTabs: (tabs: Array<ITab>) => void;
+  onTabChange?: (path: string, index: number) => void;
 }
 
 interface IPosition {
@@ -74,90 +74,87 @@ enum ContextMenuKeys {
 }
 
 type ContextMenuClickHandler = (
-  pre: Array<ITag>,
-  contextMenuTag: string
-) => Array<ITag>;
+  pre: Array<ITab>,
+  contextMenuTab: string
+) => Array<ITab>;
 
 const ContextMenuClickHandlers: Record<
 ContextMenuKeys,
 ContextMenuClickHandler
 > = {
-  [ContextMenuKeys.close]: (pre, contextMenuTag) => pre.filter(
-    (item) => item.path !== contextMenuTag,
+  [ContextMenuKeys.close]: (pre, contextMenuTab) => pre.filter(
+    (item) => item.path !== contextMenuTab,
   ),
   [ContextMenuKeys.closeAll]: () => [],
-  [ContextMenuKeys.closeOthers]: (pre, contextMenuTag) => pre.filter(
-    (item) => item.path === contextMenuTag,
+  [ContextMenuKeys.closeOthers]: (pre, contextMenuTab) => pre.filter(
+    (item) => item.path === contextMenuTab,
   ),
 };
 
-const TAG_WIDTH = 120;
+const TAB_WIDTH = 120;
 
-let originTagPos: IPosition = { x: 0, y: 0 };
+let originTabPos: IPosition = { x: 0, y: 0 };
 let originMousePos: IPosition = { x: 0, y: 0 };
 
-const MTagsBar = (props: IMTagsBarProps) => {
+const MTabbar = (props: IMTabbarProps) => {
   const [contextMenuVisible, setContextMenuVisible] = useState(false);
-  const [contextMenuTag, setContextMenuTag] = useState('');
+  const [contextMenuTab, setContextMenuTab] = useState('');
   const [contextMenuPos, setContextMenuPos] = useState<IPosition>({ x: 0, y: 0 });
-  const [currentTag] = useState(props.activeTag || props.tags[0]?.path);
-  const [movingTagPos, setMovingTagPos] = useState<IPosition>({ x: 0, y: 0 });
-  const movingTagPath = useRef<string>('');
+  const [movingTabPos, setMovingTabPos] = useState<IPosition>({ x: 0, y: 0 });
+  const movingTabPath = useRef<string>('');
   const contentDivRef = useRef<HTMLDivElement>(null);
 
-  const onTagClick = useCallback((e, path, index) => {
-    // setTimeout(props.history.replace, 100, path);
-    props.onTagChange?.call(null, path, index);
-    console.log(path);
+  const onTabClick = useCallback((e, path, index) => {
+    props.onTabChange?.call(null, path, index);
   }, [props]);
 
-  const onTagCloseClick = useCallback((e, path) => {
+  const onTabCloseClick = useCallback((e, path) => {
     e.preventDefault();
     e.stopPropagation();
-    const newTags = props.tags.filter((item) => item.path !== path);
-    props.updateTags(newTags);
+    const newTabs = props.tabs.filter((item) => item.path !== path);
+    props.updateTabs(newTabs);
   }, [props]);
 
-  const onTagContextMenu = useCallback((e, path) => {
+  const onTabContextMenu = useCallback((e, path) => {
     e.preventDefault();
     setContextMenuVisible(true);
     setContextMenuPos({ x: e.pageX, y: 20 });
-    setContextMenuTag(path);
+    setContextMenuTab(path);
   }, []);
 
-  const onTagMouseMove = useCallback((e) => {
+  const onTabMouseMove = useCallback((e) => {
     e.preventDefault();
     const contentWidth = (contentDivRef.current?.getBoundingClientRect().width || 0);
     const contentLeft = (contentDivRef.current?.getBoundingClientRect().left || 0);
-    const threshold = (contentLeft + (TAG_WIDTH / 2));
+    const threshold = (contentLeft + (TAB_WIDTH / 2));
     if (e.pageX < threshold) {
-      setMovingTagPos({ x: 0, y: 0 });
+      setMovingTabPos({ x: 0, y: 0 });
       return;
     }
-    let x = e.pageX - originMousePos.x + originTagPos.x;
+    let x = e.pageX - originMousePos.x + originTabPos.x;
     x = x > contentWidth - threshold ? contentWidth - threshold : x;
-    setMovingTagPos({ x, y: 0 });
+    setMovingTabPos({ x, y: 0 });
   }, []);
-  const onTagMouseUp = useCallback(() => {
-    document.removeEventListener('mousemove', onTagMouseMove);
-    document.removeEventListener('mouseup', onTagMouseUp);
-    setMovingTagPos({ x: 0, y: 0 });
-    movingTagPath.current = '';
-  }, [onTagMouseMove]);
-  const onTagMouseDown = useCallback(async (e, path) => {
+  const onTabMouseUp = useCallback(() => {
+    document.removeEventListener('mousemove', onTabMouseMove);
+    document.removeEventListener('mouseup', onTabMouseUp);
+    setMovingTabPos({ x: 0, y: 0 });
+    movingTabPath.current = '';
+  }, [onTabMouseMove]);
+  const onTabMouseDown = useCallback(async (e, path) => {
     e.preventDefault();
-    movingTagPath.current = path;
+    movingTabPath.current = path;
     const x = (parseInt(e.currentTarget.style.left, 10) || 0);
     originMousePos = { x: e.pageX, y: 0 };
-    originTagPos = ({ x, y: 0 });
-    const activeTag = contentDivRef.current?.querySelectorAll(`.${style.active}`) || [];
-    Array.from(activeTag)?.forEach((item) => item.classList.remove(style.active));
+    originTabPos = ({ x, y: 0 });
+    const activeTab = contentDivRef.current?.querySelectorAll(`.${style.active}`) || [];
+    Array.from(activeTab)?.forEach((item) => item.classList.remove(style.active));
     e.currentTarget?.classList.add(style.active);
     e.currentTarget?.classList.add(style.moving);
-    setMovingTagPos({ x: 0, y: 0 });
-    document.addEventListener('mousemove', onTagMouseMove);
-    document.addEventListener('mouseup', onTagMouseUp);
-  }, [onTagMouseMove, onTagMouseUp]);
+    setMovingTabPos({ x: 0, y: 0 });
+    document.addEventListener('mousemove', onTabMouseMove);
+    document.addEventListener('mouseup', onTabMouseUp);
+  }, [onTabMouseMove, onTabMouseUp]);
 
   const onDocumentClick = useCallback(() => {
     setContextMenuVisible(false);
@@ -167,44 +164,44 @@ const MTagsBar = (props: IMTagsBarProps) => {
     (e) => {
       const composedPath = e.nativeEvent?.composedPath();
       const target = composedPath.find((item: any) => item.className?.includes('menuItem'));
-      const getNewTags = () => {
-        const preTags = props.tags;
+      const getNewTabs = () => {
+        const preTabs = props.tabs;
         const key: ContextMenuKeys = target?.dataset?.key;
-        const newTags = ContextMenuClickHandlers[key](preTags, contextMenuTag);
-        return newTags;
+        const newTabs = ContextMenuClickHandlers[key](preTabs, contextMenuTab);
+        return newTabs;
       };
-      props.updateTags(getNewTags());
+      props.updateTabs(getNewTabs());
     },
-    [contextMenuTag, props],
+    [contextMenuTab, props],
   );
 
-  const updateTags = useCallback((clientX: number) => {
+  const updateTabs = useCallback((clientX: number) => {
     const dropRect = contentDivRef.current?.getBoundingClientRect();
-    if (dropRect && movingTagPath.current) {
+    if (dropRect && movingTabPath.current) {
       const offsetX = clientX - dropRect.left;
-      const dragItem = props.tags.find((item) => item.path === movingTagPath.current) || { path: '', title: '' };
-      const col = Math.floor(offsetX / TAG_WIDTH);
+      const dragItem = props.tabs.find((item) => item.path === movingTabPath.current) || { path: '', title: '' };
+      const col = Math.floor(offsetX / TAB_WIDTH);
       let currentIndex = col;
-      const fromIndex = props.tags.indexOf(dragItem);
+      const fromIndex = props.tabs.indexOf(dragItem);
       if (fromIndex < currentIndex) {
         currentIndex += 1;
       }
-      const currentItem = props.tags[currentIndex];
-      const ordered = insertBefore(props.tags, dragItem, currentItem);
-      if (isEqualBy(ordered, props.tags, 'path')) return;
+      const currentItem = props.tabs[currentIndex];
+      const ordered = insertBefore(props.tabs, dragItem, currentItem);
+      if (isEqualBy(ordered, props.tabs, 'path')) return;
       if (fromIndex < currentIndex) {
-        originMousePos.x += TAG_WIDTH;
+        originMousePos.x += TAB_WIDTH;
       } else {
-        originMousePos.x -= TAG_WIDTH;
+        originMousePos.x -= TAB_WIDTH;
       }
-      props.updateTags(ordered);
+      props.updateTabs(ordered);
     }
   }, [props]);
 
-  const onTagOver = useCallback((e) => {
+  const onTabOver = useCallback((e) => {
     e.preventDefault();
-    updateTags(e.clientX);
-  }, [updateTags]);
+    updateTabs(e.clientX);
+  }, [updateTabs]);
 
   useEffect(() => {
     document.addEventListener('click', onDocumentClick);
@@ -215,31 +212,31 @@ const MTagsBar = (props: IMTagsBarProps) => {
 
   return (
     <>
-      {props.tags.length > 0 && (
+      {props.tabs.length > 0 && (
         <div className={style.container}>
           <div className={style.top} />
           <div
             className={style.content}
             ref={contentDivRef}
-            onMouseMove={onTagOver}
+            onMouseMove={onTabOver}
           >
-            {props.tags.map((tag, index) => (
+            {props.tabs.map((tab, index) => (
               <div
-                onClick={(e) => onTagClick(e, tag.path, index)}
-                onContextMenu={(e) => onTagContextMenu(e, tag.path)}
-                onMouseDown={(e) => onTagMouseDown(e, tag.path)}
-                key={tag.path}
-                data-path={tag.path}
-                className={`${style.tagC} ${currentTag === tag.path ? style.active : ''}`}
-                style={{ left: movingTagPath.current === tag.path ? movingTagPos.x : 'unset' }}
+                onClick={(e) => onTabClick(e, tab.path, index)}
+                onContextMenu={(e) => onTabContextMenu(e, tab.path)}
+                onMouseDown={(e) => onTabMouseDown(e, tab.path)}
+                key={tab.path}
+                data-path={tab.path}
+                className={`${style.tabC} ${props.activeTab === tab.path ? style.active : ''}`}
+                style={{ left: movingTabPath.current === tab.path ? movingTabPos.x : 'unset' }}
               >
-                <span className={style.tagText}>
-                  {tag.title}
+                <span className={style.tabText}>
+                  {tab.title}
                 </span>
                 <span
-                  className={style.tagClose}
+                  className={style.tabClose}
                   onMouseDown={(e) => e.stopPropagation()}
-                  onClick={(e) => onTagCloseClick(e, tag.path)}
+                  onClick={(e) => onTabCloseClick(e, tab.path)}
                 >
                   <CloseCircleOutlined />
                 </span>
@@ -270,10 +267,4 @@ const MTagsBar = (props: IMTagsBarProps) => {
   );
 };
 
-const updateActiveTag = (preIndex: number, tags: Array<ITag>) => {
-  if (tags.length === 0) return '';
-  if (preIndex === tags.length) return tags[preIndex - 1].path;
-  return tags[preIndex].path;
-};
-
-export { MTagsBar, updateActiveTag };
+export { MTabbar };

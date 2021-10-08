@@ -15,7 +15,7 @@
   position: relative;
 }
 
-.tagC {
+.tabC {
   padding: 10px;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
@@ -30,11 +30,11 @@
   justify-content: space-between;
   align-items: center;
 }
-.tagC.active {
+.tabC.active {
   background-color: #ddd;
   z-index: 999;
 }
-.tagC.active::before {
+.tabC.active::before {
   position: absolute;
   content: "";
   height: 5px;
@@ -44,7 +44,7 @@
   border-bottom-right-radius: 10px;
   bottom: -5px;
 }
-.tagC.active::after {
+.tabC.active::after {
   position: absolute;
   content: "";
   height: 5px;
@@ -55,17 +55,17 @@
   bottom: -5px;
 }
 
-.tagText {
+.tabText {
   width: 80%;
   text-align: left;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-.tagClose {
+.tabClose {
   transition: all ease 0.2;
 }
-.tagClose:hover {
+.tabClose:hover {
   color: #666;
 }
 
